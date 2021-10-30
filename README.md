@@ -3,5 +3,7 @@
 
 <H2>To Do :</H2>
 <ul>
-    Faire biblio maths
+    <li>Biblio maths. --> Classe = ArithmetiqueModulaire</li> 
+    <li>Outil 1 --> Encrypt & Decrypt</li> 
+    <li>Outil 2 --> Génerer parts pour X = ....</li> 
 </ul>
