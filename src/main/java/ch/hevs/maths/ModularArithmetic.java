@@ -17,7 +17,7 @@ package ch.hevs.maths;
  */
 public class ModularArithmetic
 {
-
+    int modulo;
 
 
     /**

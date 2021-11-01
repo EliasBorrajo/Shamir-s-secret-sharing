@@ -34,4 +34,9 @@ package ch.hevs.tools.generateParts;
 
 public class GenerateParts
 {
+
+
+    /**
+     * 1)
+     */
 }
