@@ -18,7 +18,7 @@ package ch.hevs.tools.generateParts;
  * Et va stocker les réponses des parts de secrets dans ses cases.
  * case [0] --> Part A1
  *              Part B1
- *              Part C3
+ *              Part C1
  *
  * case [1] --> Part A2
  *              Part B2

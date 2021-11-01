@@ -1,4 +1,4 @@
-package ch.hevs.UI;
+package ch.hevs.ui;
 
 /**
  * Utilise le package PICOCLI pour faciliter l'USER INTERFACE en ligne de commande.
