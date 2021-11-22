@@ -1,4 +1,4 @@
-package ch.hevs.maths;
+package ch.hevs.Maths;
 
 /**
  * C'est la classe qui nous permettra de faire des calculs en utilisant des opérations (methodes) tel que :

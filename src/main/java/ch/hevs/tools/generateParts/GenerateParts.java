@@ -8,6 +8,8 @@ package ch.hevs.tools.generateParts;
  *                    Puis on évalue f(x) = ax^2 + bx +c (dépend du degré) --> pour X
  */
 
+import java.security.SecureRandom;
+
 /**
  * OUTIL 1 : GENERATE PARTS
  * Va génerer les parts a0, a1 ......
@@ -34,6 +36,22 @@ package ch.hevs.tools.generateParts;
 
 public class GenerateParts
 {
+    private int modulo;
+    private int[] bytes;
+    private int nbParts;
+    private int k;
+    private int degree;
+
+    public GenerateParts(int bytes, int nbParts, int k)
+    {
+        this.nbParts = nbParts;
+        this.k = k;
+        degree = k - 1;
+    }
+
+
+
+
 
 
     /**
