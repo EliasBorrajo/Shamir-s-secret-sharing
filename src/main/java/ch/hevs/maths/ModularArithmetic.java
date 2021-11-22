@@ -15,11 +15,11 @@ package ch.hevs.Maths;
  *  - GENERER PARTS DE SECRET
  *        - Génerer aléatoirement a/b/c (de ax^2 + bx + c = y) avec paramètre X donné, et retourne y
  */
-public class ModularArithmetic
+public abstract class ModularArithmetic
 {
     private final static int MODULO = 257;
     
-    public int addition(int a, int b)
+    public static int addition(int a, int b)
     {
         //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
