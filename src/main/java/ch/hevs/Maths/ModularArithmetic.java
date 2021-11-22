@@ -45,9 +45,19 @@ public abstract class ModularArithmetic
         return result;
     }
 
-    public int power(int value, int exponent)
+    public static int power(int value, int exponent)
     {
-        return -1;
+        if (exponent<=0)
+        {
+            throw new ArithmeticException("Power can not be <= 0. It should be power >= 1 minimum");
+        }
+
+        int result = 1;
+        for (int i = 0; i < exponent; i++)
+        {
+            result = multiplication(result, value); // result = result * value
+        }
+        return result;
     }
 
     public static int multiplication(int a, int b)
@@ -229,16 +239,28 @@ public abstract class ModularArithmetic
             return x;
         }
 
+    public static int getMODULO()
+    {
+        return MODULO;
+    }
+
     public static void main(String[] args)
     {
         int a = 9;
-        int mod = 59;
+        int mod = 257;
         BigInteger A = new BigInteger( Integer.toString(a));
         BigInteger MOD = new BigInteger( Integer.toString(mod));
 
         System.out.println(modInverseEEA(A,MOD));
         System.out.println(modularInverseEEA(a, mod));
         System.out.println(modInverse(a,mod));
+
+        System.out.println("POWER OF... TEST");
+        System.out.println(power(2,4));
+        System.out.println(power(2,8));
+        System.out.println(power(2,16));
+        System.out.println(power(2,32));
+
 
         /*
         System.out.println("Modular Arithmetic Test");
