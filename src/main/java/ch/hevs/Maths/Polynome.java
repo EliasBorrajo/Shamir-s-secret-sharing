@@ -1,4 +1,4 @@
-package ch.hevs.maths;
+package ch.hevs.Maths;
 
 public class Polynome
 {
