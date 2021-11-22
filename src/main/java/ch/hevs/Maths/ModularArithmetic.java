@@ -87,10 +87,9 @@ public abstract class ModularArithmetic
         while (r1 > 0)
         {
             int[] qr = new int[2];  //r0.divideAndRemainder(r1); --> Avec BigInteger
-            /*qr[0] = r0/r1;
-            qr[1] = r0 - r1*qr[0];*/
-            qr[0] = division(r0,r1,mod);
-            qr[1] = soustraction(r0, (multiplication(r1,qr[0])) )   ;
+            //qr[0] = division(r0,r1,mod);
+            qr[0] = r0/r1;
+            qr[1] = r0 - r1*qr[0];  //soustraction(r0, (multiplication(r1,qr[0])) ) ;
             r0 = r1;
             r1 = qr[1];
 
@@ -98,8 +97,7 @@ public abstract class ModularArithmetic
             int newY1 = soustraction(y0, temp ) ;
             y0 = y1;
             y1 = newY1;
-
-/*
+        /*
             BigInteger[] qr = r0.divideAndRemainder(r1); // qr[0] = r0/r1 and qr[1] = r0 - r1*qr[0]
             r0 = r1;
             r1 = qr[1];
@@ -107,16 +105,15 @@ public abstract class ModularArithmetic
             BigInteger newY1 = y0.subtract(y1.multiply(qr[0]));
             y0 = y1;
             y1 = newY1;
-            */
+        */
         }
 
         if ( !(r0 == 1))
         {
             throw new ArithmeticException("a is not relatively prime to m");
         }
-        int result= Math.floorMod(y0,mod);
-        //System.out.println(result);
-        return result;
+
+        return Math.floorMod(y0,mod);
 
 
         // 1) Trouver gcd(a,b) --> nombre premier
@@ -234,13 +231,13 @@ public abstract class ModularArithmetic
 
     public static void main(String[] args)
     {
-        int a = 34;
-        int mod = 67;
+        int a = 9;
+        int mod = 59;
         BigInteger A = new BigInteger( Integer.toString(a));
         BigInteger MOD = new BigInteger( Integer.toString(mod));
 
         System.out.println(modInverseEEA(A,MOD));
-        //System.out.println(modularInverseEEA(a, mod));
+        System.out.println(modularInverseEEA(a, mod));
         System.out.println(modInverse(a,mod));
 
         /*
