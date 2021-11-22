@@ -49,12 +49,17 @@ public class ModularArithmetic
         return result;
     }
 
-    public int division(int a, int b)
+   /* public int division(int a, int b)
     {
 
     }
 
     public int modularInverse()
+    {
+
+    }*/
+
+    public static void main(String[] args)
     {
 
     }

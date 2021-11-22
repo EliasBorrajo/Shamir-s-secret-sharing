@@ -2,7 +2,7 @@ package ch.hevs.maths;
 
 public class Polynome
 {
-    private final static int MODULO = 257;
+    private final static int MODULO = 257; // --> sera dans MODULAR
     private byte[] bytes;
     private int[] coefficients;
     private int[] xCoordinates;
