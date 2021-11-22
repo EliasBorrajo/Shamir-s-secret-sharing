@@ -20,6 +20,39 @@ public class ModularArithmetic
     int modulo;
 
 
+    public int addition(int a, int b)
+    {
+
+    }
+
+    public int soustraction(int a, int b)
+    {
+
+    }
+
+    public int power(int a, int b)
+    {
+
+    }
+
+    public int multiplication(int a, int b)
+    {
+
+    }
+
+    public int division(int a, int b)
+    {
+
+    }
+
+    public int modularInverse()
+    {
+
+    }
+
+
+
+
     /**
      *
      */
