@@ -17,27 +17,36 @@ package ch.hevs.Maths;
  */
 public class ModularArithmetic
 {
-    int modulo;
-
-
+    private final static int MODULO = 257;
+    
     public int addition(int a, int b)
     {
+        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
+        int result = Math.floorMod((a+b), MODULO);
+        
+        return result;
     }
 
     public int soustraction(int a, int b)
     {
+        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
+        int result = Math.floorMod((a-b), MODULO);
+
+        return result;
     }
 
-    public int power(int a, int b)
+    public int power(int value, int exponent)
     {
 
     }
 
     public int multiplication(int a, int b)
     {
+        int result = Math.floorMod((a * b), MODULO);
 
+        return result;
     }
 
     public int division(int a, int b)
@@ -52,9 +61,5 @@ public class ModularArithmetic
 
 
 
-
-    /**
-     *
-     */
 
 }
