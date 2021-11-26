@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+/*
 public class JsonPartsFiles implements StorableFiles
 {
     //*****************************************************************************
@@ -33,7 +33,7 @@ public class JsonPartsFiles implements StorableFiles
     /**
      * Constructor
      */
-    public JSONStorageContact() {
+/*    public JSONStorageContact() {
         definePathToStoreData();
         try {
             read();
@@ -70,3 +70,4 @@ public class JsonPartsFiles implements StorableFiles
 
     }
 }
+*/

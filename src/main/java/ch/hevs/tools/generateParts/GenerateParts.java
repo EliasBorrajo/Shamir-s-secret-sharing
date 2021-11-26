@@ -10,6 +10,7 @@ package ch.hevs.tools.generateParts;
 
 import ch.hevs.Maths.Polynome;
 
+import java.awt.*;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -41,7 +42,7 @@ public class GenerateParts
 {
 
 
-    /*public GenerateParts(int nbrBytes, int nbrParts, int threshold)
+  /*  public GenerateParts(int nbrBytes, int nbrParts, int threshold)
     {
         //tableau de polynomes, il va stocker nos coordonées
         Polynome[] polynomes= new Polynome[nbrParts]; // Stockera x & y.| Chaque index --> une courbe difféerente
@@ -51,7 +52,7 @@ public class GenerateParts
         /**
          * Faire 32 fois le shamir secret OU Nbrparts total shamir ??
          */
-    /*    for (int i=0; i < nbrParts ;i++)
+       /* for (int i=0; i < nbrParts ;i++)
         {
             //1) generate coefficients & xCoordinates to evalue
             polynomes[i].generateCoefficient();
@@ -65,8 +66,8 @@ public class GenerateParts
                 //4 stocker resultat x & y de tous dans tableau hors de cette boucle
                 // position[1] = user1
                 // position[2] = user2
-            }*/
-/*
+            }
+
             for (int j = 0; j < nbrParts; j++)
             {
                 System.out.println("X : "+ polynomes[i].getxCoordinates()+
@@ -93,6 +94,8 @@ public class GenerateParts
      */
     public GenerateParts(int nbrBytes, int nbrParts, int threshold)
     {
+        //MAJ 26.11
+        // On va stocker 32 fois notre secret de Y dans un tableau de bytes
 
         Polynome polynome = new Polynome(nbrParts, threshold); // Stockera x & y.
         byte[] secret = new byte[nbrBytes]; //va stocker les secrets f1(0)

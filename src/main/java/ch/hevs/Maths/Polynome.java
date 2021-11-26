@@ -1,5 +1,6 @@
 package ch.hevs.Maths;
 
+import java.awt.*;
 import java.security.SecureRandom;
 
 public class Polynome
@@ -7,7 +8,7 @@ public class Polynome
     private final static int MODULO = ModularArithmetic.getMODULO();
 
     private int[] coefficients;
-    private int[] xCoordinates;
+    private int[] xCoordinates; // REMPLACER PAR CLASSE POINT
     private int[] yCoordinates;
     private int[] fonction; // La courbe avec ses coefficients --> pas utile
     private int secret;
