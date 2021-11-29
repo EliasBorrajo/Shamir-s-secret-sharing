@@ -150,7 +150,6 @@ public abstract class ModularArithmetic
     //*****************************************************
     // G R E A T E S T   C O M M O N   D I V I S O R
     //*****************************************************
-
     /**
      * https://www.baeldung.com/java-greatest-common-divisor
      * Euclid's algorithm is not only efficient but also easy to understand and easy to implement using recursion in Java.
