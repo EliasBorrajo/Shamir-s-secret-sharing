@@ -7,7 +7,8 @@ import java.util.Arrays;
  * Class for user parts. Each object will be an instanciate a piece of secret (Point array with the same X coordinate for each point and a specific Y coordinate)
  * that will be exported in a json file
  */
-public class UserParts {
+public class UserParts
+{
     private Point[] parts;
 
     public UserParts()
@@ -22,13 +23,15 @@ public class UserParts {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "program.UserParts{" +
                 "parts=" + Arrays.toString(parts) +
                 '}';
     }
 
-    public Point[] getParts() {
+    public Point[] getParts()
+    {
         return parts;
     }
 }

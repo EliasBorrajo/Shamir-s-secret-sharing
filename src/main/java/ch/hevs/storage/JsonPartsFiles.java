@@ -35,7 +35,8 @@ public class JsonPartsFiles implements StorableFiles
     /**
      * Constructor
      */
-    public JsonPartsFiles() {
+    public JsonPartsFiles()
+    {
         definePathToStoreData();
     }
 
@@ -43,7 +44,8 @@ public class JsonPartsFiles implements StorableFiles
     // M E T H O D S
     //*****************************************************************************
 
-    public void definePathToStoreData() {
+    public void definePathToStoreData()
+    {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
         storePath = Config.getConfig().getStorePath();
 
@@ -64,8 +66,7 @@ public class JsonPartsFiles implements StorableFiles
         try
         {
             userParts = mapper.readValue(myObj, UserParts.class);
-        }
-        catch (IOException ioException)
+        } catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
             ioException.printStackTrace();
@@ -78,15 +79,18 @@ public class JsonPartsFiles implements StorableFiles
     public void write(File destination, UserParts parts) throws BusinessException
     {
         ObjectMapper mapper = new ObjectMapper();
-        try {
+        try
+        {
             mapper.writeValue(destination, parts);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             System.out.println("SERIALISATION of parts.JSON has failed : ");
             e.printStackTrace();
         }
     }
 
-    public File getMyObj() {
+    public File getMyObj()
+    {
         return myObj;
     }
 }
