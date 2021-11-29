@@ -10,9 +10,8 @@ public enum ErrorCode {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    READING_JSON_STORAGE_CONTACT_ERROR(101),
-    READING_JSON_STORAGE_GALLERY_ERROR(102),
-    WRONG_URL_ERROR(200);
+    READING_JSON_STORAGE_PART_ERROR(101);
+
 
 
 

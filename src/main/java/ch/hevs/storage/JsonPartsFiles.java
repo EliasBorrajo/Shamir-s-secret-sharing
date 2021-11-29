@@ -1,23 +1,25 @@
 package ch.hevs.storage;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.tools.generateParts.GenerateParts;
+import ch.hevs.errors.ErrorCode;
+import ch.hevs.parameters.Config;
+import ch.hevs.tools.generateParts.UserParts;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class JsonPartsFiles implements StorableFiles
 {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // ARRAY LIST - It will be our Address book
-    private ArrayList<Contact> contactArray = new ArrayList<>();
 
-    // List which allows to read the JSON and will then be converted into an ArrayList of the address book
-    private List<Contact> contactList;
+    // Object containing user parts
+    private UserParts userParts = new UserParts();
 
     //PATH
     private String storePath;       // Allows to store the content of our SYSTEM ENVIRONMENT VARIABLE
@@ -33,40 +35,58 @@ public class JsonPartsFiles implements StorableFiles
     /**
      * Constructor
      */
-    public JSONStorageContact() {
+    public JsonPartsFiles() {
         definePathToStoreData();
-        try {
-            read();
-        } catch (BusinessException e) {
-            e.printStackTrace();
-        }
-        sortDescending(contactArray);
     }
+
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
 
+    public void definePathToStoreData() {
+        // Retrieves the contents of the ENVIRONMENT VARIABLE
+        storePath = Config.getConfig().getStorePath();
+
+        // Will write the path consistently thanks to PATH & PATHS
+        // Correctly concatenate my PATH which will be stored in the STRING
+        Path path = Paths.get(storePath, "part.json");
+
+        jsonPath = path.toString();
+
+        myObj = new File(jsonPath);
+        System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
+    }
+
     @Override
-    public ArrayList<GenerateParts> read() throws BusinessException, IOException
+    public UserParts read() throws BusinessException
     {
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            //mapper.writeValue(destination, GenerateParts);
+            userParts = mapper.readValue(myObj, UserParts.class);
         }
         catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
             ioException.printStackTrace();
-            //throw new BusinessException("Serialization of parts in files JSON failed");
+            throw new BusinessException("An error occurred while READING JSON STORAGE PARTS.", ErrorCode.READING_JSON_STORAGE_PART_ERROR);
         }
-
-        return null;
+        return userParts;
     }
 
     @Override
-    public void write(File destination, ArrayList<GenerateParts> parts) throws BusinessException
+    public void write(File destination, UserParts parts) throws BusinessException
     {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(destination, parts);
+        } catch (IOException e) {
+            System.out.println("SERIALISATION of parts.JSON has failed : ");
+            e.printStackTrace();
+        }
+    }
 
+    public File getMyObj() {
+        return myObj;
     }
 }
