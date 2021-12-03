@@ -8,9 +8,9 @@ public class Polynome
     private final static int MODULO = ModularArithmetic.getMODULO();
 
     private int[] coefficients;
-    private int[] xCoordinates; // REMPLACER PAR CLASSE POINT
+    private int[] xCoordinates;
     private int[] yCoordinates;
-    private int[] fonction; // La courbe avec ses coefficients --> pas utile
+
     private int secret;
 
     private int degree;
@@ -25,16 +25,16 @@ public class Polynome
 
     public void generateCoefficient()
     {
-        // @TODO secureRandom()
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < coefficients.length; i++)
         {
             coefficients[i] =  random.nextInt(MODULO);
+            //System.out.println("Coefficient "+i+" is : "+coefficients[i]);
         }
 
         secret = coefficients[0];
-        System.out.println("SECRET Y -->coefficient = "+ secret);
+        System.out.println("SECRET Y --> Coefficient[0] = "+ secret);
     }
 
     /**
@@ -52,21 +52,16 @@ public class Polynome
         for (int i = 0; i < xCoordinates.length; i++)
         {
             xCoordinates[i] = i;
+
         }
 
-        /* RANDOM
-        SecureRandom random = new SecureRandom();
-        for (int i = 0; i < xCoordinates.length; i++)
-        {
-            xCoordinates[i] = random.nextInt(MODULO);
-        }*/
     }
 
     /**
      * Methode pour créer la fonction y = f(x)
      * DONC POUR AVOIR CHAQUE ELEMENT DE LA COURBE --> PAS UTILE ?!
      */
-    public void generatePolynome()
+    /*public void generatePolynome()
     {
          fonction = new int[coefficients.length];
         // @TODO génère les valeurs de x et f(x) pour un polynome
@@ -75,17 +70,17 @@ public class Polynome
            // fonction = fonction
             
         }
-    }
+    }*/
 
     public void generateParts()
     {
         // Pour chaque coordonée X, il y aura un résultat Y
         for (int i = 0; i < xCoordinates.length; i++)
         {
-            yCoordinates[i] = calculatePolynomial(xCoordinates[i]);
+            yCoordinates[i] = calculatePolynomial_V2(xCoordinates[i]);
         }
         System.out.println();
-        System.out.println("SECRET Y -->calculate = "+ yCoordinates[0]);
+        System.out.println("SECRET Y --> calculate = "+ yCoordinates[0]);
         System.out.println();
     }
 
@@ -94,7 +89,7 @@ public class Polynome
      * Le retour de la fonction, doit sauvegarder le Y
      * @param xCoordinate
      */
-    public int calculatePolynomial(int xCoordinate )
+    public int calculatePolynomial_OLD_DOESNOTWORKPROPERLY(int xCoordinate )
     {
         int resultY = -1;
         // Calcul du polynomial entier en Y pour X.
@@ -113,8 +108,31 @@ public class Polynome
             }
         }
 
-
         return resultY; // Ce sera notre valeur Y de retour !
+    }
+
+    /**
+     * Computes the value of the polynomial with the given coefficients
+     * at the point x, using Horner's Rule.
+     *
+     * a0 + a1*x^1 + a2*x^2 + a3*x^3 --> HORNER
+     * --> ( (a3 * x + a2) * x + a1 ) * x + a0
+     * @param xCoordinate
+     * @return
+     */
+    public int calculatePolynomial_V2(int xCoordinate)
+    {   int lastCoeffPos = coefficients.length - 1;
+        int coeffAMax = coefficients[ lastCoeffPos ];
+        int resultY = coeffAMax;
+
+        // On commence à PosMAX - 1, pour addditionner au premier tour Coeff2 sur coeffmax3
+        for (int i = lastCoeffPos -1 ; i >= 0 ; i--)
+        {
+            //result = (result * x) + coefficients[i]
+            resultY = ModularArithmetic.addition(ModularArithmetic.multiplication(resultY, xCoordinate) , coefficients[i] ) ;
+        }
+
+        return resultY;
     }
 
     public static void afficheTab(int[] array)
@@ -142,5 +160,10 @@ public class Polynome
     public int[] getCoefficients()
     {
         return coefficients;
+    }
+
+    public int getSecret()
+    {
+        return secret;
     }
 }

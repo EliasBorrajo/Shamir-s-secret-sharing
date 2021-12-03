@@ -40,51 +40,65 @@ import java.security.SecureRandom;
 
 public class GenerateParts
 {
-
-
-  /*  public GenerateParts(int nbrBytes, int nbrParts, int threshold)
+    public GenerateParts(int nbrBytes, int nbrParts, int threshold)
     {
-        //tableau de polynomes, il va stocker nos coordonées
-        Polynome[] polynomes= new Polynome[nbrParts]; // Stockera x & y.| Chaque index --> une courbe difféerente
-        byte[] secret     = new byte[nbrBytes]; //va stocker les secrets f1(0), f2(0), f3(0), f(4)
+        //@TODO : VERIFIER QUE NBYTE SOIT 26 ou 32
+
+        // tableau de polynomes, il va stocker nos coordonées
+        Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
+        int[] secret     = new int[nbrBytes];           // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
 
 
-        /**
-         * Faire 32 fois le shamir secret OU Nbrparts total shamir ??
-         */
-       /* for (int i=0; i < nbrParts ;i++)
+        // Faire 32 (nbrBytes) fois le shamir secret
+        for (int i=0; i < nbrBytes ;i++)
         {
+            polynomes[i] = new Polynome(nbrParts, threshold);
+
             //1) generate coefficients & xCoordinates to evalue
             polynomes[i].generateCoefficient();
+            System.out.println("Coefficients : ");
+            polynomes[i].afficheTab(polynomes[i].getCoefficients());
+
             polynomes[i].xGenerator();
+            System.out.println("X Coordinates : ");
+            polynomes[i].afficheTab(polynomes[i].getxCoordinates());
+
 
             //2) crééer courbe / polynome
-            //3) resoudre pour x=0, x=1--> User 1, X=2--> 2 ....etc....
+            //   resoudre pour x=0, x=1--> User 1, X=2--> 2 ....etc....
             polynomes[i].generateParts();
-           /* for (i<user)
+            System.out.println("Y Coordinates : ");
+            polynomes[i].afficheTab(polynomes[i].getyCoordinates());
+
+            //4 stocker resultat x & y de tous dans tableau hors de cette boucle
+            // position[1] = user1
+            // position[2] = user2
+            secret[i] = polynomes[i].getSecret();
+            System.out.println("Secret [i="+i+"] = "+secret[i]);
+
+            System.out.println();
+            for (int j = 0; j < nbrParts; j++)
+            {
+                System.out.println("X : " + polynomes[i].getxCoordinates()[j] +
+                        " | Y : " + polynomes[i].getyCoordinates()[j]);
+            }
+            System.out.println();
+
+
+            /*for (i<user)
             {
                 //4 stocker resultat x & y de tous dans tableau hors de cette boucle
                 // position[1] = user1
                 // position[2] = user2
-            }
-
-            for (int j = 0; j < nbrParts; j++)
-            {
-                System.out.println("X : "+ polynomes[i].getxCoordinates()+
-                                   "Y : "+ polynomes[i].getyCoordinates() );
-            }
+            }*/
 
         }
+        System.out.println("Secrets are : ");
+        polynomes[0].afficheTab(secret);
 
 
 
-        // write all 32 informations of Y in files for Users
-        //{
-        // X[()pour user 1, sera touours 1];
-        // Y[f1(x)= 4, f2(x)=23];
-        //}
-
-    }*/
+    }
 
     /**
      * TENTATIVE DE CRéER UN SEULE FOIS LE SCHAMIR SECRET POUR PLUSIEURS USERS
@@ -92,13 +106,16 @@ public class GenerateParts
      * @param nbrParts
      * @param threshold
      */
-    public GenerateParts(int nbrBytes, int nbrParts, int threshold)
+    public void GenerateParts_SINGLE(int nbrBytes, int nbrParts, int threshold)
     {
         //MAJ 26.11
-        // On va stocker 32 fois notre secret de Y dans un tableau de bytes
+        // On va stocker 32 fois notre secret de Y dans un tableau de int[],
+        // nbrBytes sera le nombre de fois que on fait shamir secret, et que on stocke le secret.
+        // On en aura besoin de 16 ou 32 pour le cryptage
 
         Polynome polynome = new Polynome(nbrParts, threshold); // Stockera x & y.
-        byte[] secret = new byte[nbrBytes]; //va stocker les secrets f1(0)
+        //byte[] secret = new byte[nbrBytes]; //va stocker les secrets f1(0)
+        int[] secret = new int[nbrBytes];
 
 
         //1) generate coefficients & xCoordinates to evalue
@@ -116,21 +133,19 @@ public class GenerateParts
         System.out.println("Y Coordinates : ");
         polynome.afficheTab(polynome.getyCoordinates());
 
-
         //4 stocker resultat x & y de tous dans tableau hors de cette boucle
             // position[1] = user1
             // position[2] = user2
-
-
         System.out.println();
         for (int j = 0; j < nbrParts; j++)
         {
             System.out.println("X : " + polynome.getxCoordinates()[j] +
-                    " | Y : " + polynome.getyCoordinates()[j]);
+                               " | Y : " + polynome.getyCoordinates()[j]);
         }
         System.out.println();
 
-
+        // @Todo : Faire ce processus nbrbytes de fois, et stocker dans tableau de int[] mes secrets y0
+        // @Todo : Et en plus de stocker le secret, recuperer les coordonnées X & Y dans un tableau de POINTS pour les donner à la sérialisation
 
         // write all 32 informations of Y in files for Users
         //{

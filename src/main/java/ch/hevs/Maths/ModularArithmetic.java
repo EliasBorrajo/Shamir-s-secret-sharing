@@ -23,7 +23,7 @@ public abstract class ModularArithmetic
     // A T T R I B U T E S
     //*****************************************************
 
-    private /*final @todo*/ static int MODULO = 257;
+    private final static int MODULO = 257; // Le modulo à 257 permet de travailler en int sans souci.
 
     //*****************************************************
     // M E T H O D S
