@@ -1,6 +1,5 @@
 package ch.hevs.Maths;
 
-import java.awt.*;
 import java.security.SecureRandom;
 
 public class Polynome
@@ -18,7 +17,7 @@ public class Polynome
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
-        coefficients = new int[degree];
+        coefficients = new int[degree];         // @TODO : Il me manque pas un coefficient la ??!!
         xCoordinates = new int[nbParts];
         yCoordinates = new int[nbParts];
     }
@@ -57,27 +56,12 @@ public class Polynome
 
     }
 
-    /**
-     * Methode pour créer la fonction y = f(x)
-     * DONC POUR AVOIR CHAQUE ELEMENT DE LA COURBE --> PAS UTILE ?!
-     */
-    /*public void generatePolynome()
-    {
-         fonction = new int[coefficients.length];
-        // @TODO génère les valeurs de x et f(x) pour un polynome
-        for (int i = 0; i < coefficients.length; i++)
-        {
-           // fonction = fonction
-            
-        }
-    }*/
-
     public void generateParts()
     {
         // Pour chaque coordonée X, il y aura un résultat Y
         for (int i = 0; i < xCoordinates.length; i++)
         {
-            yCoordinates[i] = calculatePolynomial_V2(xCoordinates[i]);
+            yCoordinates[i] = calculatePolynomial(xCoordinates[i]);
         }
         System.out.println();
         System.out.println("SECRET Y --> calculate = "+ yCoordinates[0]);
@@ -120,7 +104,7 @@ public class Polynome
      * @param xCoordinate
      * @return
      */
-    public int calculatePolynomial_V2(int xCoordinate)
+    public int calculatePolynomial(int xCoordinate)
     {   int lastCoeffPos = coefficients.length - 1;
         int coeffAMax = coefficients[ lastCoeffPos ];
         int resultY = coeffAMax;

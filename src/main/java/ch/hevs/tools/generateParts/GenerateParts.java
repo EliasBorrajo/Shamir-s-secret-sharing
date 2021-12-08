@@ -42,16 +42,31 @@ public class GenerateParts
 {
     public GenerateParts(int nbrBytes, int nbrParts, int threshold)
     {
-        //@TODO : VERIFIER QUE NBYTE SOIT 26 ou 32
+        //VERIFIER QUE NBYTE SOIT 16, 24 ou 32 --> Selon le cypher du crypteur
+        if(nbrBytes != 16 && nbrBytes != 24 && nbrBytes != 32)
+        {
+            String message = "GenerateParts Method error : Invalid input --> nbrBytes should be 16,24 or 32";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+        if (nbrParts <= threshold)
+        {
+            String message = "GenerateParts Method error : Invalid input --> threshold should be smaller than number of parts wanted";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+
 
         // tableau de polynomes, il va stocker nos coordonées
+        // Taille = nbr de bytes, car nbrBtes = le nombre de fois que on fait shamir secret
         Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
-        int[] secret     = new int[nbrBytes];           // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
-
+        int[] secret         = new int[nbrBytes];        // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
+        nbrParts ++; // On veut la part 0 avec tous les secrets, et de 1 à nbrParts ce seront les Users
 
         // Faire 32 (nbrBytes) fois le shamir secret
         for (int i=0; i < nbrBytes ;i++)
         {
+            //@TODO : Effacer les LOGS, rien ne doit apparaitre
             polynomes[i] = new Polynome(nbrParts, threshold);
 
             //1) generate coefficients & xCoordinates to evalue
