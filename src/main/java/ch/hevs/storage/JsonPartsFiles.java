@@ -19,7 +19,7 @@ public class JsonPartsFiles implements StorableFiles
     //*****************************************************************************
 
     // Object containing user parts
-    private UserParts userParts = new UserParts();
+    private UserParts userParts;
 
     //PATH
     private String storePath;       // Allows to store the content of our SYSTEM ENVIRONMENT VARIABLE
@@ -37,6 +37,7 @@ public class JsonPartsFiles implements StorableFiles
      */
     public JsonPartsFiles()
     {
+        userParts  = new UserParts();
         definePathToStoreData();
     }
 

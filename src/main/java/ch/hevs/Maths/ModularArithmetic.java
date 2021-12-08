@@ -17,7 +17,7 @@ import java.math.BigInteger;
  *  - GENERER PARTS DE SECRET
  *        - Génerer aléatoirement a/b/c (de ax^2 + bx + c = y) avec paramètre X donné, et retourne y
  */
-public abstract class ModularArithmetic
+public class ModularArithmetic
 {
     //*****************************************************
     // A T T R I B U T E S
@@ -246,7 +246,7 @@ public abstract class ModularArithmetic
 
     public static void main(String[] args)
     {
-        int a = 9;
+        /*int a = 9;
         int mod = 257;
         BigInteger A = new BigInteger( Integer.toString(a));
         BigInteger MOD = new BigInteger( Integer.toString(mod));
@@ -259,7 +259,7 @@ public abstract class ModularArithmetic
         System.out.println(power(2,4));
         System.out.println(power(2,8));
         System.out.println(power(2,16));
-        System.out.println(power(2,32));
+        System.out.println(power(2,32));*/
 
 
         /*
