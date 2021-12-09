@@ -16,7 +16,7 @@ public class programDemo {
         */
 
 
-        UserParts userParts = new UserParts();
+        UserParts userParts = new UserParts(1,0);
         JsonPartsFiles jpf = new JsonPartsFiles();
 
         System.out.println(userParts.toString());

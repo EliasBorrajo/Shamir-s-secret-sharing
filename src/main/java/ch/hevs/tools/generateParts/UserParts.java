@@ -11,13 +11,14 @@ public class UserParts
 {
     private Point[] parts;
 
-    public UserParts()
+    public UserParts(int seuil, int bytes)
     {
-        parts = new Point[32];
+        parts = new Point[32]; //@todo selon nb de bytes
 
-        for (int i = 0; i < parts.length; i++)
+        for (int i = 0; i < 32; i++)
         {
-            parts[i] = new Point(2, (int) (Math.random() * 257)); // testing with random values for user 2 (X = 2)
+            parts[i] = new Point(seuil, (int)(Math.random() * 100));
+             // testing with random values for user 2 (X = 2)
         }
 
     }
@@ -33,5 +34,11 @@ public class UserParts
     public Point[] getParts()
     {
         return parts;
+    }
+
+    // get a specific y in an array of points
+    public double getYperso(int index)
+    {
+        return parts[index].getY();
     }
 }
