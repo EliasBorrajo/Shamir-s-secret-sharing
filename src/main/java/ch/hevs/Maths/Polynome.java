@@ -17,7 +17,7 @@ public class Polynome
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
-        coefficients = new int[threshold];         // @TODO : Il me manque pas un coefficient la ??!!
+        coefficients = new int[threshold];         // Coefficients  = threshold
         xCoordinates = new int[nbParts];
         yCoordinates = new int[nbParts];
     }

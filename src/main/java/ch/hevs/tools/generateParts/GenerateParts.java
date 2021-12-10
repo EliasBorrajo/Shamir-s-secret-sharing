@@ -56,6 +56,8 @@ public class GenerateParts
             throw new IllegalArgumentException(message);
         }
 
+        // @TODO : Verifier NBR PARTS EN ENTREE
+
 
         // tableau de polynomes, il va stocker nos coordonées
         // Taille = nbr de bytes, car nbrBtes = le nombre de fois que on fait shamir secret
