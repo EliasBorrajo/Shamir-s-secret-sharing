@@ -22,8 +22,5 @@ package ch.hevs.ui;
 public class ClassPicocli
 {
 
-    public static void main(String[] args)
-    {
 
-    }
 }
