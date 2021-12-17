@@ -22,13 +22,19 @@ public class Polynome
         yCoordinates = new int[nbParts];
     }
 
+    /**
+     * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
+     * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
+     * Donc on doit travailler sur 8 bits
+     */
     public void generateCoefficient()
     {
+        final int MODULO_COEFF = 256;
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < coefficients.length; i++)
         {
-            coefficients[i] =  random.nextInt(MODULO);
+            coefficients[i] =  random.nextInt(MODULO_COEFF);
             //System.out.println("Coefficient "+i+" is : "+coefficients[i]);
         }
 
