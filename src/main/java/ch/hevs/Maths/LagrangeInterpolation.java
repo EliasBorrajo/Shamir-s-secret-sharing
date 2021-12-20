@@ -11,7 +11,7 @@ public class LagrangeInterpolation {
     }
 
 
-    public static int lagrange(Point[] f, int n)
+    public int lagrange(Point[] f, int n)
     {
         double result = 0; // Initialize result
 
@@ -32,7 +32,7 @@ public class LagrangeInterpolation {
         return (int) Math.round(result);
 
     }
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         // array of known points
         Point f[] = {new Point(2, 1942), new Point(4, 3402),
@@ -42,14 +42,14 @@ public class LagrangeInterpolation {
         System.out.print("Value of f(0) is : " + lagrange(f, 4));
         System.out.println();
 
-        /*byte b = (byte) 128;
+        *//*byte b = (byte) 128;
         byte b1 = (byte) 254;
         byte b2 = (byte) 256;
         byte b3 = (byte) 257;
         System.out.println(b);
         System.out.println(b1);
         System.out.println(b2);
-        System.out.println(b3);*/
-    }
+        System.out.println(b3);*//*
+    }*/
 
 }

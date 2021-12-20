@@ -7,26 +7,26 @@ import ch.hevs.tools.generateParts.UserParts;
 public class programDemo {
     public static void main(String[] args) throws BusinessException
     {
-        // Creation of the singleton
+        /*// Creation of the singleton
         Config.getConfig();
-        /*
+        *//*
         * ELIAS AJOUT : INITIALISER SINGELTON CONFIG UNE FOIS AU DEPART DE TOUT
         *
         * ENFAITE !!! PAS NECESSAIRE, DEJA FAIT DANS JsonPartsFiles --> definePathToStoreData()
         */
 
 
-        UserParts userParts = new UserParts(1,0);
+        UserParts userParts = new UserParts();
         JsonPartsFiles jpf = new JsonPartsFiles();
 
         System.out.println(userParts.toString());
 
         // WRITE
-        jpf.write(jpf.getMyObj(), userParts); // Rennomer l'attribut OBJET dans JsonPartsFile ? Ici Objet c'est notre File
+        jpf.write(userParts); // Rennomer l'attribut OBJET dans JsonPartsFile ? Ici Objet c'est notre File
 
         // READ
-        UserParts userParts1 = jpf.read();
+        /*UserParts userParts1 = jpf.read();
 
-        System.out.println(userParts1.toString());
+        System.out.println(userParts1.toString());*/
     }
 }

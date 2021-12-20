@@ -69,8 +69,8 @@ public class Config
         }
 
         // If I arrive here, it is because my file could be created correctly and it EXISTS!
-        System.out.println("DIRECTORY NAME AS : " + storeFile.getName()
-                + "\n at location : " + storeFile.getAbsolutePath());
+        //System.out.println("DIRECTORY NAME AS : " + storeFile.getName()
+                //+ "\n at location : " + storeFile.getAbsolutePath());
     }
 
     //*****************************************************************************

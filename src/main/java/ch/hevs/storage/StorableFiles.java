@@ -14,15 +14,14 @@ public interface StorableFiles
      * @throws BusinessException
      * @throws IOException
      */
-    UserParts read() throws BusinessException, IOException;
+    UserParts read(File file) throws BusinessException, IOException;
 
     /**
      * Write JSON File
      *
-     * @param destination
      * @param parts
      * @throws BusinessException
      */
-    void write(File destination, UserParts parts) throws BusinessException;
+    void write(UserParts parts) throws BusinessException;
 
 }

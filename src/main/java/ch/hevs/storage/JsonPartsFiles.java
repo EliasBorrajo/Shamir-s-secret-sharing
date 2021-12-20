@@ -37,7 +37,7 @@ public class JsonPartsFiles implements StorableFiles
      */
     public JsonPartsFiles()
     {
-        userParts  = new UserParts(1,0);
+        userParts  = new UserParts();
         definePathToStoreData();
     }
 
@@ -57,16 +57,16 @@ public class JsonPartsFiles implements StorableFiles
         jsonPath = path.toString();
 
         myObj = new File(jsonPath);
-        System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
+        //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
 
     @Override
-    public UserParts read() throws BusinessException
+    public UserParts read(File file) throws BusinessException
     {
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            userParts = mapper.readValue(myObj, UserParts.class);
+            userParts = mapper.readValue(file, UserParts.class);
         } catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
@@ -77,12 +77,12 @@ public class JsonPartsFiles implements StorableFiles
     }
 
     @Override
-    public void write(File destination, UserParts parts) throws BusinessException
+    public void write(UserParts parts) throws BusinessException
     {
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            mapper.writeValue(destination, parts);
+            mapper.writeValue(myObj, parts);
         } catch (IOException e)
         {
             System.out.println("SERIALISATION of parts.JSON has failed : ");
@@ -90,8 +90,18 @@ public class JsonPartsFiles implements StorableFiles
         }
     }
 
+    // GETTER, SETTER
+
+    public void setMyObj(File myObj) {
+        this.myObj = myObj;
+    }
+
     public File getMyObj()
     {
         return myObj;
+    }
+
+    public UserParts getUserParts() {
+        return userParts;
     }
 }
