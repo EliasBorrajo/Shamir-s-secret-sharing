@@ -1,11 +1,10 @@
 package ch.hevs.storage;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.tools.generateParts.GenerateParts;
+import ch.hevs.tools.generateParts.UserParts;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public interface StorableFiles
 {
@@ -15,15 +14,14 @@ public interface StorableFiles
      * @throws BusinessException
      * @throws IOException
      */
-    ArrayList<GenerateParts> read() throws BusinessException, IOException;
+    UserParts read(File file) throws BusinessException, IOException;
 
     /**
      * Write JSON File
      *
-     * @param destination
      * @param parts
      * @throws BusinessException
      */
-    void write(File destination, ArrayList<GenerateParts> parts) throws BusinessException;
+    void write(UserParts parts, String fileName) ;
 
 }

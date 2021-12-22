@@ -9,6 +9,10 @@ package ch.hevs.tools.generateParts;
  */
 
 import ch.hevs.maths.Polynome;
+import ch.hevs.storage.JsonPartsFiles;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * OUTIL 1 : GENERATE PARTS
@@ -37,7 +41,7 @@ import ch.hevs.maths.Polynome;
 public class GenerateParts
 {
     public GenerateParts(int nbrBytes, int nbrParts, int threshold)
-    {
+    { 
         //VERIFIER QUE NBYTE SOIT 16, 24 ou 32 --> Selon le cypher du crypteur
         if(nbrBytes != 16 && nbrBytes != 24 && nbrBytes != 32)
         {
@@ -60,6 +64,7 @@ public class GenerateParts
         Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
         int[] secret         = new int[nbrBytes];        // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
         nbrParts ++; // On veut la part 0 avec tous les secrets, et de 1 à nbrParts ce seront les Users
+
 
         // Faire 32 (nbrBytes) fois le shamir secret
         for (int i=0; i < nbrBytes ;i++)
@@ -97,6 +102,12 @@ public class GenerateParts
             }
             System.out.println();
 
+            // Pour chaques users, lui donner le résultat du premier shamir, puis du suivant, jusqu'aux 32 shamirs coordinates
+            // On donne shamir 1 à tout le monde, puis shamir 2, puis 3 (Donc dans la boucle dans laquelle on est DEJA)
+            // Donc il faut une boucle pour passer sur tous les différents users
+
+
+
 
             /*for (i<user)
             {
@@ -109,6 +120,50 @@ public class GenerateParts
         System.out.println("Secrets are : ");
         polynomes[0].afficheTab(secret);
 
+
+        writePartsToUsersInJSon(polynomes, nbrParts, nbrBytes);
+
+
+    }
+
+    private void writePartsToUsersInJSon(Polynome[] polynomes, int nbrParts, int nbrBytes)
+    {
+        UserParts users[] = new UserParts[nbrParts]; // Crée un tableau contentant chauque paire de points pour notre User
+
+        // Boucler sur tous les users
+        for (int userIndex = 1; userIndex < nbrParts; userIndex++) // On commence à 1, car X=0 est le secret !
+        {
+
+            Point[] pairsForUser = new Point[nbrBytes]; // Tableau servant d'intermédiaire
+
+            // Boucler sur tous les shamir pour chaque User
+            for (int polyIndex = 0; polyIndex < nbrBytes; polyIndex++)
+            {
+                Point pair = new Point();
+                // Prendre la coordonnée X=user du polynome shamir Index
+                pair.x = polynomes[polyIndex].getxCoordinates()[userIndex];
+                pair.y = polynomes[polyIndex].getyCoordinates()[userIndex];
+                //System.out.println(pair.x);
+                //System.out.println(pair.y);
+
+                pairsForUser[polyIndex] = new Point();
+                pairsForUser[polyIndex].x = polynomes[polyIndex].getxCoordinates()[userIndex];
+                pairsForUser[polyIndex].y = polynomes[polyIndex].getyCoordinates()[userIndex];
+
+            }
+
+            // On a terminé de setter tous les X&Y de 1 User,
+            // on va maintenant donner le tableau de POINTS intermédiaire à USERPARTS
+            // pour pouvoir les WRITE / Serialiser
+            users[userIndex] = new UserParts(nbrBytes); // nbrBytes lui dira combien de paire de points il aura au total
+            users[userIndex].setPartsByUser(pairsForUser);
+
+            // Maintenant que tous les users de la Classe UserParts ont leur coordonnées,
+            // on peut write/serialiser chaque user dans un fichier JSON
+            JsonPartsFiles json = new JsonPartsFiles();
+            String fileName = Integer.toString(userIndex);
+            json.write(users[userIndex], "User_"+fileName);
+        }
 
 
     }
