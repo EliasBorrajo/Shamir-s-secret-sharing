@@ -222,7 +222,7 @@ public class GenerateParts
     public static void main(String[] args)
     {
         System.out.println("START");
-        GenerateParts gp = new GenerateParts(16,10 , 4);
+        GenerateParts gp = new GenerateParts(32,10 , 4);
         System.out.println("END");
     }
 
