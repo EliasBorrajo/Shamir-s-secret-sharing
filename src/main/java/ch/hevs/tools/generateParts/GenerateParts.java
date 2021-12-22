@@ -11,7 +11,7 @@ package ch.hevs.tools.generateParts;
 import ch.hevs.maths.Polynome;
 import ch.hevs.storage.JsonPartsFiles;
 
-import javax.swing.*;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 
 /**
@@ -40,59 +40,77 @@ import java.awt.*;
 
 public class GenerateParts
 {
-    public GenerateParts(int nbrBytes, int nbrParts, int threshold)
-    { 
-        //VERIFIER QUE NBYTE SOIT 16, 24 ou 32 --> Selon le cypher du crypteur
-        if(nbrBytes != 16 && nbrBytes != 24 && nbrBytes != 32)
+    private int nbrBytes;
+    private int nbrParts;
+    private int threshold;
+    private static final int MAX_VALUE_INPUT = 2000000; // Arbitrary value for the max value of parts
+    private static final int BYTESVALUE_16 = 16;
+    private static final int BYTESVALUE_24 = 24;
+    private static final int BYTESVALUE_32 = 32;
+
+
+    public GenerateParts(int nbrBytesInput, int nbrPartsInput, int thresholdInput)
+    {
+        try
         {
-            String message = "GenerateParts Method error : Invalid input --> nbrBytes should be 16,24 or 32";
-            System.err.println(message);
-            throw new IllegalArgumentException(message);
+            verifyInputs(nbrBytesInput, nbrPartsInput, thresholdInput);
         }
-        if (nbrParts <= threshold)
+        catch (IllegalArgumentException exception)
         {
-            String message = "GenerateParts Method error : Invalid input --> threshold should be smaller than number of parts wanted";
-            System.err.println(message);
-            throw new IllegalArgumentException(message);
+            System.out.println("COMMAND : \"GENERATE PARTS\" HAS STOPPED BECAUSE OF INVALID PARAMETERS ");
+            return;
         }
 
-        // @TODO : Verifier NBR PARTS EN ENTREE
 
+        // If we get here, there has been NO ERRORS! So we initialize those parameters in attributes ! :)
+        this.nbrBytes = nbrBytesInput;
+        this.nbrParts = nbrPartsInput;
+        this.threshold= thresholdInput;
 
-        // tableau de polynomes, il va stocker nos coordonées
-        // Taille = nbr de bytes, car nbrBtes = le nombre de fois que on fait shamir secret
+        generatePartsAndSerialize();
+
+        System.out.println("OPERATION DONE SUCCESFULLY ! -->  Parts for "+ (nbrParts-1) +" users have been written on yur hardware !");
+        System.out.println("Follow the next instructions : ");
+        System.out.println("1) For each user, send him only one file named \"User_X\".");
+        System.out.println("2) After having send all the files, DESTROY the remaining folder.");
+    }
+
+    private void generatePartsAndSerialize()
+    {
+
+        // tableau de polynomes, il va stocker nos coordonées X&Y pour chaque User
+        // Taille = nbr de bytes, car nbrBytes = le nombre de fois que on fait shamir secret
         Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
         int[] secret         = new int[nbrBytes];        // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
         nbrParts ++; // On veut la part 0 avec tous les secrets, et de 1 à nbrParts ce seront les Users
 
-
         // Faire 32 (nbrBytes) fois le shamir secret
         for (int i=0; i < nbrBytes ;i++)
         {
-            //@TODO : Effacer les LOGS, rien ne doit apparaitre
+            //@TODO : Effacer les LOGS, rien ne doit apparaitre !
             polynomes[i] = new Polynome(nbrParts, threshold);
 
             //1) generate coefficients & xCoordinates to evalue
             polynomes[i].generateCoefficient();
-            System.out.println("Coefficients : ");
-            polynomes[i].afficheTab(polynomes[i].getCoefficients());
+                        //System.out.println("Coefficients : ");
+                        //polynomes[i].afficheTab(polynomes[i].getCoefficients());
 
             polynomes[i].xGenerator();
-            System.out.println("X Coordinates : ");
-            polynomes[i].afficheTab(polynomes[i].getxCoordinates());
+                        //System.out.println("X Coordinates : ");
+                        //polynomes[i].afficheTab(polynomes[i].getxCoordinates());
 
 
             //2) crééer courbe / polynome
             //   resoudre pour x=0, x=1--> User 1, X=2--> 2 ....etc....
             polynomes[i].generateParts();
-            System.out.println("Y Coordinates : ");
-            polynomes[i].afficheTab(polynomes[i].getyCoordinates());
+                        //System.out.println("Y Coordinates : ");
+                        //polynomes[i].afficheTab(polynomes[i].getyCoordinates());
 
             //4 stocker resultat x & y de tous dans tableau hors de cette boucle
             // position[1] = user1
             // position[2] = user2
             secret[i] = polynomes[i].getSecret();
-            System.out.println("Secret [i="+i+"] = "+secret[i]);
+            //System.out.println("Secret [i="+i+"] = "+secret[i]);
 
             System.out.println();
             for (int j = 0; j < nbrParts; j++)
@@ -106,26 +124,61 @@ public class GenerateParts
             // On donne shamir 1 à tout le monde, puis shamir 2, puis 3 (Donc dans la boucle dans laquelle on est DEJA)
             // Donc il faut une boucle pour passer sur tous les différents users
 
-
-
-
-            /*for (i<user)
-            {
-                //4 stocker resultat x & y de tous dans tableau hors de cette boucle
-                // position[1] = user1
-                // position[2] = user2
-            }*/
-
         }
+        // TODO : CACHER CET AFFICHAGE
         System.out.println("Secrets are : ");
         polynomes[0].afficheTab(secret);
+        System.out.println();
 
-
+        System.out.println("Start of serialization, please wait...");
         writePartsToUsersInJSon(polynomes, nbrParts, nbrBytes);
-
-
+        System.out.println("Serialization done !");
+        System.out.println();
     }
 
+    /**
+     * Verifys the input set by the user, if ther is an error, we throw an exeption
+     * @param nbrBytes should be : 16 / 24 / 32
+     * @param nbrParts Any value
+     * @param threshold Lesser than nbrParts
+     */
+    private void verifyInputs(int nbrBytes, int nbrParts, int threshold) throws IllegalArgumentException
+    {
+        //VERIFIER QUE NBYTE SOIT 16, 24 ou 32 --> Selon le cypher du crypteur
+        if(nbrBytes != BYTESVALUE_16 &&
+                nbrBytes != BYTESVALUE_24 &&
+                nbrBytes != BYTESVALUE_32)
+        {
+            String message = "GenerateParts Method error : Invalid input --> nbrBytes should be 16,24 or 32";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+        if (nbrParts <= threshold)
+        {
+            String message = "GenerateParts Method error : Invalid input --> threshold should be smaller than number of parts wanted";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+        if(nbrParts < 2 || nbrParts > MAX_VALUE_INPUT)
+        {
+            String message = "GenerateParts Method error : Invalid input --> Number of parts must be at least 2 and maximum of 2'000'000";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+        if (threshold < 1 || threshold > MAX_VALUE_INPUT)
+        {
+            String message = "GenerateParts Method error : Invalid input --> Threshold can't be 0";
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * Writes the generated parts from the polynome class into a JSON file
+     * @param polynomes
+     * @param nbrParts
+     * @param nbrBytes
+     */
     private void writePartsToUsersInJSon(Polynome[] polynomes, int nbrParts, int nbrBytes)
     {
         UserParts users[] = new UserParts[nbrParts]; // Crée un tableau contentant chauque paire de points pour notre User
@@ -164,8 +217,13 @@ public class GenerateParts
             String fileName = Integer.toString(userIndex);
             json.write(users[userIndex], "User_"+fileName);
         }
+    }
 
-
+    public static void main(String[] args)
+    {
+        System.out.println("START");
+        GenerateParts gp = new GenerateParts(16,10 , 4);
+        System.out.println("END");
     }
 
     /**
@@ -202,13 +260,13 @@ public class GenerateParts
         polynome.afficheTab(polynome.getyCoordinates());
 
         //4 stocker resultat x & y de tous dans tableau hors de cette boucle
-            // position[1] = user1
-            // position[2] = user2
+        // position[1] = user1
+        // position[2] = user2
         System.out.println();
         for (int j = 0; j < nbrParts; j++)
         {
             System.out.println("X : " + polynome.getxCoordinates()[j] +
-                               " | Y : " + polynome.getyCoordinates()[j]);
+                    " | Y : " + polynome.getyCoordinates()[j]);
         }
         System.out.println();
 
@@ -221,11 +279,6 @@ public class GenerateParts
         // Y[f1(x)= 4, f2(x)=23];
         //}
 
-    }
-
-    public static void main(String[] args)
-    {
-        GenerateParts gp = new GenerateParts(32, 8, 4);
     }
 
 }

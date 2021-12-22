@@ -39,7 +39,7 @@ public class Polynome
         }
 
         secret = coefficients[0];
-        System.out.println("SECRET Y --> Coefficient[0] = "+ secret);
+        //System.out.println("SECRET Y --> Coefficient[0] = "+ secret);
     }
 
     /**
@@ -69,9 +69,9 @@ public class Polynome
         {
             yCoordinates[i] = calculatePolynomial(xCoordinates[i]);
         }
-        System.out.println();
+        /*System.out.println();
         System.out.println("SECRET Y --> calculate = "+ yCoordinates[0]);
-        System.out.println();
+        System.out.println();*/
     }
 
     /**
