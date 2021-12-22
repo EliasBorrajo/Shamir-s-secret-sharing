@@ -8,6 +8,7 @@
 /httpRequests/
 
 # IGNORES QUE JE METS PARTOUT, mais pourquoi ?
+*.idea
 .idea
 /.idea/
 *.class
