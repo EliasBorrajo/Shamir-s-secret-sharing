@@ -208,7 +208,7 @@ public class GenerateParts
             // On a terminé de setter tous les X&Y de 1 User,
             // on va maintenant donner le tableau de POINTS intermédiaire à USERPARTS
             // pour pouvoir les WRITE / Serialiser
-            users[userIndex] = new UserParts(nbrBytes); // nbrBytes lui dira combien de paire de points il aura au total
+            users[userIndex] = new UserParts(); // nbrBytes lui dira combien de paire de points il aura au total
             users[userIndex].setPartsByUser(pairsForUser);
 
             // Maintenant que tous les users de la Classe UserParts ont leur coordonnées,
