@@ -1,4 +1,4 @@
-package ch.hevs.Maths;
+package ch.hevs.maths;
 
 import java.math.BigInteger;
 
@@ -8,46 +8,116 @@ import java.math.BigInteger;
  *
  * METHODES :
  *
- *  - EUCLIDE ETENDU
+ * - EUCLIDE ETENDU
  *
- *  - INVERSION MODULAIRE
+ * - INVERSION MODULAIRE
  *
- *  - INTERPOLATION POLYNOMINALE --> Reconstitution des parts de secrets
+ * - INTERPOLATION POLYNOMINALE --> Reconstitution des parts de secrets
  *
- *  - GENERER PARTS DE SECRET
- *        - Génerer aléatoirement a/b/c (de ax^2 + bx + c = y) avec paramètre X donné, et retourne y
+ * - GENERER PARTS DE SECRET
+ * - Génerer aléatoirement a/b/c (de ax^2 + bx + c = y) avec paramètre X donné, et retourne y
  */
-public class ModularArithmetic
+public abstract class ModularArithmetic
 {
     //*****************************************************
     // A T T R I B U T E S
     //*****************************************************
-
-    private /*final @todo*/ static int MODULO = 257;
+    private final static int MODULO = 257; // Le modulo à 257 permet de travailler en int sans souci.
 
     //*****************************************************
     // M E T H O D S
+    //*****************************************************
+
+    // ON A TOUJOURS 2 METHODES SIMILAIRES.
+    // 1) UTILISANT LA cONSTANTE MODULO = 257 --> CELLE QUE NOUS ON UTILISERA POUR LE PROJET
+    // 2) UTILISANT LE MODULO DONNE EN PARAMETRE
+
+    //*****************************************************
+    // A D D I T I O N
     //*****************************************************
     public static int addition(int a, int b)
     {
         //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
-        int result = Math.floorMod((a+b), MODULO);
+        int result = Math.floorMod((a + b), MODULO);
         return result;
     }
 
+    public static int additionMOD(int a, int b, int modulo)
+    {
+        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
+
+        int result = Math.floorMod((a + b), modulo);
+        return result;
+    }
+
+    //*****************************************************
+    // S O U S T R A C T I O N
+    //*****************************************************
     public static int soustraction(int a, int b)
     {
         //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
-        int result = Math.floorMod((a-b), MODULO);
+        int result = Math.floorMod((a - b), MODULO);
 
         return result;
     }
 
+    public static int soustractionMOD(int a, int b, int modulo)
+    {
+        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
+
+        int result = Math.floorMod((a - b), modulo);
+
+        return result;
+    }
+
+    //*****************************************************
+    // M U L T I P L I C A T I O N
+    //*****************************************************
+    public static int multiplication(int a, int b)
+    {
+        int result = Math.floorMod((a * b), MODULO);
+
+        return result;
+    }
+
+    public static int multiplicationMOD(int a, int b, int modulo)
+    {
+        int result = Math.floorMod((a * b), modulo);
+
+        return result;
+    }
+
+    //*****************************************************
+    // D I V I S I O N --> USE ModInverse
+    //*****************************************************
+    public static int division(int a, int b)
+    {
+        if (b == 0)
+        {
+            throw new ArithmeticException("In division, can't divide by 0");
+        }
+
+        return multiplication(a, modularInverseEEA_MOD(b, MODULO)); //a * inv multi de B
+    }
+
+    public static int divisionMOD(int a, int b, int modulo)
+    {
+        if (b == 0)
+        {
+            throw new ArithmeticException("In division, can't divide by 0");
+        }
+
+        return multiplication(a, modularInverseEEA_MOD(b, modulo)); // a * inv multi de B
+    }
+
+    //*****************************************************
+    // P U I S S A N C E
+    //*****************************************************
     public static int power(int value, int exponent)
     {
-        if (exponent<=0)
+        if (exponent <= 0)
         {
             throw new ArithmeticException("Power can not be <= 0. It should be power >= 1 minimum");
         }
@@ -60,34 +130,103 @@ public class ModularArithmetic
         return result;
     }
 
-    public static int multiplication(int a, int b)
+    public static int powerMOD(int value, int exponent, int modulo)
     {
-        int result = Math.floorMod((a * b), MODULO);
+        if (exponent <= 0)
+        {
+            throw new ArithmeticException("Power can not be <= 0. It should be power >= 1 minimum");
+        }
 
+        int result = 1;
+        for (int i = 0; i < exponent; i++)
+        {
+            result = multiplicationMOD(result, value, modulo); // result = result * value
+        }
         return result;
     }
 
-    public static int division(int a, int b, int mod)
+
+    //*****************************************************
+    // G R E A T E S T   C O M M O N   D I V I S O R
+    //*****************************************************
+    /**
+     * https://www.baeldung.com/java-greatest-common-divisor
+     * Euclid's algorithm is not only efficient but also easy to understand and easy to implement using recursion in Java.
+     * Euclid's method depends on two important theorems:
+     *
+     * First, if we subtract the smaller number from the larger number, the GCD doesn't change – therefore, if we keep on subtracting the number we finally end up with their GCD
+     * Second, when the smaller number exactly divides the larger number, the smaller number is the GCD of the two given numbers.
+     * Note in our implementation that we'll use modulo instead of subtraction since it's basically many subtractions at a time:
+     * Also, note how we use n2 in n1‘s position and use the remainder in n2's position in the recursive step of the algorithm.
+     *
+     * Further, the complexity of Euclid's algorithm is O(Log min(n1, n2)) which is better as compared to the Brute Force method.
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    private static int gcd(int a, int b)
     {
-        if (b==0)
+        // Finitude
+        if (b == 0)
         {
-            throw new ArithmeticException("In division, can't divide by 0");
+            return a;
         }
 
-        return multiplication(a, Math.floorMod(b,mod));
+        //Recursion
+        return gcd(b, a % b);
     }
 
+    private static boolean isPrime(int value)
+    {
+        int reste;
+        boolean flag = true; // Returne True if value is a Prime-Number
+
+        for (int i = 2; i <= value / 2; i++)
+        {
+            //nombre est divisible par lui-meme
+            reste = value % i;
+
+            //si le reste est 0, alors arrete la boucle. Sinon continuer la boucle
+            if (reste == 0)
+            {
+                flag = false;
+                break;
+            }
+        }
+        //si flag est true, alors nombre est premier, sinon non premier
+        if (flag)
+            System.out.println("Modulo = " +value + " : Is a prime number");
+
+        else
+            System.out.println("Modulo = " +value + " : Is not a prime number");
+
+
+        return flag;
+
+    }
+
+    //*****************************************************
+    // M O D U L A R   I N V E R S E
+    //*****************************************************
     // Multiplicative inverse of A modulo M
     // EEA = Extended Euclidean Algorithm
-    public static int modularInverseEEA(int value, int mod)
+    public static int modularInverseEEA_MOD(int value, int modulo)
     {
-        if (mod <= 0)
-        {
-            throw new ArithmeticException("Modulus <= 0");
-        }
+        // Verifier les entrées
+        if(!isPrime(modulo))
+            throw new ArithmeticException("ModularInverseEEA : Modulo param is not a prime number !");
 
-        int r0 = mod;               int r1 = Math.floorMod(value,mod); // 0 <= r1 < m
-        int y0 = 0;                 int y1 = 1;
+        if (modulo <= 0)
+            throw new ArithmeticException("ModularInverseEEA : Modulo param is <= 0");
+
+        if (gcd(value, modulo) != 1)
+            throw new ArithmeticException("ModularInverseEEA : Modulo & Value are not Co-Prime");
+
+        int r0 = modulo;
+        int r1 = Math.floorMod(value, modulo); // 0 <= r1 < m
+        int y0 = 0;
+        int y1 = 1;
 
         if (r1 == 0)
         {
@@ -96,15 +235,20 @@ public class ModularArithmetic
 
         while (r1 > 0)
         {
-            int[] qr = new int[2];  //r0.divideAndRemainder(r1); --> Avec BigInteger
-            //qr[0] = division(r0,r1,mod);
-            qr[0] = r0/r1;
-            qr[1] = r0 - r1*qr[0];  //soustraction(r0, (multiplication(r1,qr[0])) ) ;
+            int[] qr = new int[2];  //quotient & rest  //r0.divideAndRemainder(r1); --> Avec BigInteger
+
+            qr[0] = r0 / r1;
+            //qr[1] = r0 - r1 * qr[0];  //soustraction(r0, (multiplication(r1,qr[0])) ) ;
+
+            //qr[0] = divisionMOD(r0,r1,mod);
+            qr[1] = soustractionMOD(r0, (multiplicationMOD(r1,qr[0], modulo)), modulo ) ;
+
+
             r0 = r1;
             r1 = qr[1];
 
-            int temp = multiplication(y1,qr[0]);
-            int newY1 = soustraction(y0, temp ) ;
+            int temp = multiplicationMOD(y1, qr[0], modulo);
+            int newY1 = soustractionMOD(y0, temp, modulo);
             y0 = y1;
             y1 = newY1;
         /*
@@ -118,12 +262,12 @@ public class ModularArithmetic
         */
         }
 
-        if ( !(r0 == 1))
+        if (!(r0 == 1))
         {
             throw new ArithmeticException("a is not relatively prime to m");
         }
 
-        return Math.floorMod(y0,mod);
+        return Math.floorMod(y0, modulo);
 
 
         // 1) Trouver gcd(a,b) --> nombre premier
@@ -133,8 +277,56 @@ public class ModularArithmetic
 
     }
 
+    public static int modularInverseEEA(int value)
+    {
+        // Verifier les entrées
+        if(!isPrime(MODULO))
+            throw new ArithmeticException("ModularInverseEEA : Modulo param is not a prime number !");
+
+        if (MODULO <= 0)
+            throw new ArithmeticException("ModularInverseEEA : Modulo param is <= 0");
+
+        if (gcd(value, MODULO) != 1)
+            throw new ArithmeticException("ModularInverseEEA : Modulo & Value are not Co-Prime");
+
+        int r0 = MODULO;
+        int r1 = Math.floorMod(value, MODULO); // 0 <= r1 < m
+        int y0 = 0;
+        int y1 = 1;
+
+        if (r1 == 0)
+        {
+            throw new ArithmeticException("Zero has no multiplicative inverse");
+        }
+
+        while (r1 > 0)
+        {
+            int[] qr = new int[2];  //quotient & rest  //r0.divideAndRemainder(r1); --> Avec BigInteger
+
+            qr[0] = r0 / r1;
+            qr[1] = soustraction(r0, (multiplication(r1,qr[0])) ) ;
+
+
+            r0 = r1;
+            r1 = qr[1];
+
+            int temp = multiplication(y1, qr[0]);
+            int newY1 = soustraction(y0, temp);
+            y0 = y1;
+            y1 = newY1;
+        }
+
+        if (!(r0 == 1))
+        {
+            throw new ArithmeticException("a is not relatively prime to m");
+        }
+
+        return Math.floorMod(y0, MODULO);
+
+    }
+
     // Multiplicative inverse of A modulo M
-    public static BigInteger modInverseEEA(BigInteger a, BigInteger m) throws ArithmeticException
+    public static BigInteger modInverseEEA_BigInteger(BigInteger a, BigInteger m) throws ArithmeticException
     {
 
         if (m.compareTo(BigInteger.ZERO) <= 0)
@@ -172,72 +364,44 @@ public class ModularArithmetic
     }
 
 
-
-    /**
-     * https://www.baeldung.com/java-greatest-common-divisor
-     * Euclid's algorithm is not only efficient but also easy to understand and easy to implement using recursion in Java.
-     * Euclid's method depends on two important theorems:
-     *
-     * First, if we subtract the smaller number from the larger number, the GCD doesn't change – therefore, if we keep on subtracting the number we finally end up with their GCD
-     * Second, when the smaller number exactly divides the larger number, the smaller number is the GCD of the two given numbers.
-     * Note in our implementation that we'll use modulo instead of subtraction since it's basically many subtractions at a time:
-     * Also, note how we use n2 in n1‘s position and use the remainder in n2's position in the recursive step of the algorithm.
-     *
-     * Further, the complexity of Euclid's algorithm is O(Log min(n1, n2)) which is better as compared to the Brute Force method.
-     * @param a
-     * @param b
-     * @return
-     */
-    private static int gcd(int a, int b)
+    // Iterative Java program to find modular
+    // inverse using extended Euclid algorithm
+    // Returns modulo inverse of A with
+    // respect to M using extended Euclid
+    // Algorithm Assumption: a and m are
+    // coprimes, i.e., gcd(a, m) = 1
+    static int modInverse_web(int a, int m)
     {
-        // Finitude
-        if (b == 0)
+        int m0 = m;
+        int y = 0, x = 1;
+
+        if (m == 1)
+            return 0;
+
+        while (a > 1)
         {
-            return a;
+            // q is quotient
+            int q = a / m;
+
+            int t = m;
+
+            // m is remainder now, process
+            // same as Euclid's algo
+            m = a % m;
+            a = t;
+            t = y;
+
+            // Update x and y
+            y = x - q * y;
+            x = t;
         }
 
-        //Recursion
-        return gcd(b, a % b);
+        // Make x positive
+        if (x < 0)
+            x += m0;
+
+        return x;
     }
-
-
-        // Iterative Java program to find modular
-        // inverse using extended Euclid algorithm
-        // Returns modulo inverse of A with
-        // respect to M using extended Euclid
-        // Algorithm Assumption: a and m are
-        // coprimes, i.e., gcd(a, m) = 1
-        static int modInverse(int a, int m)
-        {
-            int m0 = m;
-            int y = 0, x = 1;
-
-            if (m == 1)
-                return 0;
-
-            while (a > 1) {
-                // q is quotient
-                int q = a / m;
-
-                int t = m;
-
-                // m is remainder now, process
-                // same as Euclid's algo
-                m = a % m;
-                a = t;
-                t = y;
-
-                // Update x and y
-                y = x - q * y;
-                x = t;
-            }
-
-            // Make x positive
-            if (x < 0)
-                x += m0;
-
-            return x;
-        }
 
     public static int getMODULO()
     {
@@ -246,20 +410,20 @@ public class ModularArithmetic
 
     public static void main(String[] args)
     {
-        /*int a = 9;
-        int mod = 257;
-        BigInteger A = new BigInteger( Integer.toString(a));
-        BigInteger MOD = new BigInteger( Integer.toString(mod));
+        int a = 899000979;
+        int mod = 659;
+        BigInteger A = new BigInteger(Integer.toString(a));
+        BigInteger MOD = new BigInteger(Integer.toString(mod));
 
-        System.out.println(modInverseEEA(A,MOD));
-        System.out.println(modularInverseEEA(a, mod));
-        System.out.println(modInverse(a,mod));
-
+        System.out.println(modInverseEEA_BigInteger(A, MOD));
+        System.out.println(modularInverseEEA_MOD(a, mod));
+        System.out.println(modInverse_web(a, mod));
+/*
         System.out.println("POWER OF... TEST");
-        System.out.println(power(2,4));
-        System.out.println(power(2,8));
-        System.out.println(power(2,16));
-        System.out.println(power(2,32));*/
+        System.out.println(power(2, 4));
+        System.out.println(power(2, 8));
+        System.out.println(power(2, 16));
+        System.out.println(power(2, 32));
 
 
         /*
@@ -297,8 +461,6 @@ public class ModularArithmetic
          */
 
     }
-
-
 
 
 }

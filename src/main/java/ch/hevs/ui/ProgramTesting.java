@@ -1,6 +1,6 @@
 package ch.hevs.ui;
 
-import ch.hevs.Maths.LagrangeInterpolation;
+import ch.hevs.maths.LagrangeInterpolation;
 import ch.hevs.errors.BusinessException;
 import ch.hevs.storage.JsonPartsFiles;
 import ch.hevs.tools.crypt.FileEncryption;
@@ -25,7 +25,7 @@ public class ProgramTesting {
         File[] usersFiles = new File[3];
 
         // file à crypter decrypter
-        File myFileDecryptEncrypt = new File(args[3]);
+        //File myFileDecryptEncrypt = new File(args[3]);
 
         jpf.read(myPart1);
         //System.out.println(jpf.getUserParts());
@@ -38,12 +38,11 @@ public class ProgramTesting {
         usersFiles[1] = myPart2;
         usersFiles[2] = myPart3;
 
-        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, false);
-
+        regenerateWithGivenParts(usersFiles/*, myFileDecryptEncrypt, false*/);
 
     }
 
-    public static void regenerateWithGivenParts(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
+    public static void regenerateWithGivenParts(File[] usersFiles/*, File fileToCryptDecrypt, boolean toEncrypt*/) throws BusinessException
     {
         // objets utiles
 
@@ -79,13 +78,13 @@ public class ProgramTesting {
         as.affiche(as.getSecret());
 
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
-        if (toEncrypt)
+        /*if (toEncrypt)
         {
             fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(homePath));
         }
         else {
             fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(homePath));
-        }
+        }*/
     }
 
     private static void afficheParts(UserParts[] usersParts){
@@ -93,7 +92,7 @@ public class ProgramTesting {
         {
             for (int j = 0; j < 32; j++)
             {
-                System.out.print(usersParts[i].getParts()[j].toString());
+                System.out.print(usersParts[i].getPartsByUser().get(j));
             }
             System.out.println();
         }

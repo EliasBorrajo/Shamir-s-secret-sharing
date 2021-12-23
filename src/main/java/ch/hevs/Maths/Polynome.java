@@ -1,4 +1,4 @@
-package ch.hevs.Maths;
+package ch.hevs.maths;
 
 import java.security.SecureRandom;
 
@@ -9,7 +9,7 @@ public class Polynome
     private int[] coefficients;
     private int[] xCoordinates;
     private int[] yCoordinates;
-    private int[] fonction; // La courbe avec ses coefficients --> pas utile
+
     private int secret;
 
     private int degree;
@@ -17,23 +17,29 @@ public class Polynome
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
-        coefficients = new int[degree];
+        coefficients = new int[threshold];         // Coefficients  = threshold
         xCoordinates = new int[nbParts];
         yCoordinates = new int[nbParts];
     }
 
+    /**
+     * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
+     * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
+     * Donc on doit travailler sur 8 bits
+     */
     public void generateCoefficient()
     {
-        // @TODO secureRandom()
+        final int MODULO_COEFF = 256;
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < coefficients.length; i++)
         {
-            coefficients[i] =  random.nextInt(MODULO);
+            coefficients[i] =  random.nextInt(MODULO_COEFF);
+            //System.out.println("Coefficient "+i+" is : "+coefficients[i]);
         }
 
         secret = coefficients[0];
-        System.out.println("SECRET Y -->coefficient = "+ secret);
+        //System.out.println("SECRET Y --> Coefficient[0] = "+ secret);
     }
 
     /**
@@ -51,29 +57,9 @@ public class Polynome
         for (int i = 0; i < xCoordinates.length; i++)
         {
             xCoordinates[i] = i;
+
         }
 
-        /* RANDOM
-        SecureRandom random = new SecureRandom();
-        for (int i = 0; i < xCoordinates.length; i++)
-        {
-            xCoordinates[i] = random.nextInt(MODULO);
-        }*/
-    }
-
-    /**
-     * Methode pour créer la fonction y = f(x)
-     * DONC POUR AVOIR CHAQUE ELEMENT DE LA COURBE --> PAS UTILE ?!
-     */
-    public void generatePolynome()
-    {
-         fonction = new int[coefficients.length];
-        // @TODO génère les valeurs de x et f(x) pour un polynome
-        for (int i = 0; i < coefficients.length; i++)
-        {
-           // fonction = fonction
-            
-        }
     }
 
     public void generateParts()
@@ -83,9 +69,9 @@ public class Polynome
         {
             yCoordinates[i] = calculatePolynomial(xCoordinates[i]);
         }
-        System.out.println();
-        System.out.println("SECRET Y -->calculate = "+ yCoordinates[0]);
-        System.out.println();
+        /*System.out.println();
+        System.out.println("SECRET Y --> calculate = "+ yCoordinates[0]);
+        System.out.println();*/
     }
 
     /**
@@ -93,7 +79,7 @@ public class Polynome
      * Le retour de la fonction, doit sauvegarder le Y
      * @param xCoordinate
      */
-    public int calculatePolynomial(int xCoordinate )
+    public int calculatePolynomial_OLD_DOESNOTWORKPROPERLY(int xCoordinate )
     {
         int resultY = -1;
         // Calcul du polynomial entier en Y pour X.
@@ -112,8 +98,31 @@ public class Polynome
             }
         }
 
-
         return resultY; // Ce sera notre valeur Y de retour !
+    }
+
+    /**
+     * Computes the value of the polynomial with the given coefficients
+     * at the point x, using Horner's Rule.
+     *
+     * a0 + a1*x^1 + a2*x^2 + a3*x^3 --> HORNER
+     * --> ( (a3 * x + a2) * x + a1 ) * x + a0
+     * @param xCoordinate
+     * @return
+     */
+    public int calculatePolynomial(int xCoordinate)
+    {   int lastCoeffPos = coefficients.length - 1;
+        int coeffAMax = coefficients[ lastCoeffPos ];
+        int resultY = coeffAMax;
+
+        // On commence à PosMAX - 1, pour addditionner au premier tour Coeff2 sur coeffmax3
+        for (int i = lastCoeffPos -1 ; i >= 0 ; i--)
+        {
+            //result = (result * x) + coefficients[i]
+            resultY = ModularArithmetic.addition(ModularArithmetic.multiplication(resultY, xCoordinate) , coefficients[i] ) ;
+        }
+
+        return resultY;
     }
 
     public static void afficheTab(int[] array)
@@ -141,5 +150,10 @@ public class Polynome
     public int[] getCoefficients()
     {
         return coefficients;
+    }
+
+    public int getSecret()
+    {
+        return secret;
     }
 }
