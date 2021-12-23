@@ -81,8 +81,6 @@ public class ProgramTesting {
         else {
             fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(homePath));
         }
-
-
     }
 
     private static void afficheParts(UserParts[] usersParts){
