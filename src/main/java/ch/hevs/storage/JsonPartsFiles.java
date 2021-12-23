@@ -36,7 +36,7 @@ public class JsonPartsFiles implements StorableFiles
      */
     public JsonPartsFiles()
     {
-        definePathToStoreData();
+        definePathToStoreData("NewfileName");
     }
 
     //*****************************************************************************
@@ -79,7 +79,7 @@ public class JsonPartsFiles implements StorableFiles
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            userParts = mapper.readValue(file, UserParts.class);
+            userParts = mapper.readValue(file, UserParts.class); //TODO le mot clé NEW est implicite ?
         } catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");

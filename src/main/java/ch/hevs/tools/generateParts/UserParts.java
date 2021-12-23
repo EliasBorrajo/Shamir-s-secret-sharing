@@ -1,7 +1,9 @@
 package ch.hevs.tools.generateParts;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class for user parts. Each object will be an instanciate a piece of secret (Point array with the same X coordinate for each point and a specific Y coordinate)
@@ -9,37 +11,29 @@ import java.util.Arrays;
  */
 public class UserParts
 {
-    private Point[] partsByUser; // pos 1 --> part shamir 1 XY
-                                 // pos 2 --> part shamir 2 XY
+    private ArrayList<Point> partsByUser; // pos 1 --> part shamir 1 XY
+                                          // pos 2 --> part shamir 2 XY
 
-    public UserParts(int nbBytes)
+    public UserParts(/*int nbBytes*/)
     {
-        partsByUser = new Point[nbBytes];
+        partsByUser = new ArrayList<Point>();
+        //partsByUser = new Point[nbBytes];
     }
 
 
-
-    public Point[] getParts()
-    {
-        return partsByUser;
-    }
 
     public void setPartsByUser(Point[] partsByUser)
     {
-        this.partsByUser = partsByUser;
-    }
-
-    // get a specific y in an array of points
-    public double getYperso(int index)
-    {
-        return partsByUser[index].getY();
+        List<Point> temp = Arrays.asList(partsByUser);
+        this.partsByUser = new ArrayList<Point>(temp) ;
+        this.toString();
     }
 
     @Override
     public String toString()
     {
-        return "program.UserParts{" +
-                "parts=" + Arrays.toString(partsByUser) +
+        return "UserParts{" +
+                "partsByUser=" + partsByUser +
                 '}';
     }
 }
