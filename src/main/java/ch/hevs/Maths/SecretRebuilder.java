@@ -1,4 +1,4 @@
-package ch.hevs.Maths;
+package ch.hevs.maths;
 
 import ch.hevs.tools.generateParts.UserParts;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class SecretRebuilder {
 
         for (int userIndex = 0; userIndex < usersParts.length; userIndex++)
         {
-            shamirParts[userIndex] = usersParts[userIndex].getParts()[indexPart];
+            shamirParts[userIndex] = usersParts[userIndex].getPartsByUser().get(indexPart);
         }
 
         /*for (int i = 0; i < shamirParts.length; i++) {
