@@ -11,15 +11,15 @@ public class UserParts
 {
     private Point[] parts;
 
-    public UserParts()
+    public UserParts(int nbBytes)
     {
-        parts = new Point[32]; //@todo selon nb de bytes
+        parts = new Point[nbBytes]; //@todo selon nb de bytes
 
-        for (int i = 0; i < 32; i++)
+        /*for (int i = 0; i < 32; i++)
         {
-            //parts[i] = new Point(seuil, (int)(Math.random() * 100));
+            parts[i] = new Point(seuil, (int)(Math.random() * 100));
              // testing with random values for user 2 (X = 2)
-        }
+        }*/
 
     }
 

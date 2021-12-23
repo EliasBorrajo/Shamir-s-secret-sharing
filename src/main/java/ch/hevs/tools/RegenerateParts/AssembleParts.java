@@ -9,17 +9,20 @@ public class AssembleParts {
     private byte[] secret;
     private LagrangeInterpolation li;
     private SecretRebuilder[] sr;
+    private int nbBytes;
 
-    public AssembleParts() {
-        sr = new SecretRebuilder[32];
-        secret = new byte[32];
+    public AssembleParts(int nbBytes) {
+        this.nbBytes = nbBytes;
+
+        sr = new SecretRebuilder[nbBytes];
+        secret = new byte[nbBytes];
         li = new LagrangeInterpolation();
     }
 
     // METHODS
     public void secret(UserParts[] usersParts)
     {
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < nbBytes; i++) {
             sr[i] = new SecretRebuilder();
 
             sr[i].partsRebuilding(usersParts, i); // reconstruit les parts de secrets de chaque utilisateurs pour chaque fi()

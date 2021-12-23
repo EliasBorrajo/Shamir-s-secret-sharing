@@ -45,9 +45,8 @@ public class ProgramTesting {
 
     public static void regenerateWithGivenParts(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
     {
-        // attributs
-        JsonPartsFiles jpf = new JsonPartsFiles();
-        AssembleParts as = new AssembleParts();
+        // objets utiles
+
         FileEncryption fe = new FileEncryption();
 
         UserParts[] usersParts;
@@ -63,10 +62,15 @@ public class ProgramTesting {
         nbUsersParts = usersFiles.length; // nb de part utilisateur
         usersParts = new UserParts[nbUsersParts];
 
+        JsonPartsFiles jpf = new JsonPartsFiles();
+
         // désérialise les parts utilisateurs pour créer les objets userParts à mettre dans le tableau
         for (int i = 0; i < usersParts.length; i++) {
             usersParts[i] = jpf.read(usersFiles[i]);
         }
+
+        // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
+        AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
 
         // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
         // --> à aller chercher dans la classe AssembleParts
