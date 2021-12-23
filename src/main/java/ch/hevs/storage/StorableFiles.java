@@ -22,6 +22,6 @@ public interface StorableFiles
      * @param parts
      * @throws BusinessException
      */
-    void write(UserParts parts) throws BusinessException;
+    void write(UserParts parts, String fileName) ;
 
 }

@@ -1,7 +1,6 @@
 package ch.hevs.storage;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.errors.ErrorCode;
 import ch.hevs.parameters.Config;
 import ch.hevs.tools.generateParts.UserParts;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +25,7 @@ public class JsonPartsFiles implements StorableFiles
     private String jsonPath;        // Is the variable which will contain the FINAl path on the PC and depending on the OS,
     // to the storage location of our JSON file
     // myObj FILE
-    private File myObj;
+    private File myFile;
 
     //*****************************************************************************
     // C O N S T R U C T O R
@@ -37,14 +36,13 @@ public class JsonPartsFiles implements StorableFiles
      */
     public JsonPartsFiles()
     {
-        userParts  = new UserParts();
         definePathToStoreData();
     }
 
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
-
+    // DEFAULT
     public void definePathToStoreData()
     {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
@@ -56,7 +54,22 @@ public class JsonPartsFiles implements StorableFiles
 
         jsonPath = path.toString();
 
-        myObj = new File(jsonPath);
+        myFile = new File(jsonPath);
+        //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
+    }
+    // WITH GIVEN NAME for the file
+    public void definePathToStoreData(String fileName)
+    {
+        // Retrieves the contents of the ENVIRONMENT VARIABLE
+        storePath = Config.getConfig().getStorePath();
+
+        // Will write the path consistently thanks to PATH & PATHS
+        // Correctly concatenate my PATH which will be stored in the STRING
+        Path path = Paths.get(storePath, fileName+".json");
+
+        jsonPath = path.toString();
+
+        myFile = new File(jsonPath);
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
 
@@ -71,18 +84,21 @@ public class JsonPartsFiles implements StorableFiles
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
             ioException.printStackTrace();
-            throw new BusinessException("An error occurred while READING JSON STORAGE PARTS.", ErrorCode.READING_JSON_STORAGE_PART_ERROR);
+            //throw new BusinessException("An error occurred while READING JSON STORAGE PARTS.", ErrorCode.READING_JSON_STORAGE_PART_ERROR);
         }
         return userParts;
     }
 
     @Override
-    public void write(UserParts parts) throws BusinessException
+    public void write(UserParts parts, String fileName)
     {
+        // TODO : VERIFIER QUE LE DOSSIER N'EXISTE PAS, ET SI IL EXISTE, LE SUPPRIMER ET EN RE,CRéER UN
         ObjectMapper mapper = new ObjectMapper();
+        definePathToStoreData(fileName);
+
         try
         {
-            mapper.writeValue(myObj, parts);
+            mapper.writeValue(myFile, parts);
         } catch (IOException e)
         {
             System.out.println("SERIALISATION of parts.JSON has failed : ");
@@ -93,12 +109,12 @@ public class JsonPartsFiles implements StorableFiles
     // GETTER, SETTER
 
     public void setMyObj(File myObj) {
-        this.myObj = myObj;
+        this.myFile = myObj;
     }
 
     public File getMyObj()
     {
-        return myObj;
+        return myFile;
     }
 
     public UserParts getUserParts() {
