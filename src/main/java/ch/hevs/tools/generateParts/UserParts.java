@@ -11,9 +11,9 @@ public class UserParts
 {
     private Point[] parts;
 
-    public UserParts(int nbBytes)
+    public UserParts()
     {
-        parts = new Point[nbBytes]; //@todo selon nb de bytes
+        parts = new Point[32]; //@todo selon nb de bytes
 
         /*for (int i = 0; i < 32; i++)
         {

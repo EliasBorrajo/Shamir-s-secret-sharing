@@ -35,9 +35,9 @@ public class JsonPartsFiles implements StorableFiles
     /**
      * Constructor
      */
-    public JsonPartsFiles(int nbBytes)
+    public JsonPartsFiles()
     {
-        userParts  = new UserParts(nbBytes);
+        userParts  = new UserParts();
         definePathToStoreData();
     }
 

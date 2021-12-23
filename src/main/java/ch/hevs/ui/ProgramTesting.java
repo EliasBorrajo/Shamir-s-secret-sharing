@@ -3,9 +3,9 @@ package ch.hevs.ui;
 import ch.hevs.Maths.LagrangeInterpolation;
 import ch.hevs.errors.BusinessException;
 import ch.hevs.storage.JsonPartsFiles;
-import ch.hevs.tools.RegenerateParts.AssembleParts;
 import ch.hevs.tools.crypt.FileEncryption;
 import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.tools.RegenerateParts.AssembleParts;
 
 import java.io.File;
 
@@ -47,6 +47,7 @@ public class ProgramTesting {
     {
         // objets utiles
 
+        AssembleParts as = new AssembleParts();
         FileEncryption fe = new FileEncryption();
 
         UserParts[] usersParts;
@@ -70,7 +71,7 @@ public class ProgramTesting {
         }
 
         // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
-        AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
+        //AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
 
         // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
         // --> à aller chercher dans la classe AssembleParts
