@@ -1,6 +1,7 @@
 package ch.hevs.ui;
 
 import ch.hevs.errors.BusinessException;
+import ch.hevs.errors.ErrorCode;
 import ch.hevs.storage.JsonPartsFiles;
 import ch.hevs.tools.crypt.FileEncryption;
 import ch.hevs.tools.generateParts.UserParts;
@@ -16,7 +17,9 @@ public class ProgramTesting {
     public static void main(String[] args) throws BusinessException {
         Security.addProvider(new BouncyCastleProvider());
 
-        // Test avec 3 fichiers json pour les part de secrets
+        // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
+
+        // exemple cryptage d'un fichier .pdf
         JsonPartsFiles jpf = new JsonPartsFiles();
 
 
@@ -46,6 +49,7 @@ public class ProgramTesting {
 
         regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, true);*/
 
+        // décryptage du même fichier .pdf avec des users parts différents
         File myPart1 = new File(args[5]);
         File myPart2 = new File(args[6]);
         File myPart3 = new File(args[7]);
@@ -69,11 +73,11 @@ public class ProgramTesting {
         File myFileDecryptEncrypt = new File(args[9]);
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, false);
+        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, false);
 
     }
 
-    public static void regenerateWithGivenParts(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
+    public static void EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
     {
         // objets utiles
 
@@ -83,10 +87,9 @@ public class ProgramTesting {
         UserParts[] usersParts;
         int nbUsersParts;
 
-        String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu du desktop user
-        String absolutePathInputFile = fileToCryptDecrypt.getAbsolutePath();
-        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted.pdf";
-        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted.pdf";
+        String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted.pdf"; // chemin absolu pour le fichier tmp de cryptage
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted.pdf"; // chemin absolu pour le fichier tmp de décryptage
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
@@ -114,17 +117,27 @@ public class ProgramTesting {
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
         if (toEncrypt)
         {
-            fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
-            fileToCryptDecrypt.delete();
+            try {
+                fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
+            } catch (BusinessException e){
+                throw new BusinessException("Failed to encrypt data", ErrorCode.ERROR_ENCRYPTION);
+            }
+
+            fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
         }
         else {
-            fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
+            try {
+                fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
+            } catch (BusinessException e){
+                throw new BusinessException("Failed to decrypt data", ErrorCode.ERROR_DECRYPTION);
+            }
+
             fileToCryptDecrypt.delete();
         }
     }
 
 
-    private static void afficheParts(UserParts[] usersParts){
+    /*private static void afficheParts(UserParts[] usersParts){
         for (int i = 0; i < usersParts.length; i++)
         {
             for (int j = 0; j < 32; j++)
@@ -133,6 +146,6 @@ public class ProgramTesting {
             }
             System.out.println();
         }
-    }
+    }*/
 
 }

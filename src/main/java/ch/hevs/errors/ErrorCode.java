@@ -14,14 +14,15 @@ public enum ErrorCode {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    READING_JSON_STORAGE_GENERATEPART_ERROR(101),
+    //READING_JSON_STORAGE_GENERATEPART_ERROR(101),
     CIPHERTEXT_ERROR(100),
     BAD_PADDING_ERROR(101),
     ILLEGAL_BLOCK_SIZE_ERROR(102),
     CRYPTO_PROVIDER_ERROR(103),
-    KEYSTORE_ERROR(104),
     IO_ERROR(200),
-    INVALID_PARAMETER_ERROR(300);
+    INVALID_PARAMETER_ERROR(300),
+    ERROR_ENCRYPTION(104),
+    ERROR_DECRYPTION(105);
 
     private final int code;
 
