@@ -23,7 +23,7 @@ public abstract class ModularArithmetic
     // A T T R I B U T E S
     //*****************************************************
     private final static int MODULO = 257; // Le modulo à 257 permet de travailler en int sans souci.
-
+    private final static double MODULO_DOUBLE = 257;
     //*****************************************************
     // M E T H O D S
     //*****************************************************
@@ -42,6 +42,13 @@ public abstract class ModularArithmetic
         int result = Math.floorMod((a + b), MODULO);
         return result;
     }
+    /*public static double addition(double a, double b)
+    {
+        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
+
+        double result = Math.floorMod((a + b), MODULO_DOUBLE);
+        return result;
+    }*/
 
     public static int additionMOD(int a, int b, int modulo)
     {
@@ -196,7 +203,9 @@ public abstract class ModularArithmetic
         }
         //si flag est true, alors nombre est premier, sinon non premier
         if (flag)
-            System.out.println("Modulo = " +value + " : Is a prime number");
+        {
+            //System.out.println("Modulo = " +value + " : Is a prime number");
+        }
 
         else
             System.out.println("Modulo = " +value + " : Is not a prime number");

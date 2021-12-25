@@ -24,11 +24,12 @@ public class ProgramTesting {
         /*File myPart1 = new File(args[0]);
         File myPart2 = new File(args[1]);
         File myPart3 = new File(args[2]);
+        File myPart4 = new File(args[3]);
 
-        File[] usersFiles = new File[3];
+        File[] usersFiles = new File[4];
 
         // file à crypter decrypter
-        File myFileDecryptEncrypt = new File(args[3]);
+        File myFileDecryptEncrypt = new File(args[4]);
 
         jpf.read(myPart1);
         //System.out.println(jpf.getUserParts());
@@ -36,16 +37,20 @@ public class ProgramTesting {
         //System.out.println(jpf.getUserParts());
         jpf.read(myPart3);
         //System.out.println(jpf.getUserParts());
+        jpf.read(myPart4);
+        //System.out.println(jpf.getUserParts());
 
         usersFiles[0] = myPart1;
         usersFiles[1] = myPart2;
         usersFiles[2] = myPart3;
+        usersFiles[3] = myPart4;
 
         regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, true);*/
 
-        File myPart1 = new File(args[4]);
-        File myPart2 = new File(args[5]);
-        File myPart3 = new File(args[6]);
+        File myPart1 = new File(args[5]);
+        File myPart2 = new File(args[6]);
+        File myPart3 = new File(args[7]);
+        File myPart4 = new File(args[8]);
 
         jpf.read(myPart1);
         //System.out.println(jpf.getUserParts());
@@ -54,13 +59,15 @@ public class ProgramTesting {
         jpf.read(myPart3);
         //System.out.println(jpf.getUserParts());
 
-        File[] usersFiles = new File[3];
+        File[] usersFiles = new File[4];
 
         usersFiles[0] = myPart1;
         usersFiles[1] = myPart2;
         usersFiles[2] = myPart3;
+        usersFiles[3] = myPart4;
 
-        File myFileDecryptEncrypt = new File(args[7]);
+
+        File myFileDecryptEncrypt = new File(args[9]);
 
         regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt,false);
 

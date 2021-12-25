@@ -13,7 +13,7 @@ public class AssembleParts {
     public AssembleParts() {
         //this.nbBytes = nbBytes;
 
-        sr = new SecretRebuilder[32];
+        sr = new SecretRebuilder[32]; // TODO: 25.12.2021 ne pas hardcoder le 32 
         secret = new byte[32];
         li = new LagrangeInterpolation();
     }
