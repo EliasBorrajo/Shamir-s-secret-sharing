@@ -35,7 +35,6 @@ public class LagrangeInterpolation {
             result = ModularArithmetic.addition(result, term);
             //result += term;
         }
-        System.out.println(result);
 
         return (int) Math.round(result);
 

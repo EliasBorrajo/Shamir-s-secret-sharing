@@ -1,6 +1,5 @@
 package ch.hevs.ui;
 
-import ch.hevs.maths.LagrangeInterpolation;
 import ch.hevs.errors.BusinessException;
 import ch.hevs.storage.JsonPartsFiles;
 import ch.hevs.tools.crypt.FileEncryption;
@@ -68,8 +67,9 @@ public class ProgramTesting {
 
 
         File myFileDecryptEncrypt = new File(args[9]);
+        //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt,false);
+        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, false);
 
     }
 
@@ -85,8 +85,8 @@ public class ProgramTesting {
 
         String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu du desktop user
         String absolutePathInputFile = fileToCryptDecrypt.getAbsolutePath();
-        String absolutePathOutputFile = homePath + "\\fileDecryptedEncrypted.pdf";
-        System.out.println(absolutePathOutputFile);
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted.pdf";
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted.pdf";
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
@@ -114,10 +114,12 @@ public class ProgramTesting {
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
         if (toEncrypt)
         {
-            fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFile));
+            fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
+            fileToCryptDecrypt.delete();
         }
         else {
-            fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFile));
+            fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
+            fileToCryptDecrypt.delete();
         }
     }
 
