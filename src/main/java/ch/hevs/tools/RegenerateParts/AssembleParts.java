@@ -8,13 +8,12 @@ public class AssembleParts {
     private byte[] secret;
     private LagrangeInterpolation li;
     private SecretRebuilder[] sr;
-    //private int nbBytes;
+    private int nbBytes;
 
-    public AssembleParts() {
-        //this.nbBytes = nbBytes;
-
-        sr = new SecretRebuilder[32]; // TODO: 25.12.2021 ne pas hardcoder le 32 
-        secret = new byte[32];
+    public AssembleParts(int nbBytes) {
+        this.nbBytes = nbBytes;
+        sr = new SecretRebuilder[this.nbBytes]; // TODO: 25.12.2021 ne pas hardcoder le 32
+        secret = new byte[this.nbBytes];
         li = new LagrangeInterpolation();
     }
 
@@ -28,7 +27,7 @@ public class AssembleParts {
             // --> rempli la variable shamir parts de chaque objet SecretRebuilder
 
             // applique lagrange sur chaque shamirparts de chaque objet Secretrebuilder pour générer le tableau des secrets de chaque fi()
-            secret[i] = (byte) li.lagrange(sr[i].getShamirParts(), usersParts.length+1); // TODO: 20.12.2021 problème avec le seuil ? comment entrer ce paramètre et le controler ?
+            secret[i] = (byte) li.lagrange(sr[i].getShamirParts(), usersParts.length+1);
         }
     }
 

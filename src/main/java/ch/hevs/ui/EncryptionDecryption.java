@@ -12,7 +12,7 @@ import java.io.File;
 import java.security.Security;
 
 
-public class ProgramTesting {
+public class EncryptionDecryption {
 
     public static void main(String[] args) throws BusinessException {
         Security.addProvider(new BouncyCastleProvider());
@@ -47,7 +47,7 @@ public class ProgramTesting {
         usersFiles[2] = myPart3;
         usersFiles[3] = myPart4;
 
-        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, true);*/
+        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);*/
 
         // décryptage du même fichier .pdf avec des users parts différents
         File myPart1 = new File(args[5]);
@@ -79,11 +79,8 @@ public class ProgramTesting {
 
     public static void EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
     {
-        // objets utiles
 
-        AssembleParts as = new AssembleParts();
         FileEncryption fe = new FileEncryption();
-
         UserParts[] usersParts;
         int nbUsersParts;
 
@@ -111,6 +108,8 @@ public class ProgramTesting {
 
         // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
         // --> à aller chercher dans la classe AssembleParts
+        AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
+
         as.secret(usersParts);
         as.affiche(as.getSecret());
 
