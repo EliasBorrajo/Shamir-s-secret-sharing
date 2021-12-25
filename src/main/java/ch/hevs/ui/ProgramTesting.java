@@ -6,19 +6,22 @@ import ch.hevs.storage.JsonPartsFiles;
 import ch.hevs.tools.crypt.FileEncryption;
 import ch.hevs.tools.generateParts.UserParts;
 import ch.hevs.tools.RegenerateParts.AssembleParts;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.File;
+import java.security.Security;
 
 
 public class ProgramTesting {
 
     public static void main(String[] args) throws BusinessException {
+        Security.addProvider(new BouncyCastleProvider());
 
         // Test avec 3 fichiers json pour les part de secrets
         JsonPartsFiles jpf = new JsonPartsFiles();
 
 
-        File myPart1 = new File(args[0]);
+        /*File myPart1 = new File(args[0]);
         File myPart2 = new File(args[1]);
         File myPart3 = new File(args[2]);
 
@@ -38,7 +41,28 @@ public class ProgramTesting {
         usersFiles[1] = myPart2;
         usersFiles[2] = myPart3;
 
-        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, true);
+        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt, true);*/
+
+        File myPart1 = new File(args[4]);
+        File myPart2 = new File(args[5]);
+        File myPart3 = new File(args[6]);
+
+        jpf.read(myPart1);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart2);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart3);
+        //System.out.println(jpf.getUserParts());
+
+        File[] usersFiles = new File[3];
+
+        usersFiles[0] = myPart1;
+        usersFiles[1] = myPart2;
+        usersFiles[2] = myPart3;
+
+        File myFileDecryptEncrypt = new File(args[7]);
+
+        regenerateWithGivenParts(usersFiles, myFileDecryptEncrypt,false);
 
     }
 
@@ -53,6 +77,9 @@ public class ProgramTesting {
         int nbUsersParts;
 
         String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu du desktop user
+        String absolutePathInputFile = fileToCryptDecrypt.getAbsolutePath();
+        String absolutePathOutputFile = homePath + "\\fileDecryptedEncrypted.pdf";
+        System.out.println(absolutePathOutputFile);
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
@@ -80,12 +107,13 @@ public class ProgramTesting {
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
         if (toEncrypt)
         {
-            fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(homePath));
+            fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFile));
         }
         else {
-            fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(homePath));
+            fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFile));
         }
     }
+
 
     private static void afficheParts(UserParts[] usersParts){
         for (int i = 0; i < usersParts.length; i++)
