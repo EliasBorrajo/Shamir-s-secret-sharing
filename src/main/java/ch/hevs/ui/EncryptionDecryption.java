@@ -111,6 +111,7 @@ public class EncryptionDecryption {
         AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
 
         as.secret(usersParts);
+        System.out.println("Secret :");
         as.affiche(as.getSecret());
 
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
