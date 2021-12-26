@@ -10,12 +10,14 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.File;
 import java.security.Security;
+import java.util.concurrent.TimeUnit;
 
 
 public class EncryptionDecryption {
 
-    public static void main(String[] args) throws BusinessException {
-        Security.addProvider(new BouncyCastleProvider());
+    public static void main(String[] args) throws BusinessException
+    {
+
 
         // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
 
@@ -23,7 +25,7 @@ public class EncryptionDecryption {
         JsonPartsFiles jpf = new JsonPartsFiles();
 
 
-        /*File myPart1 = new File(args[0]);
+        File myPart1 = new File(args[0]);
         File myPart2 = new File(args[1]);
         File myPart3 = new File(args[2]);
         File myPart4 = new File(args[3]);
@@ -47,46 +49,56 @@ public class EncryptionDecryption {
         usersFiles[2] = myPart3;
         usersFiles[3] = myPart4;
 
-        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);*/
+        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
+
+        try
+        {
+            TimeUnit.SECONDS.sleep(25);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
 
         // décryptage du même fichier .pdf avec des users parts différents
-        File myPart1 = new File(args[5]);
-        File myPart2 = new File(args[6]);
-        File myPart3 = new File(args[7]);
-        File myPart4 = new File(args[8]);
+        File myPart11 = new File(args[5]);
+        File myPart22 = new File(args[6]);
+        File myPart33 = new File(args[7]);
+        File myPart44 = new File(args[8]);
 
-        jpf.read(myPart1);
+        jpf.read(myPart11);
         //System.out.println(jpf.getUserParts());
-        jpf.read(myPart2);
+        jpf.read(myPart22);
         //System.out.println(jpf.getUserParts());
-        jpf.read(myPart3);
+        jpf.read(myPart33);
         //System.out.println(jpf.getUserParts());
 
-        File[] usersFiles = new File[4];
+        File[] usersFiles_V2 = new File[4];
 
-        usersFiles[0] = myPart1;
-        usersFiles[1] = myPart2;
-        usersFiles[2] = myPart3;
-        usersFiles[3] = myPart4;
+        usersFiles_V2[0] = myPart11;
+        usersFiles_V2[1] = myPart22;
+        usersFiles_V2[2] = myPart33;
+        usersFiles_V2[3] = myPart44;
 
 
-        File myFileDecryptEncrypt = new File(args[9]);
+        File myFileDecryptEncrypt_V2 = new File(args[9]);
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, false);
+        EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
     }
 
     public static void EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
     {
-
+        Security.addProvider(new BouncyCastleProvider());
         FileEncryption fe = new FileEncryption();
         UserParts[] usersParts;
         int nbUsersParts;
 
+        String extension = readExtensionFile(fileToCryptDecrypt);
+
         String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
-        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted.pdf"; // chemin absolu pour le fichier tmp de cryptage
-        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted.pdf"; // chemin absolu pour le fichier tmp de décryptage
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted."+extension; // chemin absolu pour le fichier tmp de cryptage
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted."+extension; // chemin absolu pour le fichier tmp de décryptage
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
@@ -134,6 +146,23 @@ public class EncryptionDecryption {
 
             fileToCryptDecrypt.delete();
         }
+    }
+
+    /**
+     * Allows to read the extension of a file
+     * @param fileToCryptDecrypt
+     * @return
+     */
+    private static String readExtensionFile(File fileToCryptDecrypt)
+    {
+        System.out.println(fileToCryptDecrypt.getName());
+
+        int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
+        System.out.println(yolo);
+
+        String extension = fileToCryptDecrypt.getName().substring(yolo);
+        System.out.println(extension);
+        return extension;
     }
 
 

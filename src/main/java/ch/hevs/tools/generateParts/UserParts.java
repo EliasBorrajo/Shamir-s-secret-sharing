@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class UserParts
 {
+    private  int threshold = 3; //TODO: 26.12.2021 : MetaData - Donner le threshold pour que à la reconstruction du file, on ne puisse pas encrypter / decrypter sans avoir la valeur du threshold
     private ArrayList<Point> partsByUser; // pos 1 --> part shamir 1 XY
                                  // pos 2 --> part shamir 2 XY
 
@@ -29,6 +30,11 @@ public class UserParts
 
     public ArrayList<Point> getPartsByUser() {
         return partsByUser;
+    }
+
+    public  int getThreshold()
+    {
+        return threshold;
     }
 
     @Override
