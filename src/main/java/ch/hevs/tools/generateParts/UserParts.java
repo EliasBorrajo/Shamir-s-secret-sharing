@@ -17,8 +17,6 @@ public class UserParts
         partsByUser = new Point[nbBytes];
     }
 
-
-
     public Point[] getParts()
     {
         return partsByUser;

@@ -1,5 +1,12 @@
 package ch.hevs.ui;
 
+import ch.hevs.ui.commands.Decrypte;
+import ch.hevs.ui.commands.Generate;
+import picocli.CommandLine;
+
+import java.awt.*;
+import java.util.Scanner;
+
 /**
  * Utilise le package PICOCLI pour faciliter l'USER INTERFACE en ligne de commande.
  *
@@ -17,10 +24,38 @@ package ch.hevs.ui;
  *      - Sortie    : Fichier d'entrée Decrypté OU Encrypté selon choix.
  *      - Process   : Va calculer le secret en interne, il reste en mémoire.
  *
-
  */
+
 public class ClassPicocli
 {
+    public static void main(String[] args) {
+        /**
+         * In the main method of your class, use the CommandLine.execute method bootstrap your application.
+         * This will parse the command line, handle errors, handle requests for usage and version help,
+         * and invoke the business logic.
+         */
 
+        boolean isRunning;
+        boolean choose;
+        Scanner scan = new Scanner(System.in);
+        int exitStatus;
 
+       do{
+            System.out.println("Do you want to generate parts ?");
+            choose = scan.nextBoolean();
+
+            if(choose)
+            {
+                exitStatus = new CommandLine(new Generate()).execute(args);
+            } else {
+                exitStatus = new CommandLine(new Decrypte()).execute(args);
+            }
+            System.out.println("Do you want to continue to use Shamir secret?");
+            isRunning = scan.nextBoolean();
+        }
+        while(isRunning == true);
+
+        System.out.println("Goodbye brotha");
+        System.exit(exitStatus);
+    }
 }
