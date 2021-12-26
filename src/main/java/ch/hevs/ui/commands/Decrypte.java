@@ -3,6 +3,8 @@ package ch.hevs.ui.commands;
 import picocli.CommandLine;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 @CommandLine.Command(
         name = "EncryptDecrypt",
@@ -36,8 +38,21 @@ public class Decrypte implements Runnable{
     //*******************************************************************************
     @Override
     public void run() {
-        System.out.println("Decrypte demarre");
+        Scanner scan = new Scanner(System.in);
+        //A mettre avant?
+        System.out.println("Decrypte/Encrypte runs");
 
         // Code de Jo pour decrypter
+        System.out.println("How many file do you want to use?");
+        int nbParts = scan.nextInt();
+
+        Path[] paths = new Path[nbParts];
+
+        for(int i = 0; i < nbParts; i++)
+        {
+            System.out.println("Enter the path of the file: ");
+
+        }
+
     }
 }

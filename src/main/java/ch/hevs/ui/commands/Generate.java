@@ -37,7 +37,7 @@ public class Generate implements Runnable{
     //*******************************************************************************
     @Override
     public void run() {
-        System.out.println("Generate parts run");
+        System.out.println("Generate parts runs");
 
         GenerateParts gnP = new GenerateParts(bytes, parts, threshold);
     }
