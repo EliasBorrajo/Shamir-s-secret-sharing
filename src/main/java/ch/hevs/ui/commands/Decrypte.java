@@ -38,21 +38,6 @@ public class Decrypte implements Runnable{
     //*******************************************************************************
     @Override
     public void run() {
-        Scanner scan = new Scanner(System.in);
-        //A mettre avant?
         System.out.println("Decrypte/Encrypte runs");
-
-        // Code de Jo pour decrypter
-        System.out.println("How many file do you want to use?");
-        int nbParts = scan.nextInt();
-
-        Path[] paths = new Path[nbParts];
-
-        for(int i = 0; i < nbParts; i++)
-        {
-            System.out.println("Enter the path of the file: ");
-
-        }
-
     }
 }

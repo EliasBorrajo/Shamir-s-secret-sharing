@@ -5,6 +5,8 @@ import ch.hevs.ui.commands.Generate;
 import picocli.CommandLine;
 
 import java.awt.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -36,20 +38,64 @@ public class ClassPicocli
          */
 
         boolean isRunning;
-        boolean choose;
+        int choose;
         Scanner scan = new Scanner(System.in);
         int exitStatus;
 
        do{
-            System.out.println("Do you want to generate parts ?");
-            choose = scan.nextBoolean();
+           System.out.println("Choose option");
+           System.out.println("1) Generate parts");
+           System.out.println("2) Encrypt or Decrypt a file with parts");
+           // Verify that input is an int !
+           while(!scan.hasNextInt())
+           {
+               System.out.println("This option does not exist, try again");
+               scan.next();
+           }
+           choose = scan.nextInt();
 
-            if(choose)
+            switch (choose)
             {
-                exitStatus = new CommandLine(new Generate()).execute(args);
-            } else {
-                exitStatus = new CommandLine(new Decrypte()).execute(args);
+                case 1:
+                    // 1) Texte, dire ce que le user doit rentrer en params, mini mode d'emploi ?
+                    // 2) Scanner des inputs du user, et les donner en args de execute ici
+                    int numberOfparams = 4;
+                    String[] myArgs = new String[numberOfparams];
+                    myArgs[0] = "-g";
+                    System.out.println("Enter number of byte: 16 , 24 or 32");
+                    myArgs[1] = scan.next();
+                    System.out.println("Enter number of parts to generate :");
+                    myArgs[2] = scan.next();
+                    System.out.println("Enter threshold for security");
+                    myArgs[3] = scan.next();
+
+                    exitStatus = new CommandLine(new Generate()).execute(myArgs);
+                    break;
+                case 2:
+                    System.out.println("How many parts do you want to use ? It should be the same amount as the threshold you created them with");
+                    int nbParts = scan.nextInt();
+
+                    Path[] paths = new Path[nbParts];
+
+                    for(int i = 0; i < nbParts; i++)
+                    {
+                        System.out.println("Enter the path of the file: "+i);
+                        String path = scan.next();
+
+                        paths[i] = Paths.get(path);
+                        System.out.println(paths[i].toString());
+                    }
+                    exitStatus = new CommandLine(new Decrypte()).execute(args);
+
+                    break;
+                default:
+                    System.out.println("Invalid option, try again.");
+                    exitStatus = 1; // Code d'erreur obtenue pour ce type d'erreur
+                    break;
+
             }
+
+
             System.out.println("Do you want to continue to use Shamir secret?");
             isRunning = scan.nextBoolean();
         }
