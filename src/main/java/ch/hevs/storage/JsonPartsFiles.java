@@ -46,6 +46,7 @@ public class JsonPartsFiles implements StorableFiles
     // DEFAULT
     public void definePathToStoreData()
     {
+
         // Retrieves the contents of the ENVIRONMENT VARIABLE
         storePath = Config.getConfig().getStorePath();
 
@@ -93,7 +94,8 @@ public class JsonPartsFiles implements StorableFiles
     @Override
     public void write(UserParts parts, String fileName)
     {
-        // TODO : VERIFIER QUE LE DOSSIER N'EXISTE PAS, ET SI IL EXISTE, LE SUPPRIMER ET EN RE,CRéER UN
+        // TODO : VERIFIER QUE LE DOSSIER N'EXISTE PAS, ET SI IL EXISTE, En créer un nouveau
+        // TODO : Donc avoir un dossier Shamir, qui aura des sous dossiers sh1, sh2, sh3 pour chaque fois que on fait générer
         ObjectMapper mapper = new ObjectMapper();
         definePathToStoreData(fileName);
 
