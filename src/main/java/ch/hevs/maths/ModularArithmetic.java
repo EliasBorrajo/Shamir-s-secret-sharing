@@ -468,8 +468,5 @@ public abstract class ModularArithmetic
         System.out.println("GCD is = "+ gcd(3000,256) ); //--> OK
 
          */
-
     }
-
-
 }

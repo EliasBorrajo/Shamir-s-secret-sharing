@@ -93,8 +93,8 @@ public class Polynome
             }
             else {
                 resultY = ModularArithmetic.addition(resultY,
-                            ModularArithmetic.multiplication(coefficients[i],
-                                        ModularArithmetic.power(xCoordinate, i ) ));//result = result + (coef[i]*x^i)
+                        ModularArithmetic.multiplication(coefficients[i],
+                                ModularArithmetic.power(xCoordinate, i ) ));//result = result + (coef[i]*x^i)
             }
         }
 

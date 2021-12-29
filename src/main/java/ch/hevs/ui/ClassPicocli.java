@@ -5,7 +5,6 @@ import ch.hevs.ui.commands.Decrypte;
 import ch.hevs.ui.commands.Generate;
 import picocli.CommandLine;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
