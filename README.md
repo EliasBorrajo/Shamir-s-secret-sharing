@@ -43,7 +43,7 @@ Output: encrypted or decrypted message depending on the chosen operation
 <H2>Manual :</H2>
 <H3>Installation</H3>
 Before use:
-Create an environment variable called "HOME" specific to the user, with the specific path on your machine to store the files.
+Create an environment variable called "SHAMIR" specific to the user, with the specific path on your machine to store the files.
 
 <H2>Synthesis :</H2>
 <table>
