@@ -2,8 +2,12 @@ package ch.hevs.ui.commands;
 
 import ch.hevs.tools.RegenerateParts.EncryptionDecryption;
 import picocli.CommandLine;
-
 import java.io.File;
+
+/**
+ * Picocli informations
+ * Encryption or decryption of a file
+ */
 
 @CommandLine.Command(
         name = "EncryptDecrypt",
@@ -12,9 +16,9 @@ import java.io.File;
         description = "Encrypt or decrypt file.s",
         optionListHeading = "%nOptions are:%n")
 
-public class Decrypte implements Runnable{
+public class Decrypt implements Runnable{
     //*******************************************************************************
-    //  A T T R I B U T S
+    //  A T T R I B U T E S
     //*******************************************************************************
     // Decrypt
     @CommandLine.Option( names = { "-d", "--Decrypt" }, description = "Decrypt secret")

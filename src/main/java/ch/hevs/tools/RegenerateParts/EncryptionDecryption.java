@@ -13,15 +13,111 @@ import java.io.File;
 import java.security.Security;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Methods of encryption or decryption of a file
+ */
 
 public class EncryptionDecryption {
-
-    public static void main(String[] args) throws BusinessException
+    /**
+     * Encryption or decryption of a file
+     * @param usersFiles
+     * @param fileToCryptDecrypt
+     * @param toEncrypt
+     */
+    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
+        Security.addProvider(new BouncyCastleProvider());
+        FileEncryption fe = new FileEncryption();
+        UserParts[] usersParts;
+        int nbUsersParts;
 
+        String extension = readExtensionFile(fileToCryptDecrypt);
 
+        String homePath = Config.getConfig().getStorePath();                               // Environment variable
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted."+extension; // Absolute path for the encryption tmp file
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted."+extension; // Absolute path for the decryption tmp file
+
+        //*** STEP 1: GENERATION OF THE SECRET (BYTES TABLE) FROM THE USERS' PARTS ***
+
+        // 1) Deserialize usersFiles to put them in an array of UserParts[]
+        // Get the number of user shares given as input to the program and create the array of userParts of the right length
+        nbUsersParts = usersFiles.length; // # users' parts
+        usersParts = new UserParts[nbUsersParts];
+
+        JsonPartsFiles jpf = new JsonPartsFiles();
+
+        // Deserialize the user shares to create the userParts objects to put in the table
+        for (int i = 0; i < usersParts.length; i++)
+        {
+            usersParts[i] = jpf.read(usersFiles[i]);
+        }
+
+        // TODO 29.12.2021 JOOO ????? On peut supprimer ou pas?
+        // Initialiser la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
+        // AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
+
+        // 2) Build secret to get the byte array of all secrets (all f())
+        // --> search in the class AssembleParts
+        AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
+
+        as.secret(usersParts);
+        System.out.println("Secret :");
+        as.affiche(as.getSecret());
+
+        // *** STEP 2: CHOOSING THE OPTION AND ENCRYPTING OR DECRYPTING THE FILE
+        if (toEncrypt)
+        {
+            try {
+                fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
+            } catch (BusinessException e) {
+                throw new IllegalArgumentException("Failed to encrypt data : "+e);
+            }
+
+            fileToCryptDecrypt.delete(); // Deleting the old file after execution
+        }
+        else {
+            try {
+                fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
+            } catch (BusinessException e) {
+                throw  new IllegalArgumentException("Failed to decrypt data : " + e);
+            }
+            fileToCryptDecrypt.delete();
+        }
+    }
+
+    /**
+     * Allows to read the extension of a file
+     * @param fileToCryptDecrypt
+     * @return
+     */
+    //TODO 29.12.2021 on fait quoi du yolo ici?
+    private static String readExtensionFile(File fileToCryptDecrypt)
+    {
+        System.out.println(fileToCryptDecrypt.getName());
+
+        int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
+        System.out.println(yolo);
+
+        String extension = fileToCryptDecrypt.getName().substring(yolo);
+        System.out.println(extension);
+        return extension;
+    }
+
+    // TODO 29.12.2021 On garde ou on supprime?
+    /*private static void afficheParts(UserParts[] usersParts){
+        for (int i = 0; i < usersParts.length; i++)
+        {
+            for (int j = 0; j < 32; j++)
+            {
+                System.out.print(usersParts[i].getPartsByUser().get(j));
+            }
+            System.out.println();
+        }
+    }*/
+
+    /*    public static void main(String[] args) throws BusinessException
+    {
         // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
-
         // exemple cryptage d'un fichier .pdf
         JsonPartsFiles jpf = new JsonPartsFiles();
 
@@ -86,98 +182,6 @@ public class EncryptionDecryption {
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
         new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
-
-    }
-
-    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
-    {
-        Security.addProvider(new BouncyCastleProvider());
-        FileEncryption fe = new FileEncryption();
-        UserParts[] usersParts;
-        int nbUsersParts;
-
-        String extension = readExtensionFile(fileToCryptDecrypt);
-
-        String homePath = Config.getConfig().getStorePath();    //System.getenv("SHAMIR"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
-        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted."+extension; // chemin absolu pour le fichier tmp de cryptage
-        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted."+extension; // chemin absolu pour le fichier tmp de décryptage
-
-        //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
-
-        // 1) désérialisation des usersFiles pour les mettres dans un tableau de UserParts[]
-
-        // récupère le nombre de parts utilisateur données en entrée du programme et créer le tableau de userParts de la bonne longueur
-        nbUsersParts = usersFiles.length; // nb de part utilisateur
-        usersParts = new UserParts[nbUsersParts];
-
-        JsonPartsFiles jpf = new JsonPartsFiles();
-
-        // désérialise les parts utilisateurs pour créer les objets userParts à mettre dans le tableau
-        for (int i = 0; i < usersParts.length; i++) {
-            usersParts[i] = jpf.read(usersFiles[i]);
-        }
-
-        // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
-        //AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
-
-        // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
-        // --> à aller chercher dans la classe AssembleParts
-        AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
-
-        as.secret(usersParts);
-        System.out.println("Secret :");
-        as.affiche(as.getSecret());
-
-        // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
-        if (toEncrypt)
-        {
-            try {
-                fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
-            } catch (BusinessException e) {
-                throw new IllegalArgumentException("Failed to encrypt data : "+e);
-            }
-
-            fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
-        }
-        else {
-            try {
-                fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
-            } catch (BusinessException e) {
-                throw  new IllegalArgumentException("Failed to decrypt data : "+e);
-
-            }
-
-            fileToCryptDecrypt.delete();
-        }
-    }
-
-    /**
-     * Allows to read the extension of a file
-     * @param fileToCryptDecrypt
-     * @return
-     */
-    private static String readExtensionFile(File fileToCryptDecrypt)
-    {
-        System.out.println(fileToCryptDecrypt.getName());
-
-        int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
-        System.out.println(yolo);
-
-        String extension = fileToCryptDecrypt.getName().substring(yolo);
-        System.out.println(extension);
-        return extension;
-    }
-
-
-    /*private static void afficheParts(UserParts[] usersParts){
-        for (int i = 0; i < usersParts.length; i++)
-        {
-            for (int j = 0; j < 32; j++)
-            {
-                System.out.print(usersParts[i].getPartsByUser().get(j));
-            }
-            System.out.println();
-        }
     }*/
 
 }

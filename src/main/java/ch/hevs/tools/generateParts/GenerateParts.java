@@ -82,7 +82,6 @@ public class GenerateParts
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
-
     /**
      * Generate secret parts for each person.
      * @param nbrBytesInput : Security value, can be 16, 24, or 32
@@ -129,7 +128,6 @@ public class GenerateParts
      */
     private void generatePartsAndSerialize()
     {
-
         // tableau de polynomes, il va stocker nos coordonées X&Y pour chaque User
         // Taille = nbr de bytes, car nbrBytes = le nombre de fois que on fait shamir secret
         Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
@@ -184,13 +182,11 @@ public class GenerateParts
                 System.out.println();*/
         System.out.println("Parts sucessfully calculated.");
         System.out.println();
-
         System.out.println("Start of serialization, please wait...");
         writePartsToUsersInJSon(polynomes, nbrParts, nbrBytes);
         System.out.println("Serialization done !");
         System.out.println();
     }
-
 
     /**
      * Verifys the input set by the user, if ther is an error, we throw an exeption

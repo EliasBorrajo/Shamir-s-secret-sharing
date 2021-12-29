@@ -1,31 +1,29 @@
 package ch.hevs.ui;
 
 import ch.hevs.parameters.Config;
-import ch.hevs.ui.commands.Decrypte;
+import ch.hevs.ui.commands.Decrypt;
 import ch.hevs.ui.commands.Generate;
 import picocli.CommandLine;
-
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
- * Utilise le package PICOCLI pour faciliter l'USER INTERFACE en ligne de commande.
+ * Using picocli for the command line user interface
  *
- * On va pouvoir avoir 2 option :
+ * 2 options :
+ * 1) Generate secret shares and get files of them.
+ *      - Inputs    : #Bytes (modulo) / #Parts / Threshold (k <= #Parts)
+ *      - Output    : #File based on #Parts. JSON file containing the shares of secrets
+ *      - Process   : The degree of the polynomial will be = threshold k-1, and we will generate the shares a0, a1,..., an-1
+ *                    Then we evaluate f(x) = ax^2 + bx +c (depends on the degree) --> for X
  *
- * 1) Génerer les parts de secrets et en obtenir un fichier.
- *      - Entrées   : #Bytes (modulo) / #Parts (10 employés) / Seuil (k  <= # Parts)
- *      - Sortie    : #Fichier en fonction de #Parts. Fichier JSON contenant les parts de secrets
- *      - Process   : Le degrée du polynome sera = seuil k-1, et nous génerera les parts a0, a1,..., an-1
- *                    Puis on évalue f(x) = ax^2 + bx +c (dépend du degré) --> pour X
  *
+ * 2) Encrypt / Decrypt a file
+ *      - Inputs    : #Parts (in file with their content in code) / File to process / EncryptOrDecrypt
+ *      - Output    : Decrypted or encrypted input file according to choice
+ *      - Process   : calculates the secret internally, it remains in memory
  *
- * 2) Encrypter / Decrypter un fichier
- *      - Entrées   : # Parts(en fichier avec leur contenu en code) / Fichier à traiter / EncryptOrDecrypt
- *      - Sortie    : Fichier d'entrée Decrypté OU Encrypté selon choix.
- *      - Process   : Va calculer le secret en interne, il reste en mémoire.
- *
+ * @author Milena Lonfat
  */
 public class ClassPicocli
 {
@@ -33,12 +31,7 @@ public class ClassPicocli
         System.out.println( "Welcome to the Shamirs Secret Sharing application. \n" +
                 "This app can create parts stored in JSON files, and use those parts to encrypt or decrypt a choosen file.");
 
-        Config.getConfig(); // Verifie que on a la variable d'environnement
-        /**
-         * In the main method of your class, use the CommandLine.execute method bootstrap your application.
-         * This will parse the command line, handle errors, handle requests for usage and version help,
-         * and invoke the business logic.
-         */
+        Config.getConfig(); //Check that the environment variable exists
 
         boolean isRunning;
         int choose;
@@ -46,10 +39,9 @@ public class ClassPicocli
         int exitStatus;
 
         do{
-            System.out.println("Choose option");
-            System.out.println("1) Generate parts");
-            System.out.println("2) Encrypt or Decrypt a file with parts");
-
+            System.out.println("Choose an option\n" +
+                               "1) Generate parts\n" +
+                               "2) Encrypt or Decrypt a file with parts");
             // Verify that input is an int !
             while(!scan.hasNextInt())
             {
@@ -61,8 +53,6 @@ public class ClassPicocli
             switch (choose)
             {
                 case 1:
-                    // 1) Texte, dire ce que le user doit rentrer en params, mini mode d'emploi ?
-                    // 2) Scanner des inputs du user, et les donner en args de execute ici
                     int numberOfparams = 4;
                     String[] myArgs = new String[numberOfparams];
                     myArgs[0] = "-g";
@@ -78,7 +68,6 @@ public class ClassPicocli
 
                     exitStatus = new CommandLine(new Generate()).execute(myArgs);
                     break;
-
 
                 case 2:
                     // NUMBER OF PARTS TO USE           ***********************************
@@ -123,22 +112,19 @@ public class ClassPicocli
                     {
                         System.out.println("Enter the path of the file: "+ i);
                         String path = scan.next();
-
-                        //paths[i] = Paths.get(path);
-
                         myArgs2[1] = myArgs2[1]+Paths.get(path)+" ";
                     }
 
-                    System.out.println("Entrez fichier a crypter");
+                    System.out.println("Enter a file to encrypt/decrypt");
                     String file = scan.next();
                     myArgs2[2] = file;
 
-                    exitStatus = new CommandLine(new Decrypte()).execute(myArgs2);
+                    exitStatus = new CommandLine(new Decrypt()).execute(myArgs2);
 
                     break;
                 default:
                     System.out.println("Invalid option, try again.");
-                    exitStatus = 1; // Code d'erreur obtenue pour ce type d'erreur
+                    exitStatus = 1; // Error code obtained for this type of error
                     break;
 
             }

@@ -3,6 +3,11 @@ package ch.hevs.ui.commands;
 import ch.hevs.tools.generateParts.GenerateParts;
 import picocli.CommandLine;
 
+/**
+ * Picocli informations
+ * Generate parts of Shamir secret
+ */
+
 @CommandLine.Command(
         name = "GenParts",
         mixinStandardHelpOptions = true,
@@ -12,7 +17,7 @@ import picocli.CommandLine;
 
 public class Generate implements Runnable{
     //*******************************************************************************
-    //  A T T R I B U T S
+    //  A T T R I B U T E S
     //*******************************************************************************
 
     // Generate parts
@@ -38,7 +43,6 @@ public class Generate implements Runnable{
     @Override
     public void run() {
         System.out.println("Generate parts runs");
-
         GenerateParts gnP = new GenerateParts(bytes, parts, threshold);
     }
 }

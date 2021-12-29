@@ -1,15 +1,24 @@
 package ch.hevs.maths;
 import java.awt.*;
 
+/**
+ * TODO texte
+ */
 public class LagrangeInterpolation {
     //private ModularArithmetic ma;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
     public LagrangeInterpolation()
     {
         //ma = new ModularArithmetic();
     }
 
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     public int lagrange(Point[] f, int n)
     {
         int result = 0; // Initialize result
@@ -36,6 +45,7 @@ public class LagrangeInterpolation {
         return (int) Math.round(result);
 
     }
+    //TODO main a supprimer?
     public static void main(String[] args)
     {
         // array of known points

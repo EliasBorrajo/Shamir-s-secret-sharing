@@ -2,18 +2,24 @@ package ch.hevs.maths;
 
 import java.security.SecureRandom;
 
+/**
+ * TODO Trouver texte
+ */
 public class Polynome
 {
+    //*****************************************************************************
+    // A T T R I B U T E S
+    //*****************************************************************************
     private final static int MODULO = ModularArithmetic.getMODULO();
-
     private int[] coefficients;
     private int[] xCoordinates;
     private int[] yCoordinates;
-
     private int secret;
-
     private int degree;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
@@ -22,6 +28,9 @@ public class Polynome
         yCoordinates = new int[nbParts];
     }
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     /**
      * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
      * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
@@ -57,9 +66,7 @@ public class Polynome
         for (int i = 0; i < xCoordinates.length; i++)
         {
             xCoordinates[i] = i;
-
         }
-
     }
 
     public void generateParts()
@@ -69,6 +76,7 @@ public class Polynome
         {
             yCoordinates[i] = calculatePolynomial(xCoordinates[i]);
         }
+        // TODO supprimer?
         /*System.out.println();
         System.out.println("SECRET Y --> calculate = "+ yCoordinates[0]);
         System.out.println();*/
@@ -97,7 +105,6 @@ public class Polynome
                                         ModularArithmetic.power(xCoordinate, i ) ));//result = result + (coef[i]*x^i)
             }
         }
-
         return resultY; // Ce sera notre valeur Y de retour !
     }
 
@@ -121,10 +128,10 @@ public class Polynome
             //result = (result * x) + coefficients[i]
             resultY = ModularArithmetic.addition(ModularArithmetic.multiplication(resultY, xCoordinate) , coefficients[i] ) ;
         }
-
         return resultY;
     }
 
+    // TODO UTILE ?
     public static void afficheTab(int[] array)
     {
         for (int i = 0; i < array.length; i++)
@@ -134,9 +141,9 @@ public class Polynome
         System.out.println();
     }
 
-    //*****************************************************
-    // G E T T E R S
-    //*****************************************************
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public int[] getxCoordinates()
     {
         return xCoordinates;

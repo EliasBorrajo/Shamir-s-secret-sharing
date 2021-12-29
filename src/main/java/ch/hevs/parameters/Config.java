@@ -66,7 +66,6 @@ public class Config
                 System.exit(1); // We BRUTALLY quit the app.
             }
         }
-
         // If I arrive here, it is because my file could be created correctly and it EXISTS!
         //System.out.println("DIRECTORY NAME AS : " + storeFile.getName()
                 //+ "\n at location : " + storeFile.getAbsolutePath());
@@ -91,7 +90,7 @@ public class Config
     }
 
     //*****************************************************************************
-    // G E T T E R S
+    // G E T T E R S / S E T T E R S
     //*****************************************************************************
     public String getStorePath()
     {

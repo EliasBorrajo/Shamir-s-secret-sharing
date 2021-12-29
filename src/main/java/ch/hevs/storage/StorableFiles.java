@@ -6,6 +6,9 @@ import ch.hevs.tools.generateParts.UserParts;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * TODO trouver du texte
+ */
 public interface StorableFiles
 {
     /**

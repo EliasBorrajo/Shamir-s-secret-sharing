@@ -1,16 +1,16 @@
 package ch.hevs.storage;
 
-import ch.hevs.errors.BusinessException;
 import ch.hevs.parameters.Config;
 import ch.hevs.tools.generateParts.UserParts;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * TODO trouver texte
+ */
 public class JsonPartsFiles implements StorableFiles
 {
     //*****************************************************************************
@@ -59,6 +59,7 @@ public class JsonPartsFiles implements StorableFiles
         myFile = new File(jsonPath);
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
+
     // WITH GIVEN NAME for the file
     public void definePathToStoreData(String fileName)
     {
@@ -110,8 +111,9 @@ public class JsonPartsFiles implements StorableFiles
         }
     }
 
-    // GETTER, SETTER
-
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public void setMyObj(File myObj) {
         this.myFile = myObj;
     }

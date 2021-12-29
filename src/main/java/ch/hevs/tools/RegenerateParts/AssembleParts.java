@@ -4,13 +4,27 @@ import ch.hevs.maths.LagrangeInterpolation;
 import ch.hevs.maths.SecretRebuilder;
 import ch.hevs.tools.generateParts.UserParts;
 
+/**
+ * Class that assembles users parts
+ */
 
 public class AssembleParts {
+    //*******************************************************************************
+    //  A T T R I B U T E S
+    //*******************************************************************************
     private byte[] secret;
     private LagrangeInterpolation li;
     private SecretRebuilder[] sr;
     private int nbBytes;
 
+
+    //*******************************************************************************
+    //  M E T H O D S
+    //*******************************************************************************
+    /**
+     * Assemble parts
+     * @param nbBytes
+     */
     public AssembleParts(int nbBytes) {
         this.nbBytes = nbBytes;
         sr = new SecretRebuilder[this.nbBytes]; // TODO: 25.12.2021 ne pas hardcoder le 32
@@ -18,7 +32,10 @@ public class AssembleParts {
         li = new LagrangeInterpolation();
     }
 
-    // METHODS
+    /**
+     * Reconstruction of the secret and use of Lagrange
+     * @param usersParts
+     */
     public void secret(UserParts[] usersParts)
     {
         for (int i = 0; i < 32; i++) {
@@ -32,6 +49,7 @@ public class AssembleParts {
         }
     }
 
+    //TODO 29.12.2021 A supprimer?
     public void affiche(byte[] tab)
     {
         for (int i = 0; i < tab.length; i++) {
