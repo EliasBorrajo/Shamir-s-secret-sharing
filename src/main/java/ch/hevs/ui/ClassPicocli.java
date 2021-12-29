@@ -62,10 +62,13 @@ public class ClassPicocli
                     int numberOfparams = 4;
                     String[] myArgs = new String[numberOfparams];
                     myArgs[0] = "-g";
+
                     System.out.println("Enter number of byte: 16 , 24 or 32");
                     myArgs[1] = scan.next();
+
                     System.out.println("Enter number of parts to generate :");
                     myArgs[2] = scan.next();
+
                     System.out.println("Enter threshold for security");
                     myArgs[3] = scan.next();
 
@@ -76,16 +79,28 @@ public class ClassPicocli
                     int nbParts = scan.nextInt();
 
                     Path[] paths = new Path[nbParts];
+                    String[] myArgs2 = new String[nbParts+1];
+                    int cpt = 0;
 
-                    for(int i = 0; i < nbParts; i++)
+                    System.out.println("Do you want to encrypt -e or decrypt -d ?");
+                    myArgs2[0] = scan.next();
+
+                    for(int i = 1; i < nbParts+1; i++)
                     {
                         System.out.println("Enter the path of the file: "+ i);
-                        String path = scan.next();
+                        myArgs2[i] = scan.next();
+                        //String path = scan.next();
 
-                        paths[i] = Paths.get(path);
-                        System.out.println(paths[i].toString());
+                        //paths[i] = Paths.get(path);
+                        //System.out.println(paths[i].toString());
                     }
-                    exitStatus = new CommandLine(new Decrypte()).execute(args);
+
+                    for(int j = 0; j < myArgs2.length; j++)
+                    {
+                        System.out.println("args " + myArgs2[j].toString());
+                    }
+
+                    exitStatus = new CommandLine(new Decrypte()).execute(myArgs2);
 
                     break;
                 default:

@@ -26,12 +26,12 @@ public class Decrypte implements Runnable{
     boolean Encrypt = false;
 
     // Files
-    @CommandLine.Parameters( type = File.class, description = "the files to convert")
+    @CommandLine.Parameters( paramLabel = "FILE", description = "the files to convert")
     File[] files; // picocli infers type from the generic type
 
     // Le fichier à décrypter
-    @CommandLine.Parameters( paramLabel = "<FILE>", description = "the files to convert")
-    private String filePath = ""; // picocli infers type from the generic type
+    //@CommandLine.Parameters( paramLabel = "<FILE>", description = "the files to convert")
+    //private String filePath = ""; // picocli infers type from the generic type
 
     //*******************************************************************************
     //  M E T H O D S
@@ -39,5 +39,7 @@ public class Decrypte implements Runnable{
     @Override
     public void run() {
         System.out.println("Decrypte/Encrypte runs");
+
+
     }
 }
