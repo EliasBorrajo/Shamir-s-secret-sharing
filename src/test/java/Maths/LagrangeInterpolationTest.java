@@ -1,6 +1,6 @@
 package Maths;
 
-import ch.hevs.Maths.LagrangeInterpolation;
+import ch.hevs.maths.LagrangeInterpolation;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

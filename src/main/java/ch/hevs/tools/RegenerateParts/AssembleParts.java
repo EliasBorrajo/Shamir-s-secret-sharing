@@ -1,8 +1,7 @@
 package ch.hevs.tools.RegenerateParts;
 
-import ch.hevs.Maths.LagrangeInterpolation;
-import ch.hevs.Maths.SecretRebuilder;
-import ch.hevs.Maths.*;
+import ch.hevs.maths.LagrangeInterpolation;
+import ch.hevs.maths.SecretRebuilder;
 import ch.hevs.tools.generateParts.UserParts;
 
 

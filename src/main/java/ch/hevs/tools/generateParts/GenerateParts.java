@@ -8,7 +8,7 @@ package ch.hevs.tools.generateParts;
  * Puis on évalue f(x) = ax^2 + bx +c (dépend du degré) --> pour X
  */
 
-import ch.hevs.Maths.Polynome;
+import ch.hevs.maths.Polynome;
 import ch.hevs.storage.JsonPartsFiles;
 
 import java.awt.*;

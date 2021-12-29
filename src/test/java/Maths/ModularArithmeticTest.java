@@ -1,6 +1,6 @@
 package Maths;
 
-import ch.hevs.Maths.ModularArithmetic;
+import ch.hevs.maths.ModularArithmetic;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

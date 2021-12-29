@@ -1,7 +1,6 @@
 package Maths;
 
-import ch.hevs.Maths.SecretRebuilder;
-import org.junit.jupiter.api.Test;
+import ch.hevs.maths.SecretRebuilder;
 
 public class SecretRebuilderTest {
 
