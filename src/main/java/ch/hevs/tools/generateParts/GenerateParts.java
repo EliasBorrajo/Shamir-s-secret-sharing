@@ -1,6 +1,13 @@
 package ch.hevs.tools.generateParts;
 
-/**
+/** ENGLISH
+ * 1) Generate the secret shares and obtain a file.
+ * - Inputs: #Bytes (modulo) / #Parts (10 employees) / Threshold (k <= # Parts)
+ * - Output: #File based on #Parts. JSON file containing the shares of secrets
+ * - Process: The degree of the polynomial will be = threshold k-1, and we will generate the shares a0, a1,..., an-1
+ * Then we evaluate f(x) = ax^2 + bx +c (depends on the degree) --> for X
+ */
+/** FRENCH
  * 1) Génerer les parts de secrets et en obtenir un fichier.
  * - Entrées   : #Bytes (modulo) / #Parts (10 employés) / Seuil (k  <= # Parts)
  * - Sortie    : #Fichier en fonction de #Parts. Fichier JSON contenant les parts de secrets
@@ -10,10 +17,32 @@ package ch.hevs.tools.generateParts;
 
 import ch.hevs.maths.Polynome;
 import ch.hevs.storage.JsonPartsFiles;
-
 import java.awt.*;
 
-/**
+/** ENGLISH
+ * TOOL 1: GENERATE PARTS
+ * Will generate the shares a0, a1 ......
+ *
+ * It is this class that will have to do the SECRET SHAMIR #N times the #Bytes of the bytes array!
+ *
+ * The bytes array will have a modulo of 257 (first #First # above #Bytes).
+ * And will store the answers of the secret parts in its cells.
+ * box [0] --> Part A1
+ *                  Part B1
+ *                  Part C1
+ *
+ * box [1] --> Part A2
+ *                  B2 Share
+ *                  C2 share
+ *
+ * etc... for each box.
+ *
+ * Then all the A shares will make up the file code for share N°1 = A,
+ * then B for part N°2 = B etc...
+ *
+ */
+
+/** FRENCH
  * OUTIL 1 : GENERATE PARTS
  * Va génerer les parts a0, a1 ......
  *
@@ -39,6 +68,9 @@ import java.awt.*;
 
 public class GenerateParts
 {
+    //*****************************************************************************
+    // A T T R I B U T E S
+    //*****************************************************************************
     private int nbrBytes;
     private int nbrParts;
     private int threshold;
@@ -47,9 +79,20 @@ public class GenerateParts
     private static final int BYTESVALUE_24 = 24;
     private static final int BYTESVALUE_32 = 32;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
 
+    /**
+     * Generate secret parts for each person.
+     * @param nbrBytesInput : Security value, can be 16, 24, or 32
+     * @param nbrPartsInput : Number of parts wanted
+     * @param thresholdInput : Number of parts needed to reconstruct the secrets
+     */
     public GenerateParts(int nbrBytesInput, int nbrPartsInput, int thresholdInput)
     {
+        System.out.println();
+        System.out.println("Input parameters verification : ");
         try
         {
             verifyInputs(nbrBytesInput, nbrPartsInput, thresholdInput);
@@ -59,21 +102,31 @@ public class GenerateParts
             System.out.println("COMMAND : \"GENERATE PARTS\" HAS STOPPED BECAUSE OF INVALID PARAMETERS ");
             return;
         }
-
+        System.out.println("Inputs accepted.");
+        System.out.println();
 
         // If we get here, there has been NO ERRORS! So we initialize those parameters in attributes ! :)
         this.nbrBytes = nbrBytesInput;
         this.nbrParts = nbrPartsInput;
         this.threshold= thresholdInput;
 
+        System.out.println("Start of parts generation, please wait...");
         generatePartsAndSerialize();
 
-        System.out.println("OPERATION DONE SUCCESFULLY ! -->  Parts for "+ (nbrParts-1) +" users have been written on yur hardware !");
+        System.out.println("OPERATION DONE SUCCESFULLY ! -->  Parts for "+ (nbrParts-1) +" users and a treshold of "+threshold+" parts needed, have been written on your hardware !");
         System.out.println("Follow the next instructions : ");
         System.out.println("1) For each user, send him only one file named \"User_X\".");
         System.out.println("2) After having send all the files, DESTROY the remaining folder.");
+        System.out.println("3) If you want to re-generate some differents parts again, delete the existing folder created before.");
+        System.out.println();
     }
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
+    /**
+     * Algorithm for generate the parts with shamir
+     */
     private void generatePartsAndSerialize()
     {
 
@@ -111,22 +164,25 @@ public class GenerateParts
             secret[i] = polynomes[i].getSecret();
             //System.out.println("Secret [i="+i+"] = "+secret[i]);
 
-            System.out.println();
-            for (int j = 0; j < nbrParts; j++)
-            {
-                System.out.println("X : " + polynomes[i].getxCoordinates()[j] +
-                        " | Y : " + polynomes[i].getyCoordinates()[j]);
-            }
-            System.out.println();
+            // AFFICHAGE des points Y pour le X correspondant
+                    /*System.out.println();
+                    for (int j = 0; j < nbrParts; j++)
+                    {
+                        System.out.println("X : " + polynomes[i].getxCoordinates()[j] +
+                                " | Y : " + polynomes[i].getyCoordinates()[j]);
+                    }
+                    System.out.println();*/
 
             // Pour chaques users, lui donner le résultat du premier shamir, puis du suivant, jusqu'aux 32 shamirs coordinates
             // On donne shamir 1 à tout le monde, puis shamir 2, puis 3 (Donc dans la boucle dans laquelle on est DEJA)
             // Donc il faut une boucle pour passer sur tous les différents users
 
         }
-        // TODO : CACHER CET AFFICHAGE
-        System.out.println("Secrets are : ");
-        polynomes[0].afficheTab(secret);
+        // AFFICHAGE DE TOUS LES SECRETS
+                /*System.out.println("Secrets are : ");
+                polynomes[0].afficheTab(secret);
+                System.out.println();*/
+        System.out.println("Parts sucessfully calculated.");
         System.out.println();
 
         System.out.println("Start of serialization, please wait...");
@@ -134,6 +190,7 @@ public class GenerateParts
         System.out.println("Serialization done !");
         System.out.println();
     }
+
 
     /**
      * Verifys the input set by the user, if ther is an error, we throw an exeption
@@ -207,9 +264,11 @@ public class GenerateParts
             // On a terminé de setter tous les X&Y de 1 User,
             // on va maintenant donner le tableau de POINTS intermédiaire à USERPARTS
             // pour pouvoir les WRITE / Serialiser
-            users[userIndex] = new UserParts(); // nbrBytes lui dira combien de paire de points il aura au total
-            users[userIndex].setPartsByUser(pairsForUser);
+            users[userIndex] = new UserParts(pairsForUser, threshold); // nbrBytes lui dira combien de paire de points il aura au total
+                    //users[userIndex].setPartsByUser(pairsForUser);
+                    //users[userIndex].setThreshold(threshold);
 
+            // TODO : SET userParts threshold
             // Maintenant que tous les users de la Classe UserParts ont leur coordonnées,
             // on peut write/serialiser chaque user dans un fichier JSON
             JsonPartsFiles json = new JsonPartsFiles();
@@ -218,6 +277,9 @@ public class GenerateParts
         }
     }
 
+    //*****************************************************************************
+    // M A I N   -   T E S T I N G
+    //*****************************************************************************
     public static void main(String[] args)
     {
         System.out.println("START");
@@ -225,59 +287,5 @@ public class GenerateParts
         System.out.println("END");
     }
 
-    /**
-     * TENTATIVE DE CRéER UN SEULE FOIS LE SCHAMIR SECRET POUR PLUSIEURS USERS
-     * @param nbrBytes
-     * @param nbrParts
-     * @param threshold
-     */
-    public void GenerateParts_SINGLE(int nbrBytes, int nbrParts, int threshold)
-    {
-        //MAJ 26.11
-        // On va stocker 32 fois notre secret de Y dans un tableau de int[],
-        // nbrBytes sera le nombre de fois que on fait shamir secret, et que on stocke le secret.
-        // On en aura besoin de 16 ou 32 pour le cryptage
-
-        Polynome polynome = new Polynome(nbrParts, threshold); // Stockera x & y.
-        //byte[] secret = new byte[nbrBytes]; //va stocker les secrets f1(0)
-        int[] secret = new int[nbrBytes];
-
-
-        //1) generate coefficients & xCoordinates to evalue
-        polynome.generateCoefficient();
-        System.out.println("Coefficients : ");
-        polynome.afficheTab(polynome.getCoefficients());
-
-        polynome.xGenerator();
-        System.out.println("X Coordinates : ");
-        polynome.afficheTab(polynome.getxCoordinates());
-
-        //2) crééer courbe / polynome
-        //3) resoudre pour x=0, x=1--> User 1, X=2--> 2 ....etc....
-        polynome.generateParts();
-        System.out.println("Y Coordinates : ");
-        polynome.afficheTab(polynome.getyCoordinates());
-
-        //4 stocker resultat x & y de tous dans tableau hors de cette boucle
-        // position[1] = user1
-        // position[2] = user2
-        System.out.println();
-        for (int j = 0; j < nbrParts; j++)
-        {
-            System.out.println("X : " + polynome.getxCoordinates()[j] +
-                    " | Y : " + polynome.getyCoordinates()[j]);
-        }
-        System.out.println();
-
-        // @Todo : Faire ce processus nbrbytes de fois, et stocker dans tableau de int[] mes secrets y0
-        // @Todo : Et en plus de stocker le secret, recuperer les coordonnées X & Y dans un tableau de POINTS pour les donner à la sérialisation
-
-        // write all 32 informations of Y in files for Users
-        //{
-        // X[()pour user 1, sera touours 1];
-        // Y[f1(x)= 4, f2(x)=23];
-        //}
-
-    }
 
 }
