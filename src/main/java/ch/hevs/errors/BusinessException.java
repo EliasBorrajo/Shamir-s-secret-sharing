@@ -1,13 +1,13 @@
 package ch.hevs.errors;
 
-import java.io.Serial;
+//import java.io.Serial;
 
 public class BusinessException extends Throwable
 {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    @Serial
+    //@Serial
     private static final long serialVersionUID = -446022369330950597L;
 
     private final ErrorCode errorCode;
