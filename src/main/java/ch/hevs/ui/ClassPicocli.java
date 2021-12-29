@@ -81,6 +81,19 @@ public class ClassPicocli
 
 
                 case 2:
+
+                    String[] myArgs2 = new String[3];
+
+                    System.out.println("Do you want to encrypt -e or decrypt -d the file ?");
+                    // Verify that input is an -e or -d !
+                    while(!scan.hasNext("-e") && !scan.hasNext("-d") )
+                    {
+                        System.out.println("This option does not exist, try again");
+                        scan.next();
+                    }
+                    myArgs2[0] = scan.next();
+
+
                     // NUMBER OF PARTS TO USE           ***********************************
                     System.out.println("How many parts do you want to use ? It should be the same amount as the threshold you created them with");
                     // Verify that input is integer !
@@ -99,21 +112,6 @@ public class ClassPicocli
                             System.out.println("Number of parts to use can be between 2 and 2'000'000, re-try !");
                         }
                     }while (nbParts<2 || nbParts>2000000);
-
-                    //Path[] paths = new Path[nbParts];
-
-
-
-                    String[] myArgs2 = new String[3];
-
-                    System.out.println("Do you want to encrypt -e or decrypt -d the file ?");
-                    // Verify that input is an -e or -d !
-                    while(!scan.hasNext("-e") && !scan.hasNext("-d") )
-                    {
-                        System.out.println("This option does not exist, try again");
-                        scan.next();
-                    }
-                    myArgs2[0] = scan.next();
 
 
                     // PARTS ON THE DRIVE TO SELECT     ***********************************
