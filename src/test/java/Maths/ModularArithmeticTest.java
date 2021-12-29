@@ -11,8 +11,14 @@ public class ModularArithmeticTest {
     @Test
     public void addition()
     {
-       assertThrows(ArithmeticException.class, () -> ModularArithmetic.addition(5,2));
+       //assertThrows(ArithmeticException.class, () -> ModularArithmetic.addition(5,2));
        assertEquals(7, ModularArithmetic.addition(5,2));
+
+       assertEquals(7, ModularArithmetic.additionMOD(5,2,8));
+       assertEquals(0, ModularArithmetic.additionMOD(5,3,8));
+       assertEquals(1, ModularArithmetic.additionMOD(5,4,8));
+       assertEquals(2, ModularArithmetic.additionMOD(5,5,8));
+
     }
 
     @Test

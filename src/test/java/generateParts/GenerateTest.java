@@ -1,14 +1,28 @@
 package generateParts;
 
-import ch.hevs.tools.generateParts.GenerateParts;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GenerateTest {
 
     //Utilisateur qui rentre mauvaise données
     @Test
     public void scenarios(){
-        assertEquals( true, new GenerateParts(32, 10,5));
+    /*    String[] userInputs = {"32", "10", "5"};
+
+        // Si il y a une erreur, mettre le flag à true
+        if (condition)
+        {
+            //generate parts
+        }
+        else{
+            //sinon flag à false
+        }
+
+        //assertEquals(true, flag);
+
+
+        //assertEquals( true, new GenerateParts(32, 10,5));
+        //assertEquals( true, new GenerateParts(32, 10,5));
+*/
     }
 }
