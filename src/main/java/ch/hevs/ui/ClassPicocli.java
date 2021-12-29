@@ -79,7 +79,7 @@ public class ClassPicocli
 
                     for(int i = 0; i < nbParts; i++)
                     {
-                        System.out.println("Enter the path of the file: "+i);
+                        System.out.println("Enter the path of the file: "+ i);
                         String path = scan.next();
 
                         paths[i] = Paths.get(path);
@@ -94,8 +94,6 @@ public class ClassPicocli
                     break;
 
             }
-
-
             System.out.println("Do you want to continue to use Shamir secret?");
             isRunning = scan.nextBoolean();
         }
