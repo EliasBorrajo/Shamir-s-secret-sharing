@@ -1,6 +1,6 @@
 package ch.hevs.ui.commands;
 
-import ch.hevs.ui.EncryptionDecryption;
+import ch.hevs.tools.RegenerateParts.EncryptionDecryption;
 import picocli.CommandLine;
 
 import java.io.File;
@@ -25,8 +25,8 @@ public class Decrypte implements Runnable{
     boolean Encrypt = true;
 
     // Files
-    @CommandLine.Parameters( paramLabel = "FILE", description = "the files to convert")
-    File[] files; // picocli infers type from the generic type
+    @CommandLine.Option( names = { "-f", "--FILE"}, split = ",", paramLabel = "FILE", description = "the files to convert")
+    String[] filePaths;
 
     // Le fichier à décrypter
     @CommandLine.Parameters( paramLabel = "<FILE>", description = "the files to convert")
@@ -37,7 +37,13 @@ public class Decrypte implements Runnable{
     //*******************************************************************************
     @Override
     public void run() {
-        
+
+        File[] files = new File[filePaths.length];
+
+        for (int i = 0; i < files.length; i++) {
+            files[i] = new File(filePaths[i]);
+        }
+
         System.out.println("Decrypte/Encrypte runs");
         if(Encrypt){
             EncryptionDecryption encryption = new EncryptionDecryption(files,file,Encrypt);

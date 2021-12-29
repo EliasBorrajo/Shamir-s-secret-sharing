@@ -1,4 +1,4 @@
-package ch.hevs.ui;
+package ch.hevs.tools.RegenerateParts;
 
 import ch.hevs.errors.BusinessException;
 import ch.hevs.errors.ErrorCode;
