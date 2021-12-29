@@ -1,5 +1,6 @@
 package ch.hevs.ui;
 
+import ch.hevs.parameters.Config;
 import ch.hevs.ui.commands.Decrypte;
 import ch.hevs.ui.commands.Generate;
 import picocli.CommandLine;
@@ -29,6 +30,10 @@ import java.util.Scanner;
 public class ClassPicocli
 {
     public static void main(String[] args) {
+        System.out.println( "Welcome to the Shamirs Secret Sharing application. \n" +
+                "This app can create parts stored in JSON files, and use those parts to encrypt or decrypt a choosen file.");
+
+        Config.getConfig(); // Verifie que on a la variable d'environnement
         /**
          * In the main method of your class, use the CommandLine.execute method bootstrap your application.
          * This will parse the command line, handle errors, handle requests for usage and version help,
@@ -44,6 +49,7 @@ public class ClassPicocli
             System.out.println("Choose option");
             System.out.println("1) Generate parts");
             System.out.println("2) Encrypt or Decrypt a file with parts");
+
             // Verify that input is an int !
             while(!scan.hasNextInt())
             {
@@ -72,23 +78,53 @@ public class ClassPicocli
 
                     exitStatus = new CommandLine(new Generate()).execute(myArgs);
                     break;
-                case 2:
-                    System.out.println("How many parts do you want to use ? It should be the same amount as the threshold you created them with");
-                    int nbParts = scan.nextInt();
 
-                    Path[] paths = new Path[nbParts];
+
+                case 2:
+                    // NUMBER OF PARTS TO USE           ***********************************
+                    System.out.println("How many parts do you want to use ? It should be the same amount as the threshold you created them with");
+                    // Verify that input is integer !
+                    int nbParts;
+                    do
+                    {
+                        while(!scan.hasNextInt() )
+                        {
+                            System.out.println("Number of parts to use entered is too low or too high, or your value contains letters.");
+                            System.out.println("Remember, it should be the same amount of parts as our threshold value !");
+                            scan.next();
+                        }
+                        nbParts = scan.nextInt();
+                        if (nbParts<2 || nbParts>2000000)
+                        {
+                            System.out.println("Number of parts to use can be between 2 and 2'000'000, re-try !");
+                        }
+                    }while (nbParts<2 || nbParts>2000000);
+
+                    //Path[] paths = new Path[nbParts];
+
+
+
                     String[] myArgs2 = new String[3];
 
-                    System.out.println("Do you want to encrypt -e or decrypt -d ?");
+                    System.out.println("Do you want to encrypt -e or decrypt -d the file ?");
+                    // Verify that input is an -e or -d !
+                    while(!scan.hasNext("-e") && !scan.hasNext("-d") )
+                    {
+                        System.out.println("This option does not exist, try again");
+                        scan.next();
+                    }
                     myArgs2[0] = scan.next();
+
+
+                    // PARTS ON THE DRIVE TO SELECT     ***********************************
                     myArgs2[1] = "";
 
-                    for(int i = 0; i < paths.length; i++)
+                    for(int i = 0; i < nbParts/*paths.length*/; i++)
                     {
                         System.out.println("Enter the path of the file: "+ i);
                         String path = scan.next();
 
-                        paths[i] = Paths.get(path);
+                        //paths[i] = Paths.get(path);
 
                         myArgs2[1] = myArgs2[1]+Paths.get(path)+" ";
                     }
@@ -106,7 +142,15 @@ public class ClassPicocli
                     break;
 
             }
-            System.out.println("Do you want to continue to use Shamir secret?");
+
+            System.out.println();
+            System.out.println("DO YOU WANT TO CONTINUE TO USE SHAMIRS SECRET SHARING APP ?");
+            // Verify that input is an int !
+            while (!scan.hasNextBoolean())
+            {
+                System.out.println("Choose between true / false !");
+                scan.next();
+            }
             isRunning = scan.nextBoolean();
         }
         while(isRunning == true);

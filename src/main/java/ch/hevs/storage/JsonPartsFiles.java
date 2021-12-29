@@ -76,7 +76,7 @@ public class JsonPartsFiles implements StorableFiles
     }
 
     @Override
-    public UserParts read(File file) throws BusinessException
+    public UserParts read(File file)
     {
         ObjectMapper mapper = new ObjectMapper();
         try
@@ -85,7 +85,8 @@ public class JsonPartsFiles implements StorableFiles
         } catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
-            ioException.printStackTrace();
+            throw new IllegalArgumentException("READ FILES HAS FAILED : "+ioException);
+            //ioException.printStackTrace();
             //throw new BusinessException("An error occurred while READING JSON STORAGE PARTS.", ErrorCode.READING_JSON_STORAGE_PART_ERROR);
         }
         return userParts;

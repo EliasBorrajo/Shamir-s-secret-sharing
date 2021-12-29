@@ -14,7 +14,7 @@ public interface StorableFiles
      * @throws BusinessException
      * @throws IOException
      */
-    UserParts read(File file) throws BusinessException, IOException;
+    UserParts read(File file);
 
     /**
      * Write JSON File

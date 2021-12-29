@@ -48,7 +48,7 @@ public class Decrypte implements Runnable{
         }
         if(decrypt) {
             System.out.println("Decrypt runs");
-            EncryptionDecryption decryption = new EncryptionDecryption(files,file,decrypt);
+            EncryptionDecryption decryption = new EncryptionDecryption(files,file,!decrypt);
         }
     }
 }

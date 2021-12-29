@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class EncryptionDecryption {
-
-/*    public static void main(String[] args) throws BusinessException
+/*
+    public static void main(String[] args) throws BusinessException
     {
         // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
 
@@ -48,11 +48,11 @@ public class EncryptionDecryption {
         usersFiles[2] = myPart3;
         usersFiles[3] = myPart4;
 
-        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
+        new EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
 
         try
         {
-            TimeUnit.SECONDS.sleep(25);
+            TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e)
         {
             e.printStackTrace();
@@ -82,9 +82,11 @@ public class EncryptionDecryption {
         File myFileDecryptEncrypt_V2 = new File(args[9]);
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
+        new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
-    }*/
+    }
+
+ */
 
     public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
@@ -111,11 +113,7 @@ public class EncryptionDecryption {
 
         // désérialise les parts utilisateurs pour créer les objets userParts à mettre dans le tableau
         for (int i = 0; i < usersParts.length; i++) {
-            try {
-                usersParts[i] = jpf.read(usersFiles[i]);
-            } catch (BusinessException e) {
-                e.printStackTrace();
-            }
+            usersParts[i] = jpf.read(usersFiles[i]);
         }
 
         // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
@@ -165,8 +163,8 @@ public class EncryptionDecryption {
 
         int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
         System.out.println(yolo);
-
         String extension = fileToCryptDecrypt.getName().substring(yolo);
+
         System.out.println(extension);
         return extension;
     }
