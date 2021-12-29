@@ -45,8 +45,70 @@
             <artifactId>picocli</artifactId>
             <version>4.6.1</version>
         </dependency>
-
     </dependencies>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <!-- Rajouter le Num de version  dans les PROPERTIES-->
+                <executions>
+                    <execution>
+                        <id>build-Shamir</id> <!--TODO : Changer le ID -->
+                        <configuration>
+                            <!-- Donner le NOM du PROJET -->
+                            <finalName>ShamirSecret</finalName>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>                                <manifest>
+                                <addClasspath>true</addClasspath>
+                                <!-- Le chemin d'accès à notre MAIN -->
+                                <mainClass>ch.hevs.smartphone.structure.SmartphoneDemo</mainClass>
+                            </manifest>
+                            </archive>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Permet de NE PAS générer le SNAPSHOT, qui lui est le JAR SANS les dependencies, qui ne FONCTIONNERAIT donc PAS -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <!-- Rajouter le Num de version  dans les PROPERTIES-->
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Permet de génerer la JAVADOC -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                jar
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- <configuration>
+                 <show>private</show>
+                       <nohelp>true</nohelp>
+                                  </configuration> -->
+            </plugin>
+        </plugins>
+    </build>
 </project>

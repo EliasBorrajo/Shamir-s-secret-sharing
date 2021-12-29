@@ -82,19 +82,16 @@ public class ClassPicocli
                     System.out.println("Do you want to encrypt -e or decrypt -d ?");
                     myArgs2[0] = scan.next();
                     myArgs2[1] = "";
+
                     for(int i = 0; i < paths.length; i++)
                     {
                         System.out.println("Enter the path of the file: "+ i);
                         String path = scan.next();
 
                         paths[i] = Paths.get(path);
-                        System.out.println(paths[i].toString());
 
                         myArgs2[1] = myArgs2[1]+Paths.get(path)+" ";
                     }
-                    System.out.println(paths.toString());
-
-
 
                     System.out.println("Entrez fichier a crypter");
                     String file = scan.next();
@@ -114,7 +111,7 @@ public class ClassPicocli
         }
         while(isRunning == true);
 
-        System.out.println("Goodbye brotha");
+        System.out.println("Goodbye");
         System.exit(exitStatus);
     }
 }

@@ -18,38 +18,37 @@ public class Decrypte implements Runnable{
     //*******************************************************************************
     // Decrypt
     @CommandLine.Option( names = { "-d", "--Decrypt" }, description = "Decrypt secret")
-    boolean Decrypt = false;
+    boolean decrypt;
 
     // Encrypt
     @CommandLine.Option( names = { "-e", "--Encrypt" }, description = "Decrypt secret")
-    boolean Encrypt = true;
+    boolean encrypt;
 
     // Files
-    @CommandLine.Option( names = { "-f", "--FILE"}, split = ",", paramLabel = "FILE", description = "the files to convert")
-    String[] filePaths;
-
-    // Le fichier à décrypter
-    @CommandLine.Parameters( paramLabel = "<FILE>", description = "the files to convert")
-    File file;
+    @CommandLine.Parameters( split = " ", paramLabel = "FILE", description = "the files")
+    String[] filesPath;
 
     //*******************************************************************************
     //  M E T H O D S
     //*******************************************************************************
     @Override
     public void run() {
+        File file = new File(filesPath[filesPath.length-1]);
 
-        File[] files = new File[filePaths.length];
+        File[] files = new File[filesPath.length-1];
 
-        for (int i = 0; i < files.length; i++) {
-            files[i] = new File(filePaths[i]);
+        for(int i = 0; i < filesPath.length-1; i++)
+        {
+            files[i] = new File(filesPath[i]);
         }
 
-        System.out.println("Decrypte/Encrypte runs");
-        if(Encrypt){
-            EncryptionDecryption encryption = new EncryptionDecryption(files,file,Encrypt);
+        if(encrypt){
+            System.out.println("Encrypt runs");
+            EncryptionDecryption encryption = new EncryptionDecryption(files,file,encrypt);
         }
-        else {
-            EncryptionDecryption decryption = new EncryptionDecryption(files,file,Decrypt);
+        if(decrypt) {
+            System.out.println("Decrypt runs");
+            EncryptionDecryption decryption = new EncryptionDecryption(files,file,decrypt);
         }
     }
 }
