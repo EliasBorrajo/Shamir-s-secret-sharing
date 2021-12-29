@@ -1,4 +1,4 @@
-package ch.hevs.maths;
+package ch.hevs.Maths;
 
 import java.math.BigInteger;
 
@@ -172,7 +172,7 @@ public abstract class ModularArithmetic
      * @param b
      * @return
      */
-    private static int gcd(int a, int b)
+    public static int gcd(int a, int b)
     {
         // Finitude
         if (b == 0)
@@ -184,7 +184,7 @@ public abstract class ModularArithmetic
         return gcd(b, a % b);
     }
 
-    private static boolean isPrime(int value)
+    public static boolean isPrime(int value)
     {
         int reste;
         boolean flag = true; // Returne True if value is a Prime-Number

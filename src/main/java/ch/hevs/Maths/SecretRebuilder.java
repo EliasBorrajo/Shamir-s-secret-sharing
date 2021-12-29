@@ -1,4 +1,4 @@
-package ch.hevs.maths;
+package ch.hevs.Maths;
 
 import ch.hevs.tools.generateParts.UserParts;
 import java.awt.*;

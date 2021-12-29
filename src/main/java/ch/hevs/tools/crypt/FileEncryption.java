@@ -15,7 +15,7 @@ import java.security.*;
 
 public class FileEncryption {
 
-    public void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
+    public static void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
         Cipher cipher;
 
         try {
@@ -60,7 +60,7 @@ public class FileEncryption {
         }
     }
 
-    public void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
+    public static void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
 
         Cipher cipher;
 

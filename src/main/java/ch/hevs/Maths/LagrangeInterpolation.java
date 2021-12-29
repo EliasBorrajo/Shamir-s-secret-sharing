@@ -1,6 +1,5 @@
-package ch.hevs.maths;
+package ch.hevs.Maths;
 
-import ch.hevs.maths.ModularArithmetic;
 
 import java.awt.*;
 
@@ -13,7 +12,7 @@ public class LagrangeInterpolation {
     }
 
 
-    public int lagrange(Point[] f, int n)
+    public static int lagrange(Point[] f, int n)
     {
         int result = 0; // Initialize result
 
