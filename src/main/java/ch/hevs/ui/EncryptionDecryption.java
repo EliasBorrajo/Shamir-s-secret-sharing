@@ -15,10 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 public class EncryptionDecryption {
 
-    public static void main(String[] args) throws BusinessException
+/*    public static void main(String[] args) throws BusinessException
     {
-
-
         // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
 
         // exemple cryptage d'un fichier .pdf
@@ -86,9 +84,9 @@ public class EncryptionDecryption {
 
         EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
-    }
+    }*/
 
-    public static void EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
+    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
         Security.addProvider(new BouncyCastleProvider());
         FileEncryption fe = new FileEncryption();
@@ -113,7 +111,11 @@ public class EncryptionDecryption {
 
         // désérialise les parts utilisateurs pour créer les objets userParts à mettre dans le tableau
         for (int i = 0; i < usersParts.length; i++) {
-            usersParts[i] = jpf.read(usersFiles[i]);
+            try {
+                usersParts[i] = jpf.read(usersFiles[i]);
+            } catch (BusinessException e) {
+                e.printStackTrace();
+            }
         }
 
         // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
@@ -130,10 +132,12 @@ public class EncryptionDecryption {
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
         if (toEncrypt)
         {
+
             try {
                 fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
-            } catch (BusinessException e){
-                throw new BusinessException("Failed to encrypt data", ErrorCode.ERROR_ENCRYPTION);
+            } catch (BusinessException e) {
+                throw  new IllegalArgumentException("Failed to encrypt data : "+e);
+
             }
 
             fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
@@ -141,8 +145,9 @@ public class EncryptionDecryption {
         else {
             try {
                 fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
-            } catch (BusinessException e){
-                throw new BusinessException("Failed to decrypt data", ErrorCode.ERROR_DECRYPTION);
+            } catch (BusinessException e) {
+                throw  new IllegalArgumentException("Failed to decrypt data : "+e);
+
             }
 
             fileToCryptDecrypt.delete();
