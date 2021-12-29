@@ -1,7 +1,8 @@
-package ch.hevs.ui;
+package ch.hevs.tools.RegenerateParts;
 
 import ch.hevs.errors.BusinessException;
 import ch.hevs.errors.ErrorCode;
+import ch.hevs.parameters.Config;
 import ch.hevs.storage.JsonPartsFiles;
 import ch.hevs.tools.crypt.FileEncryption;
 import ch.hevs.tools.generateParts.UserParts;
@@ -50,7 +51,7 @@ public class EncryptionDecryption {
         usersFiles[2] = myPart3;
         usersFiles[3] = myPart4;
 
-        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
+        new EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
 
         try
         {
@@ -84,11 +85,11 @@ public class EncryptionDecryption {
         File myFileDecryptEncrypt_V2 = new File(args[9]);
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
+        new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
     }
 
-    public static void EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) throws BusinessException
+    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
         Security.addProvider(new BouncyCastleProvider());
         FileEncryption fe = new FileEncryption();
@@ -97,7 +98,7 @@ public class EncryptionDecryption {
 
         String extension = readExtensionFile(fileToCryptDecrypt);
 
-        String homePath = System.getenv("HOME"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
+        String homePath = Config.getConfig().getStorePath();    //System.getenv("SHAMIR"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
         String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted."+extension; // chemin absolu pour le fichier tmp de cryptage
         String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted."+extension; // chemin absolu pour le fichier tmp de décryptage
 
@@ -132,8 +133,8 @@ public class EncryptionDecryption {
         {
             try {
                 fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
-            } catch (BusinessException e){
-                throw new BusinessException("Failed to encrypt data", ErrorCode.ERROR_ENCRYPTION);
+            } catch (BusinessException e) {
+                throw new IllegalArgumentException("Failed to encrypt data : "+e);
             }
 
             fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
@@ -141,8 +142,9 @@ public class EncryptionDecryption {
         else {
             try {
                 fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
-            } catch (BusinessException e){
-                throw new BusinessException("Failed to decrypt data", ErrorCode.ERROR_DECRYPTION);
+            } catch (BusinessException e) {
+                throw  new IllegalArgumentException("Failed to decrypt data : "+e);
+
             }
 
             fileToCryptDecrypt.delete();
