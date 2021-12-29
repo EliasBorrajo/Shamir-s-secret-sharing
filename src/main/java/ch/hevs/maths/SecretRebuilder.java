@@ -3,7 +3,8 @@ package ch.hevs.maths;
 import ch.hevs.tools.generateParts.UserParts;
 import java.awt.*;
 
-public class SecretRebuilder {
+public class SecretRebuilder //TODO : Doit aller dans package STORAGE
+{
     private Point[] shamirParts;
 
     // indexParts Sera la colonne, donc le IndexShamir

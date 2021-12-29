@@ -14,8 +14,9 @@ import java.security.Security;
 import java.util.concurrent.TimeUnit;
 
 
-public class EncryptionDecryption {
-
+public class EncryptionDecryption
+{
+/*
     public static void main(String[] args) throws BusinessException
     {
 
@@ -88,7 +89,7 @@ public class EncryptionDecryption {
         new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
     }
-
+*/
     public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
         Security.addProvider(new BouncyCastleProvider());
@@ -134,7 +135,7 @@ public class EncryptionDecryption {
             try {
                 fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
             } catch (BusinessException e) {
-                throw new IllegalArgumentException("Failed to encrypt data : "+e);
+                throw new IllegalArgumentException("FAILED TO ENCRYPT DATA : "+e);
             }
 
             fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
@@ -143,7 +144,7 @@ public class EncryptionDecryption {
             try {
                 fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
             } catch (BusinessException e) {
-                throw  new IllegalArgumentException("Failed to decrypt data : "+e);
+                throw  new IllegalArgumentException("FAILED TO DECRYPT DATA : "+e);
 
             }
 

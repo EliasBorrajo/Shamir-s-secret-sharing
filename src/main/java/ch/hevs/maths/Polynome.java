@@ -2,7 +2,7 @@ package ch.hevs.maths;
 
 import java.security.SecureRandom;
 
-public class Polynome
+public class Polynome //TODO : Doit aller dans package GENERATEparts
 {
     private final static int MODULO = ModularArithmetic.getMODULO();
 

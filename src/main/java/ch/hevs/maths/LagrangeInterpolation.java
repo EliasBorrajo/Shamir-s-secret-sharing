@@ -10,7 +10,7 @@ public class LagrangeInterpolation {
     }
 
 
-    public int lagrange(Point[] f, int n)
+    public int lagrange(Point[] f, int n) //@TODO : JO- Question, pourquoi ici n = Nbytes et non le threshold ?
     {
         int result = 0; // Initialize result
 
@@ -20,7 +20,7 @@ public class LagrangeInterpolation {
             int term = f[i].y;
             for (int j = 0; j < n-1; j++) {
                 if (j != i) {
-                    term = ModularArithmetic.division(ModularArithmetic.multiplication(term, f[j].x), // TODO: 23.12.2021 checker que les calculs marchent en modulo 
+                    term = ModularArithmetic.division(ModularArithmetic.multiplication(term, f[j].x),
                             ModularArithmetic.soustraction(f[i].x, f[j].x));
                     
                     //term = term * f[j].x / (f[i].x - f[j].x);
