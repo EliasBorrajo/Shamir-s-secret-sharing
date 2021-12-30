@@ -4,11 +4,11 @@ import ch.hevs.maths.LagrangeInterpolation;
 import ch.hevs.storage.UserParts;
 
 /**
- * TODO completer
- * Class that assembles users parts
+ * Class that assembles users parts and apply a lagrange algorithm for final secret generation
+ *
+ * @author Jonathan Bourquin
  */
-public class AssembleParts
-{
+public class AssembleParts {
     //*******************************************************************************
     //  A T T R I B U T E S
     //*******************************************************************************
@@ -21,8 +21,10 @@ public class AssembleParts
     //*******************************************************************************
     //  C O N S T R U C T O R
     //*******************************************************************************
+
     /**
      * Assemble parts
+     *
      * @param nbBytes
      */
     public AssembleParts(int nbBytes) {
@@ -35,14 +37,14 @@ public class AssembleParts
     //*******************************************************************************
     //  M E T H O D S
     //*******************************************************************************
+
     /**
      * Reconstruction of the secret and use of Lagrange
+     *
      * @param usersParts
      */
-    public void secret(UserParts[] usersParts)
-    {
-        for (int i = 0; i < nbBytes; i++)
-        {
+    public void secret(UserParts[] usersParts) {
+        for (int i = 0; i < nbBytes; i++) {
             sr[i] = new SecretRebuilder();
 
             sr[i].partsRebuilding(usersParts, i); // reconstruit les parts de secrets de chaque utilisateurs pour chaque fi()
@@ -53,18 +55,15 @@ public class AssembleParts
         }
     }
 
-    public void affiche(byte[] tab)
-    {
-        for (int i = 0; i < tab.length; i++)
-        {
+    public void affiche(byte[] tab) {
+        for (int i = 0; i < tab.length; i++) {
             System.out.print(tab[i] + " ");
         }
         System.out.println();
     }
 
     // GETTER
-    public byte[] getSecret()
-    {
+    public byte[] getSecret() {
         return secret;
     }
 

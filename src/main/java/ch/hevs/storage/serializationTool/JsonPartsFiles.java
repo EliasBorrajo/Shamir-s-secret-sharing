@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 
 /**
  * Methods that allows to serialize onto the drive of the PC.
+ * @authors : Elias Borrajo, Jonathan Bourquin
  */
 public class JsonPartsFiles implements StorableFiles
 {
@@ -45,6 +46,10 @@ public class JsonPartsFiles implements StorableFiles
     // M E T H O D S
     //*****************************************************************************
     // DEFAULT
+
+    /**
+     * Define the path to store the user parts adn create a new file at that path. Default method without parameters
+     */
     public void definePathToStoreData()
     {
 
@@ -60,7 +65,11 @@ public class JsonPartsFiles implements StorableFiles
         myFile = new File(jsonPath);
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
-    // WITH GIVEN NAME for the file
+
+    /**
+     *  Define the path to store the user parts adn create a new file at that path.
+     * @param fileName file name
+     */
     public void definePathToStoreData(String fileName)
     {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
@@ -76,6 +85,11 @@ public class JsonPartsFiles implements StorableFiles
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
 
+    /**
+     * Deserialization of a file to an object of type UserParts
+     * @param file
+     * @return
+     */
     @Override
     public UserParts read(File file)
     {
@@ -93,6 +107,11 @@ public class JsonPartsFiles implements StorableFiles
         return userParts;
     }
 
+    /**
+     * Serialization of a file to an object of type UserParts
+     * @param parts user parts
+     * @param fileName file name
+     */
     @Override
     public void write(UserParts parts, String fileName)
     {

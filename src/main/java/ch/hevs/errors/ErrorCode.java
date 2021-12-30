@@ -1,13 +1,7 @@
 package ch.hevs.errors;
 
 /**
- * TODO : REMPLACER CE TEXTE
-<<<<<<< HEAD
- * Error code for contact and gallery applications
-=======
- * Error code
->>>>>>> JonathanTestElias
- *
+ * Enum class for error code numbers
  * @author Bourquin Jonathan
  */
 
@@ -22,6 +16,7 @@ public enum ErrorCode {
     CRYPTO_PROVIDER_ERROR(103),
     IO_ERROR(200),
     INVALID_PARAMETER_ERROR(300),
+    INVALID_THRESHOLD(301),
     ERROR_ENCRYPTION(104),
     ERROR_DECRYPTION(105);
 

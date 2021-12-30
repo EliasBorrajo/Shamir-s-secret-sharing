@@ -11,24 +11,24 @@ import java.io.File;
 import java.security.Security;
 
 /**
- * Class for of encryption or decryption of a file
+ * Class for encryption or decryption of any file type (.pdf, .exe, ...)
+ *
+ * @author Jonathan Bourquin, Elias Borrajo
  */
 
-public class EncryptionDecryption
-{
-
-
+public class EncryptionDecryption {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+
     /**
      * Encryption or decryption of a file
+     *
      * @param usersFiles
      * @param fileToCryptDecrypt
      * @param toEncrypt
      */
-    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
-    {
+    public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) {
         Security.addProvider(new BouncyCastleProvider());
         FileEncryption fe = new FileEncryption();
         UserParts[] usersParts;
@@ -37,8 +37,8 @@ public class EncryptionDecryption
         String extension = readExtensionFile(fileToCryptDecrypt);
 
         String homePath = Config.getConfig().getStorePath();    //System.getenv("SHAMIR"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
-        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted."+extension; // chemin absolu pour le fichier tmp de cryptage
-        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted."+extension; // chemin absolu pour le fichier tmp de décryptage
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted." + extension; // chemin absolu pour le fichier tmp de cryptage
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted." + extension; // chemin absolu pour le fichier tmp de décryptage
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
@@ -55,60 +55,65 @@ public class EncryptionDecryption
             usersParts[i] = jpf.read(usersFiles[i]);
         }
 
-        // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
-        //AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
+        // test du seuil pour voir si le nombre de parts entrées est suffisante
+        if (usersParts.length >= usersParts[0].getThreshold()) {
+            // initialise la classe pour l'assemblage avec comme entrée au constructeur le nb de Point --> donne le nb de bytes sur lequel boucler
+            //AssembleParts as = new AssembleParts(usersParts[1].getParts().length);
 
-        // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
-        // --> à aller chercher dans la classe AssembleParts
-        AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
+            // 2) Build du secret pour obtenir l'array de byte de tous les secrets (tous les f())
+            // --> à aller chercher dans la classe AssembleParts
+            AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
 
-        as.secret(usersParts);
-                //System.out.println("Secret :");
-                //as.affiche(as.getSecret());
+            as.secret(usersParts);
+            //System.out.println("Secret :");
+            //as.affiche(as.getSecret());
 
-        // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
-        if (toEncrypt)
-        {
-            try {
-                fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
-            } catch (BusinessException e) {
-                throw new IllegalArgumentException("FAILED TO EN-CRYPT DATA : " +
-                                                   "\n Verify your files path given as input !" +
-                                                   "\n"+e);
+            // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
+            if (toEncrypt) {
+                try {
+                    fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
+                } catch (BusinessException e) {
+                    throw new IllegalArgumentException("FAILED TO EN-CRYPT DATA : " +
+                            "\n Verify your files path given as input !" +
+                            "\n" + e);
+                }
+
+                fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
+            } else {
+                try {
+                    fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
+                } catch (BusinessException e) {
+                    throw new IllegalArgumentException("FAILED TO DE-CRYPT DATA : " +
+                            "\n Verify your files path given as input !" +
+                            "\n" + e);
+
+                }
+
+                fileToCryptDecrypt.delete();
             }
 
-            fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
-        }
-        else {
-            try {
-                fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
-            } catch (BusinessException e) {
-                throw  new IllegalArgumentException("FAILED TO DE-CRYPT DATA : " +
-                                                    "\n Verify your files path given as input !" +
-                                                    "\n"+e);
-
-            }
-
-            fileToCryptDecrypt.delete();
+        } else {
+            throw new IllegalArgumentException("Wrong threshold " + usersParts[0].getThreshold() + " parts are needed");
         }
     }
 
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+
     /**
      * Allows to read the extension of a file
+     *
      * @param fileToCryptDecrypt
      * @return
      */
-    private static String readExtensionFile(File fileToCryptDecrypt)
-    {
-        System.out.println("File to de/en-crypt is : "+fileToCryptDecrypt.getName());
+    private static String readExtensionFile(File fileToCryptDecrypt) {
+        System.out.println("File to de/en-crypt is : " + fileToCryptDecrypt.getName());
 
-        int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
+        int extensionIndex = fileToCryptDecrypt.getName().lastIndexOf(".") + 1;
 
-        String extension = fileToCryptDecrypt.getName().substring(yolo);
-                //System.out.println(extension);
+        String extension = fileToCryptDecrypt.getName().substring(extensionIndex);
+        //System.out.println(extension);
         return extension;
     }
 

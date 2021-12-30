@@ -3,7 +3,7 @@ package ch.hevs.errors;
 //import java.io.Serial;
 
 /**
- * TODO TEXTE
+ * Class for businessException
  */
 public class BusinessException extends Throwable
 {

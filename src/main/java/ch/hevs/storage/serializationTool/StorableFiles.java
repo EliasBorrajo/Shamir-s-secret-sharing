@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * Interface for our Serialization.
+ * @author : Elias Borrajo
  */
 public interface StorableFiles
 {

@@ -3,7 +3,8 @@ package ch.hevs.maths;
 import java.awt.*;
 
 /**
- * TODO texte
+ * Class used to perform a Lagrange interpolation on an array of points
+ * @authors : Milena Lonfat, Emilie Teodoro, Jonathan Bourquin
  */
 public class LagrangeInterpolation
 {
@@ -12,15 +13,25 @@ public class LagrangeInterpolation
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+
+    /**
+     * constructor
+     */
     public LagrangeInterpolation()
     {
         //ma = new ModularArithmetic();
     }
 
-
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+
+    /**
+     * Lagrange interpolation algorithm
+     * @param f array of type Point
+     * @param n threshold
+     * @return
+     */
     public int lagrange(Point[] f, int n)
     {
         int result = 0; // Initialize result
