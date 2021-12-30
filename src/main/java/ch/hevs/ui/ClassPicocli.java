@@ -1,13 +1,13 @@
 /**
  * Project              :   Shamirs Secret Sharings
- * <p>
+ *
  * Creation date        :   01.11.2021
  * Render Date          :   04.01.2022
- * <p>
+ *
  * Authors              :   Bourquin  Jonathan
- * Lonfat    Milena
- * Borrajo   Elias
- * <p>
+ *                          Lonfat    Milena
+ *                          Borrajo   Elias
+ *
  * Description          :   Third semester project at HEG - Sierre - FIG.
  * The goal is to generate parts of secrets into files for each user.
  * With a threshold of files containing the parts, we can reconstruct the secret key.
