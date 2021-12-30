@@ -1,11 +1,11 @@
-package ch.hevs.maths;
+package ch.hevs.tools.reconstructParts;
 
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 import java.awt.*;
 /**
  * TODO Trouver texte
  */
-public class SecretRebuilder //TODO : Doit aller dans package STORAGE
+public class SecretRebuilder
 {
     //*****************************************************************************
     // A T T R I B U T E S

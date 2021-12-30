@@ -1,7 +1,5 @@
 package crypt;
 
-import ch.hevs.errors.BusinessException;
-import ch.hevs.tools.crypt.FileEncryption;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.Test;
 

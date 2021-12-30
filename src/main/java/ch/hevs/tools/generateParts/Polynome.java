@@ -1,8 +1,21 @@
-package ch.hevs.maths;
+package ch.hevs.tools.generateParts;
+
+import ch.hevs.maths.ModularArithmetic;
 
 import java.security.SecureRandom;
-/**
- * TODO Trouver texte
+/** FRENCH
+ * Cette classe est le polynome. Il va contenir toutes les informations nécessaire sur chaque shamir que on fait.
+ * les coordonées X&Y, les coefficients.
+ * Cette classe permet de calculer des points sur la courbbe du polynome,
+ * et de retourner ces points afin de les donner plus loin dans le code aux classes de sérialisations.
+ * @author Elias Borrajo
+ */
+/** ENGLISH
+ * This class is the polynomial. It will contain all the necessary information about each shamir we do.
+ * The X&Y coordinates, the coefficients.
+ * This class allows you to calculate points on the polynomial curve,
+ * and to return these points in order to give them later in the code to the serialization classes.
+ * @author Elias Borrajo
  */
 public class Polynome //TODO : Doit aller dans package GENERATEparts
 {

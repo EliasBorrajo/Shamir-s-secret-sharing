@@ -1,6 +1,6 @@
 package ch.hevs.ui.commands;
 
-import ch.hevs.tools.RegenerateParts.EncryptionDecryption;
+import ch.hevs.tools.reconstructParts.EncryptionDecryption;
 import picocli.CommandLine;
 
 import java.io.File;
@@ -9,14 +9,16 @@ import java.io.File;
  * Picocli informations
  * Encryption or decryption of a file
  */
-
 @CommandLine.Command(
         name = "EncryptDecrypt",
         mixinStandardHelpOptions = true,
         version = "1.0",
         description = "Encrypt or decrypt file.s",
         optionListHeading = "%nOptions are:%n")
-
+/**
+ * This class is managed with picocli and is a tool to interface human inputs with the machine.
+ * This tool enables to encrypt/decrpt the files with given parts.
+ */
 public class Decrypt implements Runnable{
     //*******************************************************************************
     //  A T T R I B U T E S

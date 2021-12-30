@@ -1,13 +1,13 @@
-package ch.hevs.storage;
+package ch.hevs.storage.serializationTool;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 
 import java.io.File;
 import java.io.IOException;
 
 /**
- * TODO trouver du texte
+ * Interface for our Serialization.
  */
 public interface StorableFiles
 {

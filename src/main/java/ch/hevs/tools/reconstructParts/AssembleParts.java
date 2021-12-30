@@ -1,14 +1,13 @@
-package ch.hevs.tools.RegenerateParts;
+package ch.hevs.tools.reconstructParts;
 
 import ch.hevs.maths.LagrangeInterpolation;
-import ch.hevs.maths.SecretRebuilder;
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 
 /**
  * TODO completer
  * Class that assembles users parts
  */
-public class AssembleParts //TODO : Doit aller dans package STORAGE
+public class AssembleParts
 {
     //*******************************************************************************
     //  A T T R I B U T E S

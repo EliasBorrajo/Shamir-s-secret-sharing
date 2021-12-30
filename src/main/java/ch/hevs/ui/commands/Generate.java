@@ -14,7 +14,10 @@ import picocli.CommandLine;
         version = "1.0",
         description = "Generate the Shamir secret parts",
         optionListHeading = "%nOptions are:%n")
-
+/**
+ * This class is managed with picocli and is a tool to interface human inputs with the machine.
+ * This tool enables to generate the parts of the secret into files.
+ */
 public class Generate implements Runnable{
     //*******************************************************************************
     //  A T T R I B U T S

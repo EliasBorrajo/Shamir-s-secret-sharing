@@ -1,4 +1,4 @@
-package ch.hevs.tools.generateParts;
+package ch.hevs.storage;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class for user parts.
+ * Class for user parts. Collects the data to write into the files.
  * Each object will be an instanciate a piece of secret (Point array with the same X coordinate for each point and a specific Y coordinate)
  * that will be exported in a json file.
  */
-public class UserParts //TODO : Doit aller dans package STORAGE
+public class UserParts
 {
     //*****************************************************************************
     // A T T R I B U T E S

@@ -1,6 +1,7 @@
 package ch.hevs.errors;
 
 /**
+ * TODO : REMPLACER CE TEXTE
 <<<<<<< HEAD
  * Error code for contact and gallery applications
 =======

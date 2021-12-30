@@ -1,10 +1,12 @@
 package ch.hevs.maths;
+
 import java.awt.*;
 
 /**
  * TODO texte
  */
-public class LagrangeInterpolation {
+public class LagrangeInterpolation
+{
     //private ModularArithmetic ma;
 
     //*****************************************************************************
@@ -23,15 +25,17 @@ public class LagrangeInterpolation {
     {
         int result = 0; // Initialize result
 
-        for (int i = 0; i < n-1; i++)
+        for (int i = 0; i < n - 1; i++)
         {
             // Compute individual terms of above formula
             int term = f[i].y;
-            for (int j = 0; j < n-1; j++) {
-                if (j != i) {
+            for (int j = 0; j < n - 1; j++)
+            {
+                if (j != i)
+                {
                     term = ModularArithmetic.division(ModularArithmetic.multiplication(term, f[j].x),
                             ModularArithmetic.soustraction(f[i].x, f[j].x));
-                    
+
                     //term = term * f[j].x / (f[i].x - f[j].x);
                 }
             }
@@ -45,7 +49,7 @@ public class LagrangeInterpolation {
         return (int) Math.round(result);
 
     }
-    //TODO main a supprimer?
+
     public static void main(String[] args)
     {
         // array of known points
@@ -54,9 +58,9 @@ public class LagrangeInterpolation {
         // Using the interpolate function to obtain
         // a point corresponding to x=3
         System.out.print("Value of f(0) is : " + lagrange(f, 4));
-        System.out.println();*/
+        System.out.println();
 
-        /*byte b = (byte) 127;
+        byte b = (byte) 127;
         byte b1 = (byte) 254;
         byte b2 = (byte) 256;
         byte b3 = (byte) 257;

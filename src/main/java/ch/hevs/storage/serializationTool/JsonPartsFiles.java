@@ -1,8 +1,7 @@
-package ch.hevs.storage;
+package ch.hevs.storage.serializationTool;
 
-import ch.hevs.errors.BusinessException;
 import ch.hevs.parameters.Config;
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -11,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * TODO trouver texte
+ * Methods that allows to serialize onto the drive of the PC.
  */
 public class JsonPartsFiles implements StorableFiles
 {

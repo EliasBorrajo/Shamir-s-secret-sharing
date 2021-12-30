@@ -1,17 +1,14 @@
-package ch.hevs.tools.RegenerateParts;
+package ch.hevs.tools.reconstructParts;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.errors.ErrorCode;
 import ch.hevs.parameters.Config;
-import ch.hevs.storage.JsonPartsFiles;
-import ch.hevs.tools.crypt.FileEncryption;
-import ch.hevs.tools.generateParts.UserParts;
-import ch.hevs.tools.RegenerateParts.AssembleParts;
+import ch.hevs.storage.serializationTool.JsonPartsFiles;
+import ch.hevs.tools.crypting.FileEncryption;
+import ch.hevs.storage.UserParts;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.File;
 import java.security.Security;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class for of encryption or decryption of a file
@@ -19,80 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EncryptionDecryption
 {
-/*
-    public static void main(String[] args) throws BusinessException
-    {
 
-
-        // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
-
-        // exemple cryptage d'un fichier .pdf
-        JsonPartsFiles jpf = new JsonPartsFiles();
-
-
-        File myPart1 = new File(args[0]);
-        File myPart2 = new File(args[1]);
-        File myPart3 = new File(args[2]);
-        File myPart4 = new File(args[3]);
-
-        File[] usersFiles = new File[4];
-
-
-        // file à crypter decrypter
-        File myFileDecryptEncrypt = new File(args[4]);
-
-        jpf.read(myPart1);
-        //System.out.println(jpf.getUserParts());
-        jpf.read(myPart2);
-        //System.out.println(jpf.getUserParts());
-        jpf.read(myPart3);
-        //System.out.println(jpf.getUserParts());
-        jpf.read(myPart4);
-        //System.out.println(jpf.getUserParts());
-
-        usersFiles[0] = myPart1;
-        usersFiles[1] = myPart2;
-        usersFiles[2] = myPart3;
-        usersFiles[3] = myPart4;
-
-        new EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
-
-        try
-        {
-            TimeUnit.SECONDS.sleep(25);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-        // décryptage du même fichier .pdf avec des users parts différents
-        File myPart11 = new File(args[5]);
-        File myPart22 = new File(args[6]);
-        File myPart33 = new File(args[7]);
-        File myPart44 = new File(args[8]);
-
-        jpf.read(myPart11);
-        //System.out.println(jpf.getUserParts());
-        jpf.read(myPart22);
-        //System.out.println(jpf.getUserParts());
-        jpf.read(myPart33);
-        //System.out.println(jpf.getUserParts());
-
-        File[] usersFiles_V2 = new File[4];
-
-        usersFiles_V2[0] = myPart11;
-        usersFiles_V2[1] = myPart22;
-        usersFiles_V2[2] = myPart33;
-        usersFiles_V2[3] = myPart44;
-
-
-        File myFileDecryptEncrypt_V2 = new File(args[9]);
-        //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
-
-        new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
-
-    }
-*/
 
     //*****************************************************************************
     // C O N S T R U C T O R
@@ -196,5 +120,80 @@ public class EncryptionDecryption
             System.out.println();
         }
     }*/
+
+    /*
+    public static void main(String[] args) throws BusinessException
+    {
+
+
+        // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas
+
+        // exemple cryptage d'un fichier .pdf
+        JsonPartsFiles jpf = new JsonPartsFiles();
+
+
+        File myPart1 = new File(args[0]);
+        File myPart2 = new File(args[1]);
+        File myPart3 = new File(args[2]);
+        File myPart4 = new File(args[3]);
+
+        File[] usersFiles = new File[4];
+
+
+        // file à crypter decrypter
+        File myFileDecryptEncrypt = new File(args[4]);
+
+        jpf.read(myPart1);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart2);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart3);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart4);
+        //System.out.println(jpf.getUserParts());
+
+        usersFiles[0] = myPart1;
+        usersFiles[1] = myPart2;
+        usersFiles[2] = myPart3;
+        usersFiles[3] = myPart4;
+
+        new EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
+
+        try
+        {
+            TimeUnit.SECONDS.sleep(25);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        // décryptage du même fichier .pdf avec des users parts différents
+        File myPart11 = new File(args[5]);
+        File myPart22 = new File(args[6]);
+        File myPart33 = new File(args[7]);
+        File myPart44 = new File(args[8]);
+
+        jpf.read(myPart11);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart22);
+        //System.out.println(jpf.getUserParts());
+        jpf.read(myPart33);
+        //System.out.println(jpf.getUserParts());
+
+        File[] usersFiles_V2 = new File[4];
+
+        usersFiles_V2[0] = myPart11;
+        usersFiles_V2[1] = myPart22;
+        usersFiles_V2[2] = myPart33;
+        usersFiles_V2[3] = myPart44;
+
+
+        File myFileDecryptEncrypt_V2 = new File(args[9]);
+        //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
+
+        new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
+
+    }
+*/
 
 }

@@ -2,7 +2,7 @@ package ch.hevs.maths;
 
 import java.math.BigInteger;
 
-/**
+/** FRENCH
  * C'est la classe qui nous permettra de faire des calculs en utilisant des opérations (methodes) tel que :
  * ( + ) / ( - ) / ( * ) / ( / )
  *
@@ -16,6 +16,23 @@ import java.math.BigInteger;
  *
  * - GENERER PARTS DE SECRET
  * - Génerer aléatoirement a/b/c (de ax^2 + bx + c = y) avec paramètre X donné, et retourne y
+ * @author Elias Borrajo
+ */
+/** ENGLISH
+ * This is the class that will allow us to perform calculations using operations (methods) such as :
+ * ( + ) / ( - ) / ( * ) / ( / )
+ *
+ * METHODS :
+ *
+ * - EUCLIDE ETENDU
+ *
+ * - MODULAR INVERSION
+ *
+ * - POLYNOMINAL INTERPOLATION --> Reconstitution of secret shares
+ *
+ * - GENERATE SECRET PARTS
+ * - Randomly generate a/b/c (from ax^2 + bx + c = y) with given parameter X, and return y
+ * @author Elias Borrajo
  */
 public abstract class ModularArithmetic
 {
@@ -23,7 +40,6 @@ public abstract class ModularArithmetic
     // A T T R I B U T E S
     //*****************************************************************************
     private final static int MODULO = 257; // Le modulo à 257 permet de travailler en int sans souci.
-    private final static double MODULO_DOUBLE = 257;
 
     //*****************************************************************************
     // M E T H O D S

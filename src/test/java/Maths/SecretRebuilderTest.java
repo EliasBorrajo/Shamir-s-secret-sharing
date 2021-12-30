@@ -1,6 +1,6 @@
 package Maths;
 
-import ch.hevs.maths.SecretRebuilder;
+import ch.hevs.tools.reconstructParts.SecretRebuilder;
 
 public class SecretRebuilderTest {
 
