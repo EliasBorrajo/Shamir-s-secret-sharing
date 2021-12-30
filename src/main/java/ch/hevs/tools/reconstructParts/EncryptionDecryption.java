@@ -30,6 +30,7 @@ public class EncryptionDecryption {
      */
     public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt) {
         Security.addProvider(new BouncyCastleProvider());
+
         FileEncryption fe = new FileEncryption();
         UserParts[] usersParts;
         int nbUsersParts;
