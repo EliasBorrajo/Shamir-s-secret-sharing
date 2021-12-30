@@ -19,15 +19,15 @@ import java.math.BigInteger;
  */
 public abstract class ModularArithmetic
 {
-    //*****************************************************
+    //*****************************************************************************
     // A T T R I B U T E S
-    //*****************************************************
+    //*****************************************************************************
     private final static int MODULO = 257; // Le modulo à 257 permet de travailler en int sans souci.
     private final static double MODULO_DOUBLE = 257;
-    //*****************************************************
-    // M E T H O D S
-    //*****************************************************
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     // ON A TOUJOURS 2 METHODES SIMILAIRES.
     // 1) UTILISANT LA cONSTANTE MODULO = 257 --> CELLE QUE NOUS ON UTILISERA POUR LE PROJET
     // 2) UTILISANT LE MODULO DONNE EN PARAMETRE
@@ -412,6 +412,9 @@ public abstract class ModularArithmetic
         return x;
     }
 
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public static int getMODULO()
     {
         return MODULO;

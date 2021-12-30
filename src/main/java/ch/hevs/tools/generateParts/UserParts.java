@@ -6,7 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class for user parts. Each object will be an instanciate a piece of secret (Point array with the same X coordinate for each point and a specific Y coordinate)
+ * Class for user parts.
+ * Each object will be an instanciate a piece of secret (Point array with the same X coordinate for each point and a specific Y coordinate)
  * that will be exported in a json file.
  */
 public class UserParts //TODO : Doit aller dans package STORAGE
@@ -42,24 +43,25 @@ public class UserParts //TODO : Doit aller dans package STORAGE
 
     }
 
-    public ArrayList<Point> getPartsByUser() {
-        return partsByUser;
-    }
-
-    public  int getThreshold()
-    {
-        return threshold;
-    }
-
-    public void setThreshold(int threshold)
-    {
-        this.threshold = threshold;
-    }
-
     @Override
     public String toString() {
         return "UserParts{" +
                 "partsByUser=" + partsByUser.toString() +
                 '}';
+    }
+
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
+    public ArrayList<Point> getPartsByUser() {
+        return partsByUser;
+    }
+    public  int getThreshold()
+    {
+        return threshold;
+    }
+    public void setThreshold(int threshold)
+    {
+        this.threshold = threshold;
     }
 }

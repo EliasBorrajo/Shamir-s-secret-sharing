@@ -4,23 +4,42 @@ import ch.hevs.maths.LagrangeInterpolation;
 import ch.hevs.maths.SecretRebuilder;
 import ch.hevs.tools.generateParts.UserParts;
 
-
+/**
+ * TODO completer
+ * Class that assembles users parts
+ */
 public class AssembleParts //TODO : Doit aller dans package STORAGE
 {
+    //*******************************************************************************
+    //  A T T R I B U T E S
+    //*******************************************************************************
     private byte[] secret;
     private LagrangeInterpolation li;
     private SecretRebuilder[] sr;
     private int nbBytes;
 
-    public AssembleParts(int nbBytes)
-    {
+
+    //*******************************************************************************
+    //  C O N S T R U C T O R
+    //*******************************************************************************
+    /**
+     * Assemble parts
+     * @param nbBytes
+     */
+    public AssembleParts(int nbBytes) {
         this.nbBytes = nbBytes;
         sr = new SecretRebuilder[this.nbBytes]; // TODO: 25.12.2021 ne pas hardcoder le 32
         secret = new byte[this.nbBytes];
         li = new LagrangeInterpolation();
     }
 
-    // METHODS
+    //*******************************************************************************
+    //  M E T H O D S
+    //*******************************************************************************
+    /**
+     * Reconstruction of the secret and use of Lagrange
+     * @param usersParts
+     */
     public void secret(UserParts[] usersParts)
     {
         for (int i = 0; i < nbBytes; i++)

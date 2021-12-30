@@ -5,7 +5,7 @@ package ch.hevs.errors;
 public class BusinessException extends Throwable
 {
     //*****************************************************************************
-    // A T T R I B U T S
+    // A T T R I B U T E S
     //*****************************************************************************
     //@Serial
     private static final long serialVersionUID = -446022369330950597L;

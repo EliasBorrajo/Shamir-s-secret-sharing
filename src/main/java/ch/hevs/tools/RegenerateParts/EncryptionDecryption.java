@@ -13,6 +13,9 @@ import java.io.File;
 import java.security.Security;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class for of encryption or decryption of a file
+ */
 
 public class EncryptionDecryption
 {
@@ -90,6 +93,16 @@ public class EncryptionDecryption
 
     }
 */
+
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
+    /**
+     * Encryption or decryption of a file
+     * @param usersFiles
+     * @param fileToCryptDecrypt
+     * @param toEncrypt
+     */
     public EncryptionDecryption(File[] usersFiles, File fileToCryptDecrypt, boolean toEncrypt)
     {
         Security.addProvider(new BouncyCastleProvider());
@@ -152,6 +165,9 @@ public class EncryptionDecryption
         }
     }
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     /**
      * Allows to read the extension of a file
      * @param fileToCryptDecrypt

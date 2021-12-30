@@ -13,9 +13,23 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.*;
 
+/**
+ * TODO COMPLETER TEXTE
+ * This class contains the encryption and decryption method
+ */
 public class FileEncryption {
-
-    public static void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
+    //*******************************************************************************
+    //  M E T H O D S
+    //*******************************************************************************
+    /**
+     * Encrypt file
+     * @param keyMaterial
+     * @param inputFile
+     * @param outputFile
+     * @throws BusinessException
+     */
+    public static void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException
+    {
         Cipher cipher;
 
         try {
@@ -60,8 +74,15 @@ public class FileEncryption {
         }
     }
 
-    public static void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
-
+    /**
+     * Decrypt file
+     * @param keyMaterial
+     * @param inputFile
+     * @param outputFile
+     * @throws BusinessException
+     */
+    public static void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException
+    {
         Cipher cipher;
 
         try {

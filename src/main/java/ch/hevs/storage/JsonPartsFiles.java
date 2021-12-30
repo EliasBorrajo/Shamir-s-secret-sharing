@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * TODO trouver texte
+ */
 public class JsonPartsFiles implements StorableFiles
 {
     //*****************************************************************************
@@ -110,8 +112,9 @@ public class JsonPartsFiles implements StorableFiles
         }
     }
 
-    // GETTER, SETTER
-
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public void setMyObj(File myObj) {
         this.myFile = myObj;
     }

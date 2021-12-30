@@ -3,6 +3,11 @@ package ch.hevs.ui.commands;
 import ch.hevs.tools.generateParts.GenerateParts;
 import picocli.CommandLine;
 
+/**
+ * Picocli informations
+ * Generate parts of Shamir secret
+ */
+
 @CommandLine.Command(
         name = "GenParts",
         mixinStandardHelpOptions = true,

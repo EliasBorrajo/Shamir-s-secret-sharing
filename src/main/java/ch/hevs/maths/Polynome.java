@@ -1,9 +1,14 @@
 package ch.hevs.maths;
 
 import java.security.SecureRandom;
-
+/**
+ * TODO Trouver texte
+ */
 public class Polynome //TODO : Doit aller dans package GENERATEparts
 {
+    //*****************************************************************************
+    // A T T R I B U T E S
+    //*****************************************************************************
     private final static int MODULO = ModularArithmetic.getMODULO();
 
     private int[] coefficients;
@@ -14,6 +19,9 @@ public class Polynome //TODO : Doit aller dans package GENERATEparts
 
     private int degree;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
@@ -22,6 +30,9 @@ public class Polynome //TODO : Doit aller dans package GENERATEparts
         yCoordinates = new int[nbParts];
     }
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     /**
      * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
      * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
@@ -134,9 +145,9 @@ public class Polynome //TODO : Doit aller dans package GENERATEparts
         System.out.println();
     }
 
-    //*****************************************************
-    // G E T T E R S
-    //*****************************************************
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public int[] getxCoordinates()
     {
         return xCoordinates;
