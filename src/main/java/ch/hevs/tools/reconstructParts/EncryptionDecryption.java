@@ -63,8 +63,8 @@ public class EncryptionDecryption
         AssembleParts as = new AssembleParts(usersParts[0].getPartsByUser().size());
 
         as.secret(usersParts);
-        System.out.println("Secret :");
-        as.affiche(as.getSecret());
+                //System.out.println("Secret :");
+                //as.affiche(as.getSecret());
 
         // *** ETAPE 2 : CHOIX DE L'OPTION ET CRYPTAGE OU DECRYPTAGE DU FICHIER PDF OU WORD
         if (toEncrypt)
@@ -72,7 +72,9 @@ public class EncryptionDecryption
             try {
                 fe.encrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileEncryption));
             } catch (BusinessException e) {
-                throw new IllegalArgumentException("FAILED TO ENCRYPT DATA : "+e);
+                throw new IllegalArgumentException("FAILED TO EN-CRYPT DATA : " +
+                                                   "\n Verify your files path given as input !" +
+                                                   "\n"+e);
             }
 
             fileToCryptDecrypt.delete(); // suppression de l'ancien fichier après exécution
@@ -81,7 +83,9 @@ public class EncryptionDecryption
             try {
                 fe.decrypt(as.getSecret(), fileToCryptDecrypt, new File(absolutePathOutputFileDecryption));
             } catch (BusinessException e) {
-                throw  new IllegalArgumentException("FAILED TO DECRYPT DATA : "+e);
+                throw  new IllegalArgumentException("FAILED TO DE-CRYPT DATA : " +
+                                                    "\n Verify your files path given as input !" +
+                                                    "\n"+e);
 
             }
 
@@ -99,13 +103,12 @@ public class EncryptionDecryption
      */
     private static String readExtensionFile(File fileToCryptDecrypt)
     {
-        System.out.println(fileToCryptDecrypt.getName());
+        System.out.println("File to de/en-crypt is : "+fileToCryptDecrypt.getName());
 
         int yolo = fileToCryptDecrypt.getName().lastIndexOf(".")+1;
-        System.out.println(yolo);
 
         String extension = fileToCryptDecrypt.getName().substring(yolo);
-        System.out.println(extension);
+                //System.out.println(extension);
         return extension;
     }
 

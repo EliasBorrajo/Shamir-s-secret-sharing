@@ -127,21 +127,22 @@ public class ClassPicocli
 
 
                     // NUMBER OF PARTS TO USE           ***********************************
-                    System.out.println("How many parts do you want to use ? It should be the same amount as the threshold you created them with");
+                    System.out.println( "How many parts do you want to use ? " +
+                                        "\nIt should be the same amount or greater than the threshold you created them with");
                     // Verify that input is integer !
                     int nbParts;
                     do
                     {
                         while (!scan.hasNextInt())
                         {
-                            System.out.println("Number of parts to use entered is too low or too high, or your value contains letters.");
-                            System.out.println("Remember, it should be the same amount of parts as our threshold value !");
+                            System.out.println("Number of parts to use entered, is not a number. Try again :");
                             scan.next();
                         }
                         nbParts = scan.nextInt();
                         if (nbParts < 2 || nbParts > 2000000)
                         {
                             System.out.println("Number of parts to use can be between 2 and 2'000'000, re-try !");
+                            System.out.println("Remember, it should be the same amount of parts as our threshold value !");
                         }
                     } while (nbParts < 2 || nbParts > 2000000);
 

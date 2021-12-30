@@ -27,7 +27,7 @@ public class AssembleParts
      */
     public AssembleParts(int nbBytes) {
         this.nbBytes = nbBytes;
-        sr = new SecretRebuilder[this.nbBytes]; // TODO: 25.12.2021 ne pas hardcoder le 32
+        sr = new SecretRebuilder[this.nbBytes];
         secret = new byte[this.nbBytes];
         li = new LagrangeInterpolation();
     }
