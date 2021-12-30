@@ -90,7 +90,7 @@
                         <id>build-assembly-shamir</id>
                         <configuration>
                             <!-- Donner le NOM du PROJET -->
-                            <finalName>${project.name}</finalName> <!--TODO MODIFIER MAYBE ICI-->
+                            <finalName>${project.name}</finalName>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
