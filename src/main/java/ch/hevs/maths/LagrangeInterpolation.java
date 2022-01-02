@@ -28,24 +28,25 @@ public class LagrangeInterpolation
 
     /**
      * Lagrange interpolation algorithm
-     * @param f array of type Point
-     * @param n threshold
+     * @param points array of type Point
+     * @param kThreshold threshold
      * @return
      */
-    public int lagrange(Point[] f, int n)
+    public int lagrange(Point[] points, int kThreshold)
     {
         int result = 0; // Initialize result
 
-        for (int i = 0; i < n - 1; i++)
+        for (int i = 0; i < kThreshold - 1; i++) // i = f(x) = SUM y*Li(x)
         {
             // Compute individual terms of above formula
-            int term = f[i].y;
-            for (int j = 0; j < n - 1; j++)
+            int term = points[i].y;
+
+            for (int j = 0; j < kThreshold - 1; j++) // j = li(x) = MULTI (x-xm)/(xi-xm)
             {
                 if (j != i)
                 {
-                    term = ModularArithmetic.division(ModularArithmetic.multiplication(term, f[j].x),
-                            ModularArithmetic.subtraction(f[i].x, f[j].x));
+                    term = ModularArithmetic.division(ModularArithmetic.multiplication(term, points[j].x),
+                            ModularArithmetic.subtraction(points[i].x, points[j].x));
 
                     //term = term * f[j].x / (f[i].x - f[j].x);
                 }

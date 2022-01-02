@@ -67,7 +67,7 @@ public class Polynome //TODO : Doit aller dans package GENERATEparts
     }
 
     /**
-     *generate the x value of the secrete used to evaluate fi(x)
+     * Generate the x value of the secrete used to evaluate fi(x)
      */
     public void xGenerator()
     {
