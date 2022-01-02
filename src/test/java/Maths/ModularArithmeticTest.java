@@ -24,14 +24,14 @@ public class ModularArithmeticTest {
 
     @Test
     public void soustraction(){
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.soustraction(5,2));
+        assertThrows(ArithmeticException.class, () -> ModularArithmetic.subtraction(5,2));
 
         assertEquals(3, ModularArithmetic.addition(5,2));
 
-        assertEquals(3, ModularArithmetic.soustractionMOD(5,2,7));
-        assertEquals(1, ModularArithmetic.soustractionMOD(5,4,7));
-        assertEquals(1, ModularArithmetic.soustractionMOD(10,2,7));
-        assertEquals(2, ModularArithmetic.soustractionMOD(10,1,7));
+        assertEquals(3, ModularArithmetic.subtractionMOD(5,2,7));
+        assertEquals(1, ModularArithmetic.subtractionMOD(5,4,7));
+        assertEquals(1, ModularArithmetic.subtractionMOD(10,2,7));
+        assertEquals(2, ModularArithmetic.subtractionMOD(10,1,7));
 
     }
 

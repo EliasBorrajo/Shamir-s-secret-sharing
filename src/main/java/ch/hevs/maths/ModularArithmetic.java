@@ -75,9 +75,9 @@ public abstract class ModularArithmetic
     }
 
     //*****************************************************
-    // S O U S T R A C T I O N
+    // S U B S T R A C T I O N
     //*****************************************************
-    public static int soustraction(int a, int b)
+    public static int subtraction(int a, int b)
     {
         //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
@@ -86,7 +86,7 @@ public abstract class ModularArithmetic
         return result;
     }
 
-    public static int soustractionMOD(int a, int b, int modulo)
+    public static int subtractionMOD(int a, int b, int modulo)
     {
         //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
@@ -266,14 +266,14 @@ public abstract class ModularArithmetic
             //qr[1] = r0 - r1 * qr[0];  //soustraction(r0, (multiplication(r1,qr[0])) ) ;
 
             //qr[0] = divisionMOD(r0,r1,mod);
-            qr[1] = soustractionMOD(r0, (multiplicationMOD(r1,qr[0], modulo)), modulo ) ;
+            qr[1] = subtractionMOD(r0, (multiplicationMOD(r1,qr[0], modulo)), modulo ) ;
 
 
             r0 = r1;
             r1 = qr[1];
 
             int temp = multiplicationMOD(y1, qr[0], modulo);
-            int newY1 = soustractionMOD(y0, temp, modulo);
+            int newY1 = subtractionMOD(y0, temp, modulo);
             y0 = y1;
             y1 = newY1;
         /*
@@ -329,14 +329,14 @@ public abstract class ModularArithmetic
             int[] qr = new int[2];  //quotient & rest  //r0.divideAndRemainder(r1); --> Avec BigInteger
 
             qr[0] = r0 / r1;
-            qr[1] = soustraction(r0, (multiplication(r1,qr[0])) ) ;
+            qr[1] = subtraction(r0, (multiplication(r1,qr[0])) ) ;
 
 
             r0 = r1;
             r1 = qr[1];
 
             int temp = multiplication(y1, qr[0]);
-            int newY1 = soustraction(y0, temp);
+            int newY1 = subtraction(y0, temp);
             y0 = y1;
             y1 = newY1;
         }
