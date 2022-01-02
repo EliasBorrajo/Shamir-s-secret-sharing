@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="752.0">ch.hevs.tools.crypting.FileEncryption</node>
+    <node x="646.6538095238094" y="1166.0">ch.hevs.ui.commands.Decrypt</node>
+    <node x="1025.9583333333333" y="697.0">ch.hevs.storage.serializationTool.JsonPartsFiles</node>
+    <node x="836.3333333333333" y="528.0">ch.hevs.parameters.Config</node>
+    <node x="1282.9583333333333" y="664.0">ch.hevs.tools.generateParts.Polynome</node>
+    <node x="73.5" y="551.0">ch.hevs.errors.BusinessException</node>
+    <node x="789.7871428571427" y="1270.0">ch.hevs.ui.ClassPicocli</node>
+    <node x="543.4583333333333" y="528.0">ch.hevs.tools.reconstructParts.SecretRebuilder</node>
+    <node x="513.1538095238094" y="741.0">ch.hevs.tools.reconstructParts.AssembleParts</node>
+    <node x="594.6538095238094" y="1029.0">ch.hevs.tools.reconstructParts.EncryptionDecryption</node>
+    <node x="23.208333333333258" y="165.0">ch.hevs.errors.ErrorCode</node>
+    <node x="277.5" y="528.0">ch.hevs.maths.LagrangeInterpolation</node>
+    <node x="1016.2833333333335" y="143.0">ch.hevs.storage.UserParts</node>
+    <node x="1304.7038095238095" y="996.0">ch.hevs.tools.generateParts.GenerateParts</node>
+    <node x="1016.3333333333333" y="528.0">ch.hevs.storage.serializationTool.StorableFiles</node>
+    <node x="1404.2038095238095" y="1166.0">ch.hevs.ui.commands.Generate</node>
+    <node x="348.6463095238097" y="0.0">ch.hevs.maths.ModularArithmetic</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.hevs.tools.crypting.FileEncryption" target="ch.hevs.errors.ErrorCode">
+      <point x="-50.25" y="-38.0" />
+      <point x="50.25" y="508.0" />
+      <point x="54.04166666666663" y="508.0" />
+      <point x="-61.66666666666663" y="49.0" />
+    </edge>
+    <edge source="ch.hevs.tools.generateParts.GenerateParts" target="ch.hevs.storage.serializationTool.JsonPartsFiles">
+      <point x="-129.58333333333326" y="-60.0" />
+      <point x="1330.620476190476" y="976.0" />
+      <point x="1174.0833333333333" y="976.0" />
+      <point x="29.625" y="93.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.AssembleParts" target="ch.hevs.maths.LagrangeInterpolation">
+      <point x="-71.25" y="-49.0" />
+      <point x="527.4038095238094" y="644.0" />
+      <point x="331.5" y="644.0" />
+      <point x="-54.0" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.maths.LagrangeInterpolation" target="ch.hevs.maths.ModularArithmetic">
+      <point x="0.0" y="-38.0" />
+      <point x="385.5" y="508.0" />
+      <point x="440.8963095238097" y="508.0" />
+      <point x="-92.25" y="214.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.storage.serializationTool.JsonPartsFiles">
+      <point x="72.79999999999995" y="-27.0" />
+      <point x="771.4538095238094" y="966.0" />
+      <point x="1055.5833333333333" y="966.0" />
+      <point x="-88.875" y="93.0" />
+    </edge>
+    <edge source="ch.hevs.tools.crypting.FileEncryption" target="ch.hevs.errors.BusinessException">
+      <point x="50.25" y="-38.0" />
+      <point x="150.75" y="644.0" />
+      <point x="119.5" y="644.0" />
+      <point x="-46.0" y="15.0" />
+    </edge>
+    <edge source="ch.hevs.ui.ClassPicocli" target="ch.hevs.parameters.Config">
+      <point x="0.0" y="-27.0" />
+      <point x="863.7871428571427" y="1245.0" />
+      <point x="895.1666666666666" y="1245.0" />
+      <point x="895.1666666666666" y="644.0" />
+      <point x="916.3333333333333" y="644.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.storage.serializationTool.JsonPartsFiles" target="ch.hevs.storage.UserParts">
+      <point x="88.875" y="-93.0" />
+      <point x="1233.3333333333333" y="644.0" />
+      <point x="1282.354642857143" y="644.0" />
+      <point x="1282.354642857143" y="498.0" />
+      <point x="1180.9500000000003" y="498.0" />
+      <point x="50.66666666666663" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.SecretRebuilder" target="ch.hevs.storage.UserParts">
+      <point x="0.0" y="-38.0" />
+      <point x="664.9583333333333" y="478.0" />
+      <point x="1028.9500000000003" y="478.0" />
+      <point x="-101.33333333333337" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.ui.commands.Decrypt" target="ch.hevs.tools.reconstructParts.EncryptionDecryption">
+      <point x="-26.0" y="-27.0" />
+      <point x="672.6538095238094" y="1141.0" />
+      <point x="646.6538095238094" y="1141.0" />
+      <point x="-52.0" y="27.0" />
+    </edge>
+    <edge source="ch.hevs.tools.generateParts.Polynome" target="ch.hevs.maths.ModularArithmetic">
+      <point x="0.0" y="-126.0" />
+      <point x="1467.4583333333333" y="468.0" />
+      <point x="625.3963095238097" y="468.0" />
+      <point x="92.25" y="214.0" />
+    </edge>
+    <edge source="ch.hevs.tools.generateParts.GenerateParts" target="ch.hevs.tools.generateParts.Polynome">
+      <point x="-25.916666666666742" y="-60.0" />
+      <point x="1434.2871428571425" y="956.0" />
+      <point x="1375.2083333333333" y="956.0" />
+      <point x="-92.25" y="126.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.tools.crypting.FileEncryption">
+      <point x="-93.60000000000008" y="-27.0" />
+      <point x="605.0538095238094" y="976.0" />
+      <point x="50.25" y="976.0" />
+      <point x="-50.25" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.ui.ClassPicocli" target="ch.hevs.ui.commands.Generate">
+      <point x="49.33333333333337" y="-27.0" />
+      <point x="913.120476190476" y="1245.0" />
+      <point x="1460.2038095238095" y="1245.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.errors.BusinessException">
+      <point x="-52.00000000000006" y="-27.0" />
+      <point x="646.6538095238093" y="956.0" />
+      <point x="211.5" y="956.0" />
+      <point x="46.0" y="15.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.AssembleParts" target="ch.hevs.storage.UserParts">
+      <point x="71.25" y="-49.0" />
+      <point x="669.9038095238094" y="644.0" />
+      <point x="796.9583333333333" y="644.0" />
+      <point x="796.9583333333333" y="488.0" />
+      <point x="1054.2833333333335" y="488.0" />
+      <point x="-76.0" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.parameters.Config">
+      <point x="52.0" y="-27.0" />
+      <point x="750.6538095238094" y="956.0" />
+      <point x="858.4166666666666" y="956.0" />
+      <point x="858.4166666666666" y="644.0" />
+      <point x="863.0" y="644.0" />
+      <point x="-53.33333333333337" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.errors.BusinessException" target="ch.hevs.errors.ErrorCode">
+      <point x="-46.0" y="-15.0" />
+      <point x="119.5" y="508.0" />
+      <point x="115.70833333333326" y="508.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="ch.hevs.storage.serializationTool.JsonPartsFiles" target="ch.hevs.storage.serializationTool.StorableFiles">
+      <point x="-29.625" y="-93.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.tools.generateParts.GenerateParts" target="ch.hevs.storage.UserParts">
+      <point x="129.58333333333326" y="-60.0" />
+      <point x="1589.7871428571425" y="976.0" />
+      <point x="1721.479642857143" y="976.0" />
+      <point x="1721.479642857143" y="448.0" />
+      <point x="1231.6166666666668" y="448.0" />
+      <point x="101.33333333333326" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.storage.serializationTool.JsonPartsFiles" target="ch.hevs.parameters.Config">
+      <point x="-88.875" y="-93.0" />
+      <point x="1055.5833333333333" y="644.0" />
+      <point x="969.6666666666667" y="644.0" />
+      <point x="53.33333333333337" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.ui.commands.Generate" target="ch.hevs.tools.generateParts.GenerateParts">
+      <point x="-28.0" y="-27.0" />
+      <point x="1432.2038095238095" y="1141.0" />
+      <point x="1382.4538095238095" y="1141.0" />
+      <point x="-77.75" y="60.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.AssembleParts" target="ch.hevs.tools.reconstructParts.SecretRebuilder">
+      <point x="-14.25" y="-49.0" />
+      <point x="-81.0" y="38.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.tools.reconstructParts.AssembleParts">
+      <point x="-31.200000000000045" y="-27.0" />
+      <point x="667.4538095238094" y="946.0" />
+      <point x="555.9038095238094" y="946.0" />
+      <point x="-42.75" y="49.0" />
+    </edge>
+    <edge source="ch.hevs.tools.reconstructParts.EncryptionDecryption" target="ch.hevs.storage.UserParts">
+      <point x="31.200000000000045" y="-27.0" />
+      <point x="729.8538095238094" y="946.0" />
+      <point x="825.8333333333333" y="946.0" />
+      <point x="825.8333333333333" y="508.0" />
+      <point x="1104.9500000000003" y="508.0" />
+      <point x="-25.33333333333337" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.storage.serializationTool.StorableFiles" target="ch.hevs.storage.UserParts">
+      <point x="0.0" y="-38.0" />
+      <point x="1114.3333333333333" y="508.0" />
+      <point x="1130.2833333333335" y="508.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="ch.hevs.ui.ClassPicocli" target="ch.hevs.ui.commands.Decrypt">
+      <point x="-49.33333333333337" y="-27.0" />
+      <point x="814.4538095238092" y="1245.0" />
+      <point x="698.6538095238094" y="1245.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="587.6648351648347" y="902.3968253968253" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
