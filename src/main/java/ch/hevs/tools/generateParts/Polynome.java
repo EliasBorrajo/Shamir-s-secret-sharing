@@ -98,32 +98,6 @@ public class Polynome //TODO : Doit aller dans package GENERATEparts
         System.out.println();*/
     }
 
-    /**
-     * Calcul du polynomial de Y pour X.
-     * Le retour de la fonction, doit sauvegarder le Y
-     * @param xCoordinate
-     */
-    public int calculatePolynomial_OLD_DOESNOTWORKPROPERLY(int xCoordinate )
-    {
-        int resultY = -1;
-        // Calcul du polynomial entier en Y pour X.
-        for (int i = 0; i < coefficients.length; i++)
-        {
-            //result = result + (coef[i]*x^i)
-            // !!! 0 power 0 ne fonctionne pas !!!
-            if (i == 0)
-            {
-                resultY = ModularArithmetic.addition(resultY, coefficients[i]); //resultY = resultY + coefficients[i];
-            }
-            else {
-                resultY = ModularArithmetic.addition(resultY,
-                            ModularArithmetic.multiplication(coefficients[i],
-                                        ModularArithmetic.power(xCoordinate, i ) ));//result = result + (coef[i]*x^i)
-            }
-        }
-
-        return resultY; // Ce sera notre valeur Y de retour !
-    }
 
     /**
      * Computes the value of the polynomial with the given coefficients

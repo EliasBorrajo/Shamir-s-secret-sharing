@@ -45,7 +45,7 @@ public class LagrangeInterpolation
                 if (j != i)
                 {
                     term = ModularArithmetic.division(ModularArithmetic.multiplication(term, f[j].x),
-                            ModularArithmetic.soustraction(f[i].x, f[j].x));
+                            ModularArithmetic.subtraction(f[i].x, f[j].x));
 
                     //term = term * f[j].x / (f[i].x - f[j].x);
                 }
