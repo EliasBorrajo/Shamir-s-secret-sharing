@@ -1,48 +1,25 @@
 package ch.hevs.tools.generateParts;
 
 /** ENGLISH
- * 1) Generate the secret shares and obtain a file.
- * - Inputs: #Bytes (modulo) / #Parts (10 employees) / Threshold (k <= # Parts)
- * - Output: #File based on #Parts. JSON file containing the shares of secrets
- * - Process: The degree of the polynomial will be = threshold k-1, and we will generate the shares a0, a1,..., an-1
- * Then we evaluate f(x) = ax^2 + bx +c (depends on the degree) --> for X
+
  */
+
+
+import ch.hevs.storage.serializationTool.JsonPartsFiles;
+import ch.hevs.storage.UserParts;
+
+import java.awt.*;
+
+
 /** FRENCH
+ *
  * 1) Génerer les parts de secrets et en obtenir un fichier.
  * - Entrées   : #Bytes (modulo) / #Parts (10 employés) / Seuil (k  <= # Parts)
  * - Sortie    : #Fichier en fonction de #Parts. Fichier JSON contenant les parts de secrets
  * - Process   : Le degrée du polynome sera = seuil k-1, et nous génerera les parts a0, a1,..., an-1
  * Puis on évalue f(x) = ax^2 + bx +c (dépend du degré) --> pour X
- */
-
-import ch.hevs.maths.Polynome;
-import ch.hevs.storage.JsonPartsFiles;
-import java.awt.*;
-
-/** ENGLISH
- * TOOL 1: GENERATE PARTS
- * Will generate the shares a0, a1 ......
+ * -------------------------------------------------------------------------------------------------
  *
- * It is this class that will have to do the SECRET SHAMIR #N times the #Bytes of the bytes array!
- *
- * The bytes array will have a modulo of 257 (first #First # above #Bytes).
- * And will store the answers of the secret parts in its cells.
- * box [0] --> Part A1
- *                  Part B1
- *                  Part C1
- *
- * box [1] --> Part A2
- *                  B2 Share
- *                  C2 share
- *
- * etc... for each box.
- *
- * Then all the A shares will make up the file code for share N°1 = A,
- * then B for part N°2 = B etc...
- *
- */
-
-/** FRENCH
  * OUTIL 1 : GENERATE PARTS
  * Va génerer les parts a0, a1 ......
  *
@@ -62,10 +39,38 @@ import java.awt.*;
  *
  * Puis tous les parts A composeront le code du fichier de la part N°1 = A,
  * puis B pour part N°2 = B etc...
- *
+ * @author Elias Borrajo
  */
-
-
+/** ENGLISH
+ *
+ * 1) Generate the secret shares and obtain a file.
+ * - Inputs: #Bytes (modulo) / #Parts (10 employees) / Threshold (k <= # Parts)
+ * - Output: #File based on #Parts. JSON file containing the shares of secrets
+ * - Process: The degree of the polynomial will be = threshold k-1, and we will generate the shares a0, a1,..., an-1
+ * Then we evaluate f(x) = ax^2 + bx +c (depends on the degree) --> for X
+ * -----------------------------------------------------------------------------------------------------------------
+ *
+ * TOOL 1: GENERATE PARTS
+ * Will generate the shares a0, a1 ......
+ *
+ * It is this class that will have to do the SECRET SHAMIR #N times the #Bytes of the bytes array!
+ *
+ * The bytes array will have a modulo of 257 (first #First # above #Bytes).
+ * And will store the answers of the secret parts in its cells.
+ * box [0] --> Part A1
+ *                  Part B1
+ *                  Part C1
+ *
+ * box [1] --> Part A2
+ *                  B2 Share
+ *                  C2 share
+ *
+ * etc... for each box.
+ *
+ * Then all the A shares will make up the file code for share N°1 = A,
+ * then B for part N°2 = B etc...
+ * @author Elias Borrajo
+ */
 public class GenerateParts
 {
     //*****************************************************************************
@@ -82,11 +87,10 @@ public class GenerateParts
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
-
     /**
      * Generate secret parts for each person.
      * @param nbrBytesInput : Security value, can be 16, 24, or 32
-     * @param nbrPartsInput : Number of parts wanted
+     * @param nbrPartsInput : Number of parts wanted, will be given into a JSON file
      * @param thresholdInput : Number of parts needed to reconstruct the secrets
      */
     public GenerateParts(int nbrBytesInput, int nbrPartsInput, int thresholdInput)
@@ -129,7 +133,6 @@ public class GenerateParts
      */
     private void generatePartsAndSerialize()
     {
-
         // tableau de polynomes, il va stocker nos coordonées X&Y pour chaque User
         // Taille = nbr de bytes, car nbrBytes = le nombre de fois que on fait shamir secret
         Polynome[] polynomes = new Polynome[nbrBytes];   // Stockera x & y.| Chaque index --> une courbe difféerente
@@ -184,19 +187,17 @@ public class GenerateParts
                 System.out.println();*/
         System.out.println("Parts sucessfully calculated.");
         System.out.println();
-
         System.out.println("Start of serialization, please wait...");
         writePartsToUsersInJSon(polynomes, nbrParts, nbrBytes);
         System.out.println("Serialization done !");
         System.out.println();
     }
 
-
     /**
      * Verifys the input set by the user, if ther is an error, we throw an exeption
-     * @param nbrBytes should be : 16 / 24 / 32
-     * @param nbrParts Any value
-     * @param threshold Lesser than nbrParts
+     * @param nbrBytes : should be : 16 / 24 / 32
+     * @param nbrParts : Any value
+     * @param threshold : Lesser than nbrParts
      */
     private void verifyInputs(int nbrBytes, int nbrParts, int threshold) throws IllegalArgumentException
     {
@@ -231,9 +232,9 @@ public class GenerateParts
 
     /**
      * Writes the generated parts from the polynome class into a JSON file
-     * @param polynomes
-     * @param nbrParts
-     * @param nbrBytes
+     * @param polynomes : Takes an array of polynomes to give the X&Y coordiantes to UserParts who will get serialised in a JSON file.
+     * @param nbrParts : nbr of parts is the amount of JSON files we are getting
+     * @param nbrBytes : Is the amount of X&Y points we are getting for each file.
      */
     private void writePartsToUsersInJSon(Polynome[] polynomes, int nbrParts, int nbrBytes)
     {

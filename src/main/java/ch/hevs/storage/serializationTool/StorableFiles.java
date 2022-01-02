@@ -1,11 +1,15 @@
-package ch.hevs.storage;
+package ch.hevs.storage.serializationTool;
 
 import ch.hevs.errors.BusinessException;
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Interface for our Serialization.
+ * @author : Elias Borrajo
+ */
 public interface StorableFiles
 {
     /**
@@ -14,7 +18,7 @@ public interface StorableFiles
      * @throws BusinessException
      * @throws IOException
      */
-    UserParts read(File file) throws BusinessException, IOException;
+    UserParts read(File file);
 
     /**
      * Write JSON File

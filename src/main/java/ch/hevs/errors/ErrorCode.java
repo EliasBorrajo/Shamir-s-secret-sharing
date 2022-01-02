@@ -1,28 +1,20 @@
 package ch.hevs.errors;
 
 /**
-<<<<<<< HEAD
- * Error code for contact and gallery applications
-=======
- * Error code
->>>>>>> JonathanTestElias
- *
+ * Enum class for error code numbers
  * @author Bourquin Jonathan
  */
 
 public enum ErrorCode {
     //*****************************************************************************
-    // A T T R I B U T S
+    // A T T R I B U T E S
     //*****************************************************************************
-    //READING_JSON_STORAGE_GENERATEPART_ERROR(101),
     CIPHERTEXT_ERROR(100),
     BAD_PADDING_ERROR(101),
     ILLEGAL_BLOCK_SIZE_ERROR(102),
     CRYPTO_PROVIDER_ERROR(103),
     IO_ERROR(200),
-    INVALID_PARAMETER_ERROR(300),
-    ERROR_ENCRYPTION(104),
-    ERROR_DECRYPTION(105);
+    INVALID_PARAMETER_ERROR(300);
 
     private final int code;
 
@@ -41,7 +33,7 @@ public enum ErrorCode {
     }
 
     //*****************************************************************************
-    // G E T T E R S
+    // G E T T E R S / S E T T E R S
     //*****************************************************************************
     public int getCode()
     {

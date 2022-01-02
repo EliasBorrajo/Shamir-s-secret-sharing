@@ -1,8 +1,7 @@
-package ch.hevs.storage;
+package ch.hevs.storage.serializationTool;
 
-import ch.hevs.errors.BusinessException;
 import ch.hevs.parameters.Config;
-import ch.hevs.tools.generateParts.UserParts;
+import ch.hevs.storage.UserParts;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -10,7 +9,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * Methods that allows to serialize onto the drive of the PC.
+ * @authors : Elias Borrajo, Jonathan Bourquin
+ */
 public class JsonPartsFiles implements StorableFiles
 {
     //*****************************************************************************
@@ -44,6 +46,10 @@ public class JsonPartsFiles implements StorableFiles
     // M E T H O D S
     //*****************************************************************************
     // DEFAULT
+
+    /**
+     * Define the path to store the user parts adn create a new file at that path. Default method without parameters
+     */
     public void definePathToStoreData()
     {
 
@@ -59,7 +65,11 @@ public class JsonPartsFiles implements StorableFiles
         myFile = new File(jsonPath);
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
-    // WITH GIVEN NAME for the file
+
+    /**
+     *  Define the path to store the user parts adn create a new file at that path.
+     * @param fileName file name
+     */
     public void definePathToStoreData(String fileName)
     {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
@@ -75,8 +85,13 @@ public class JsonPartsFiles implements StorableFiles
         //System.out.println("REAL PATH OBJECT PART FILE IS : " + myObj.getAbsolutePath());
     }
 
+    /**
+     * Deserialization of a file to an object of type UserParts
+     * @param file
+     * @return
+     */
     @Override
-    public UserParts read(File file) throws BusinessException
+    public UserParts read(File file)
     {
         ObjectMapper mapper = new ObjectMapper();
         try
@@ -85,12 +100,18 @@ public class JsonPartsFiles implements StorableFiles
         } catch (IOException ioException)
         {
             System.err.println("SERIALISATION of PARTS has failed : ");
-            ioException.printStackTrace();
+            throw new IllegalArgumentException("READ FILES HAS FAILED : "+ioException);
+            //ioException.printStackTrace();
             //throw new BusinessException("An error occurred while READING JSON STORAGE PARTS.", ErrorCode.READING_JSON_STORAGE_PART_ERROR);
         }
         return userParts;
     }
 
+    /**
+     * Serialization of a file to an object of type UserParts
+     * @param parts user parts
+     * @param fileName file name
+     */
     @Override
     public void write(UserParts parts, String fileName)
     {
@@ -109,8 +130,9 @@ public class JsonPartsFiles implements StorableFiles
         }
     }
 
-    // GETTER, SETTER
-
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public void setMyObj(File myObj) {
         this.myFile = myObj;
     }

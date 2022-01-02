@@ -1,5 +1,4 @@
-package ch.hevs.tools.crypt;
-
+package ch.hevs.tools.crypting;
 
 import ch.hevs.errors.BusinessException;
 import ch.hevs.errors.ErrorCode;
@@ -13,9 +12,26 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.*;
 
+/**
+ * This is a given class by the professor.
+ * This class contains the encryption and decryption method to use.
+ * It takes in entry an array of bytes, it is the re-constructed secret of our files.
+ * It takes in entry the location of the input file we want to de/en-crypt
+ * It takes in entry the location of the output file we want to de/en-crypt.
+ */
 public class FileEncryption {
-
-    public static void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
+    //*******************************************************************************
+    //  M E T H O D S
+    //*******************************************************************************
+    /**
+     * Encrypt file
+     * @param keyMaterial : It is the re-constructed secrets of our files.
+     * @param inputFile : location of the input file we want to de/en-crypt
+     * @param outputFile : location of the output file we want to de/en-crypt.
+     * @throws BusinessException
+     */
+    public static void encrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException
+    {
         Cipher cipher;
 
         try {
@@ -60,8 +76,15 @@ public class FileEncryption {
         }
     }
 
-    public static void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException {
-
+    /**
+     * Decrypt file
+     * @param keyMaterial : It is the re-constructed secrets of our files.
+     * @param inputFile : location of the input file we want to de/en-crypt
+     * @param outputFile : location of the output file we want to de/en-crypt.
+     * @throws BusinessException
+     */
+    public static void decrypt(byte[] keyMaterial, File inputFile, File outputFile) throws BusinessException
+    {
         Cipher cipher;
 
         try {

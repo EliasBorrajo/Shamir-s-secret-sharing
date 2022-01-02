@@ -1,9 +1,27 @@
-package ch.hevs.maths;
+package ch.hevs.tools.generateParts;
+
+import ch.hevs.maths.ModularArithmetic;
 
 import java.security.SecureRandom;
-
-public class Polynome
+/** FRENCH
+ * Cette classe est le polynome. Il va contenir toutes les informations nécessaire sur chaque shamir que on fait.
+ * les coordonées X&Y, les coefficients.
+ * Cette classe permet de calculer des points sur la courbbe du polynome,
+ * et de retourner ces points afin de les donner plus loin dans le code aux classes de sérialisations.
+ * @author Elias Borrajo
+ */
+/** ENGLISH
+ * This class is the polynomial. It will contain all the necessary information about each shamir we do.
+ * The X&Y coordinates, the coefficients.
+ * This class allows you to calculate points on the polynomial curve,
+ * and to return these points in order to give them later in the code to the serialization classes.
+ * @author Elias Borrajo
+ */
+public class Polynome //TODO : Doit aller dans package GENERATEparts
 {
+    //*****************************************************************************
+    // A T T R I B U T E S
+    //*****************************************************************************
     private final static int MODULO = ModularArithmetic.getMODULO();
 
     private int[] coefficients;
@@ -14,6 +32,9 @@ public class Polynome
 
     private int degree;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
     public Polynome(int nbParts, int threshold)
     {
         degree = threshold - 1;
@@ -22,6 +43,9 @@ public class Polynome
         yCoordinates = new int[nbParts];
     }
 
+    //*****************************************************************************
+    // M E T H O D S
+    //*****************************************************************************
     /**
      * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
      * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
@@ -134,9 +158,9 @@ public class Polynome
         System.out.println();
     }
 
-    //*****************************************************
-    // G E T T E R S
-    //*****************************************************
+    //*****************************************************************************
+    // G E T T E R S / S E T T E R S
+    //*****************************************************************************
     public int[] getxCoordinates()
     {
         return xCoordinates;
