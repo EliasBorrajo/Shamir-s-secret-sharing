@@ -33,7 +33,7 @@ public class LagrangeInterpolationTest {
                 new Point(5, 4414)};
         // Using the interpolate function to obtain
         // a point corresponding to x=3
-        System.out.print("Value of f(0) is : " + lagrange(f, 4));
+        //System.out.print("Value of f(0) is : " + lagrange(f, 4));
         System.out.println();
 
         byte b = (byte) 127;
