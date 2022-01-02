@@ -11,8 +11,10 @@ public class LagrangeInterpolationTest {
     @Test
     public static void lagrange(Point[] f, int i)
     {
+        LagrangeInterpolation li = new LagrangeInterpolation();
+
         Point[] arr = new Point[5];
-        int n = LagrangeInterpolation.lagrange(arr,2);
+        int n = li.lagrange(arr,2);
         assert(n)==(2);
 
         //cas limite dépasser le int ou valeur négative
@@ -21,8 +23,9 @@ public class LagrangeInterpolationTest {
 
     public void lagrange2()
     {
+        LagrangeInterpolation li = new LagrangeInterpolation();
         Point[] arr = new Point[5];
-        int n = LagrangeInterpolation.lagrange(arr,-2);
+        int n = li.lagrange(arr,-2);
         assert(n)==(-2);
     }
 

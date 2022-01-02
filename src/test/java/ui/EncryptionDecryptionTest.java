@@ -2,12 +2,10 @@ package ui;
 
 import ch.hevs.errors.BusinessException;
 import ch.hevs.parameters.Config;
-import ch.hevs.storage.JsonPartsFiles;
+import ch.hevs.storage.serializationTool.JsonPartsFiles;
 import ch.hevs.tools.generateParts.GenerateParts;
-
 import java.io.File;
-
-import static ch.hevs.ui.EncryptionDecryption.EncryptionDecryption;
+import ch.hevs.tools.reconstructParts.EncryptionDecryption;
 
 public class EncryptionDecryptionTest {
 
@@ -46,7 +44,7 @@ public class EncryptionDecryptionTest {
         usersFiles[2] = myPart3;
         usersFiles[3] = myPart4;
 
-        EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
+        new EncryptionDecryption(usersFiles, myFileDecryptEncrypt, true);
 
         // décryptage du même fichier .pdf avec des users parts différents
         File myPart11 = new File(path+"\\User_5.json");
@@ -72,7 +70,7 @@ public class EncryptionDecryptionTest {
         File myFileDecryptEncrypt_V2 = new File(path+"\\fileEncrypted.pdf");
         //System.out.println(myFileDecryptEncrypt.getAbsolutePath());
 
-        EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
+        new EncryptionDecryption(usersFiles_V2, myFileDecryptEncrypt_V2, false);
 
     }
 }
