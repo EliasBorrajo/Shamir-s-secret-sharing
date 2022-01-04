@@ -223,8 +223,16 @@ public abstract class ModularArithmetic
     //*****************************************************
     // M O D U L A R   I N V E R S E
     //*****************************************************
-    // Multiplicative inverse of A modulo M
-    // EEA = Extended Euclidean Algorithm
+    /**
+     * Multiplicative inverse of A modulo M
+     * EEA = Extended Euclidean Algorithm
+     *  1) Greatest common divisor GCD of value(a) & modulo(b). value >= modulo
+     * 2) Coefficient of bezout set of Z : ax + by = g = gcd
+     * 3) For modulo prime number & value(a) set of Z modulo base, replace in the equation a by m : mx + by = 1 --> return y = multiplicative inverse.
+     * @param value : Number for which we want the modular inverse
+     * @param modulo : Must be a prime number greater or equal than the given value
+     * @return : the modular inverse of the value
+     */
     public static int modularInverseEEA_MOD(int value, int modulo)
     {
         // Verifier les entrées

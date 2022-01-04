@@ -29,7 +29,7 @@ Output: encrypted or decrypted message depending on the chosen operation
 
 ***
 
-<H2>Objectives :</H3>
+<H2>Objectives :</H2>
 <ul>
     <li>Designing a mathematical library in Java</li>
     <li>Develop software based on mathematical libraries</li>
@@ -52,13 +52,13 @@ Before use:
 </ol>
 
 <H3>Use</H3>
-<H4>Use 1: Accesing by console</H4>
+<H4><u>Use 1: Accesing by console</u></H4>
 <ul>
     <li>In the command prompt use the command "cd" to go in the directory where your jar is located</li>
     <li>Then use: java -jar "name".jar and enjoy</li>
 </ul>
 
-<H4>Use 2: Create a shortcut of the app</H4>
+<H4><u>Use 2: Create a shortcut of the app</u></H4>
 <ul>
     <li>Create a new text file containing "java -jar "name".jar", then register it as a ".bat" file</li>
     <li>Keep the ".bat" file in the same location as your ".jar" app</li>
@@ -138,11 +138,13 @@ Else it return the greatest common divisor of b and a modulo b.
 Calculate if a number is prime or not, returns ture if it’s a prime number, false if it’s not.
 
 <H4>Modular Multiplicative inverse</H4>
-First, we check the inputs. If the modulo param is not a prime number, is under or egal 0, 
-the modulo and value are not co-prime, the result of Math.floorMod(value, modulo) is egal 0, 
-or the modulo is egal to 1 it throws an exception.
-Then we use the Bézout coefficient as long as Math.floorMod(value, modulo) is superior as 0.
-And it returns the floor modulus of
+Multiplicative inverse of A modulo M
+<ol>
+    <li>Greatest common divisor GCD of value(a) & modulo(b). value >= modulo</li>
+    <li>Coefficient of bezout set of Z : ax + by = g = gcd</li>
+    <li>For modulo prime number & value(a) set of Z modulo base, replace in the equation a by m : mx + by = 1 --> return y = multiplicative inverse.</li>
+</ol>
+return the modular inverse of the value
 
 <H3>LagrangeInterpolation.java</H3>
 <p>The « LagrangeInterpolation.java » used to perform a Lagrange interpolation on an array of points.</p>
