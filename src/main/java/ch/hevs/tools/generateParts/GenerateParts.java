@@ -119,7 +119,7 @@ public class GenerateParts
 
         System.out.println("OPERATION DONE SUCCESFULLY ! -->  Parts for "+ (nbrParts-1) +" users and a treshold of "+threshold+" parts needed, have been written on your hardware !");
         System.out.println("Follow the next instructions : ");
-        System.out.println("1) For each user, send him only one file named \"User_X\".");
+        System.out.println("1) For each user, send him only one file named \"User_X\".json.");
         System.out.println("2) After having send all the files, DESTROY the remaining folder.");
         System.out.println("3) If you want to re-generate some differents parts again, delete the existing folder created before.");
         System.out.println();
