@@ -17,7 +17,7 @@ import java.security.SecureRandom;
  * and to return these points in order to give them later in the code to the serialization classes.
  * @author Elias Borrajo
  */
-public class Polynome //TODO : Doit aller dans package GENERATEparts
+public class Polynome
 {
     //*****************************************************************************
     // A T T R I B U T E S

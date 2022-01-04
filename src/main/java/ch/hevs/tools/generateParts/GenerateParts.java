@@ -142,7 +142,7 @@ public class GenerateParts
         // Faire 32 (nbrBytes) fois le shamir secret
         for (int i=0; i < nbrBytes ;i++)
         {
-            //@TODO : Effacer les LOGS, rien ne doit apparaitre !
+
             polynomes[i] = new Polynome(nbrParts, threshold);
 
             //1) generate coefficients & xCoordinates to evalue
@@ -269,7 +269,7 @@ public class GenerateParts
                     //users[userIndex].setPartsByUser(pairsForUser);
                     //users[userIndex].setThreshold(threshold);
 
-            // TODO : SET userParts threshold
+
             // Maintenant que tous les users de la Classe UserParts ont leur coordonnées,
             // on peut write/serialiser chaque user dans un fichier JSON
             JsonPartsFiles json = new JsonPartsFiles();

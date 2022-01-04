@@ -53,22 +53,13 @@ public abstract class ModularArithmetic
     //*****************************************************
     public static int addition(int a, int b)
     {
-        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
         int result = Math.floorMod((a + b), MODULO);
         return result;
     }
-    /*public static double addition(double a, double b)
-    {
-        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
-
-        double result = Math.floorMod((a + b), MODULO_DOUBLE);
-        return result;
-    }*/
 
     public static int additionMOD(int a, int b, int modulo)
     {
-        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
         int result = Math.floorMod((a + b), modulo);
         return result;
@@ -79,7 +70,6 @@ public abstract class ModularArithmetic
     //*****************************************************
     public static int subtraction(int a, int b)
     {
-        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
         int result = Math.floorMod((a - b), MODULO);
 
@@ -88,7 +78,6 @@ public abstract class ModularArithmetic
 
     public static int subtractionMOD(int a, int b, int modulo)
     {
-        //@todo If a positif & b négatif, toujours faire floorMod et pas divMod ? ?
 
         int result = Math.floorMod((a - b), modulo);
 
