@@ -40,8 +40,6 @@ Output: encrypted or decrypted message depending on the chosen operation
 
 <H2>Manual :</H2>
 
-
-
 <H3>Installation</H3>
 Before use:
 <ol>
@@ -112,7 +110,6 @@ Example:
 
 </p>
 
-***
 
 <H2>Mathematic library</H2>
 The mathematical library is in the "ModularArithmetic.java" class and "LagrangeInterpolation.java"
@@ -164,7 +161,7 @@ In a second for loop if j is different from i we calculate term= term * f[j].x /
 
 We calculate result += term and at the end return an int result.
 
-***
+
 
 <H2>Synthesis :</H2>
 <table>
