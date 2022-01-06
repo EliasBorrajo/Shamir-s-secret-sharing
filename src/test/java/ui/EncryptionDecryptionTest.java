@@ -6,9 +6,11 @@ import ch.hevs.storage.serializationTool.JsonPartsFiles;
 import ch.hevs.tools.generateParts.GenerateParts;
 import java.io.File;
 import ch.hevs.tools.reconstructParts.EncryptionDecryption;
+import org.junit.jupiter.api.Test;
 
 public class EncryptionDecryptionTest {
 
+    @Test
     public static void main(String[] args) throws BusinessException
     {
         // Test avec 4 fichiers json pour les part de secrets ATTENTION : si le seuil fixé à la génération des parts est pas atteint le programme ne marche pas

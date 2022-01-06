@@ -11,8 +11,6 @@ public class ModularArithmeticTest {
     @Test
     public void addition()
     {
-       assertThrows(ArithmeticException.class, () -> ModularArithmetic.addition(5,2));
-
        assertEquals(7, ModularArithmetic.addition(5,2));
 
        assertEquals(7, ModularArithmetic.additionMOD(5,2,8));
@@ -24,8 +22,6 @@ public class ModularArithmeticTest {
 
     @Test
     public void soustraction(){
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.subtraction(5,2));
-
         assertEquals(3, ModularArithmetic.addition(5,2));
 
         assertEquals(3, ModularArithmetic.subtractionMOD(5,2,7));
@@ -37,8 +33,6 @@ public class ModularArithmeticTest {
 
     @Test
     public void multiplication(){
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.multiplication(5,2));
-
         assertEquals(10, ModularArithmetic.multiplication(5,2));
 
         assertEquals(3, ModularArithmetic.multiplicationMOD(5,2,7));
@@ -65,7 +59,6 @@ public class ModularArithmeticTest {
     @Test
     public void power(){
 
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.power(5,2));
 
         assertEquals(4,ModularArithmetic.powerMOD(5,2,7));
         assertEquals(2, ModularArithmetic.powerMOD(4,2,7));
@@ -76,7 +69,6 @@ public class ModularArithmeticTest {
 
     @Test
     public void gcd(){
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.gcd(5,2));
 
         assertEquals(1,ModularArithmetic.gcd(5,2));
         assertEquals(2, ModularArithmetic.gcd(4,2));
@@ -87,7 +79,6 @@ public class ModularArithmeticTest {
 
     @Test
     public void isPrime(){
-        assertThrows(ArithmeticException.class, () -> ModularArithmetic.isPrime(5));
 
         assertEquals(true,ModularArithmetic.isPrime(2));
         assertEquals(true, ModularArithmetic.isPrime(7));
@@ -95,11 +86,5 @@ public class ModularArithmeticTest {
         assertEquals(false, ModularArithmetic.isPrime(6));
 
     }
-
-
-
-
-
-
 
 }

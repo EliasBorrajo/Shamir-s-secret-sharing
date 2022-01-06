@@ -47,7 +47,7 @@ public class Polynome
     // M E T H O D S
     //*****************************************************************************
     /**
-     * Coefficients doivent être sur 8 bits, e 0 à 255, donc modulo 256.
+     * Coefficients doivent être sur 8 bits, de 0 à 255, donc modulo 256.
      * C'est car on devra convertir ces coeff de INT en BYTE, car on en aura besoin pour la classe de cryptage du prof
      * Donc on doit travailler sur 8 bits
      */
