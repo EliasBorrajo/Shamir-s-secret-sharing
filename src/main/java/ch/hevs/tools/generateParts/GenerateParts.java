@@ -139,7 +139,7 @@ public class GenerateParts
         int[] secret         = new int[nbrBytes];        // Va stocker les secrets f1(0), f2(0), f3(0), f(4)
         nbrParts ++; // On veut la part 0 avec tous les secrets, et de 1 à nbrParts ce seront les Users
 
-        // Faire 32 (nbrBytes) fois le shamir secret
+        // Faire nbrBytes (32) fois le shamir secret
         for (int i=0; i < nbrBytes ;i++)
         {
 
