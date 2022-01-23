@@ -38,8 +38,8 @@ public class EncryptionDecryption {
         String extension = readExtensionFile(fileToCryptDecrypt);
 
         String homePath = Config.getConfig().getStorePath();    //System.getenv("SHAMIR"); // pour avoir une string contenant le chemin absolu de la variable environnement HOME
-        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted." + extension; // chemin absolu pour le fichier tmp de cryptage
-        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted." + extension; // chemin absolu pour le fichier tmp de décryptage
+        String absolutePathOutputFileEncryption = homePath + "\\fileEncrypted." + extension; // chemin absolu pour le fichier tmp de cryptage // TODO : Chemin hardcodé WINDOWS ICI
+        String absolutePathOutputFileDecryption = homePath + "\\fileDecrypted." + extension; // chemin absolu pour le fichier tmp de décryptage // TODO : Chemin hardcodé WINDOWS ICI
 
         //*** ETAPE 1 : GENERATION DU SECRET (TABLEAU DE BYTES) A PARTIR DES PARTS DES USERS ***
 
