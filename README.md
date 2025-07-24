@@ -1,8 +1,11 @@
-# Shamir‑Secret‑Sharing 🗝️
+# Shamir‑Secret‑Sharing 🗝️ – Secret Sharing & File Encryption
 
+> **ShamirSS** is a platform-independent Java 17 CLI implementing Shamir’s *(k, n)* secret-sharing scheme. It can split any binary secret into *N* JSON shares and re-assemble it with any *K* of them. Two core tools are provided:
 
-> **Java command‑line tools implementing Shamir’s Secret Sharing**\
-> Built for the 3rd‑semester Mathematics project at **HES‑SO Valais‑Wallis** (2023).
+> 1. **share-generator** – Splits secrets into `N` JSON shares.
+> 2. **encryptor** – Uses shares to AES-encrypt or decrypt arbitrary files.
+
+> This project was delivered as part of the **HES-SO S3 Mathematics continuous assessment (2023)**.
 
 ---
 
@@ -18,8 +21,33 @@ This repository contains two Java CLI applications:
 **Tech stack**
 
 - **Java 17** (OpenJDK)
-- **Picocli** for command line parsing
+- **Maven 3**
+- **Picocli** (CLI)
+- **JUnit 5** (Testing)
+- **Gson** (JSON I/O)
+- **Javax.crypto AES** (Encryption)
+
+  ---
+
+## Mathematics
+
+- Modular arithmetic operations on **GF (257)**.
+- Lagrange polynomial interpolation for secret reconstruction.
+
 - Custom math library: modular arithmetic + Lagrange interpolation.
+  
+---
+
+## Features
+
+- **Shamir’s Secret Sharing** over **GF (257)** with modular arithmetic.
+- **AES encryption** (Javax.crypto) integrated with share-based key retrieval.
+- **JSON-based storage** of shares.
+- **CLI UX** built with [Picocli](https://picocli.info/).
+- **Maven build** with JUnit tests.
+- **Single env variable `SHAMIR`** for central share storage.
+
+---
 
 ### Quick start
 
