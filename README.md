@@ -1,6 +1,59 @@
-<H1>Project Mathematics S.3</H1>
-<H1>Shamir's Secret Sharing</H1>
+# Shamir‑Secret‑Sharing 🗝️
 
+
+> **Java command‑line tools implementing Shamir’s Secret Sharing**\
+> Built for the 3rd‑semester Mathematics project at **HES‑SO Valais‑Wallis** (2023).
+
+---
+
+## 1 · English overview
+
+This repository contains two Java CLI applications:
+
+| Tool                     | Purpose                                                     | `jar` entry‑point           |
+| ------------------------ | ----------------------------------------------------------- | --------------------------- |
+| **Generate Parts**       | Split a secret into *n* shares with a chosen threshold *t*. | `ch.hesso.s3.GenerateParts` |
+| **Crypt / Decrypt File** | Encrypt or decrypt any file using ≥ *t* shares.             | `ch.hesso.s3.CryptFile`     |
+
+**Tech stack**
+
+- **Java 17** (OpenJDK)
+- **Picocli** for command line parsing
+- Custom math library: modular arithmetic + Lagrange interpolation.
+
+### Quick start
+
+```bash
+# clone + build
+$ git clone https://github.com/EliasBorrajo/Shamir-s-secret-sharing.git
+$ cd Shamir-s-secret-sharing
+$ mvn package   # creates two runnable jars in target/
+
+# 1) generate shares (e.g. 5 parts, threshold 3, 24‑byte secret)
+$ java -jar target/GenerateParts.jar 5 3 24
+
+# 2) encrypt file with 3 of the generated shares
+$ java -jar target/CryptFile.jar -e path/to/User_1.json path/to/User_3.json path/to/User_4.json mydocument.pdf
+
+# 3) decrypt (needs 3 shares as well)
+$ java -jar target/CryptFile.jar -d path/to/User_1.json path/to/User_2.json path/to/User_5.json mydocument.pdf.enc
+```
+
+> **Prerequisites** : set an environment variable `SHAMIR` pointing to the folder where generated shares will be stored.
+
+### Authors
+
+- Elias Borrajo
+- Milena Lonfat
+- Emilie Teodoro Do Nascimento
+- Jonathan Bourquin
+
+
+
+---
+
+## 2 · README original (FR)
+<H2>Project Mathematics S.3</H2>
 <H2>Introduction :</H2>
 This project is the continuous assessment of the 3rd semester in IT at the HES-SO of Sierre.
 
